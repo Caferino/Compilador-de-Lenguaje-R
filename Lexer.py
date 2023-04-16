@@ -25,8 +25,8 @@ keywords = {
 # Tokens
 
 tokens = ['SEMICOLON', 'LEFTBRACKET', 'RIGHTBRACKET', 'GREATER', 'LESS', 'NOTEQUAL', 'PLUS', 'MINUS', 'TIMES', 'DIVIDE',
-          'LEFTPAREN', 'RIGHTPAREN', 'ID', 'CTEI', 'CTEF', 'COLON', 'EQUALS', 'CTESTRING', 'COMMA', 'PROGRAM', 'PRINT',
-          'IF', 'ELSE', 'VAR', 'INT', 'FLOAT']
+          'EXPONENTIAL', 'MODULUS', 'LEFTPAREN', 'RIGHTPAREN', 'ID', 'CTEI', 'CTEF', 'COLON', 'EQUALS', 'ASSIGNL', 'ASSIGNR',
+          'LEFTCORCH', 'RIGHTCORCH', 'CTESTRING', 'COMMA', 'PROGRAM', 'PRINT', 'IF', 'ELSE', 'VAR', 'INT', 'FLOAT']
 
 
 # Expresiones Regulares de Operadores
@@ -41,10 +41,16 @@ t_PLUS = r'\+'
 t_MINUS = r'-'
 t_TIMES = r'\*'
 t_DIVIDE = r'\/'
+t_EXPONENTIAL = r'\^'
+t_MODULUS = r'\%\%'
 t_LEFTPAREN = r'\('
 t_RIGHTPAREN = r'\)'
 t_COLON = r':'
 t_EQUALS = r'\='
+t_ASSIGNL = r'<-'
+t_ASSIGNR = r'->'
+t_LEFTCORCH = r'\['
+t_RIGHTCORCH = r'\]'
 t_CTESTRING = r'\".*\"'
 t_COMMA = r'\,'
 t_ignore = " \t"

@@ -6,8 +6,8 @@
     Compilador para lenguaje al estilo R.
 """
 
-# Gramática
-
+# Gramática LittleDuck
+"""
 def p_program(p):
     '''program : PROGRAM ID SEMICOLON program_vars block'''
     p[0] = "COMPILED"
@@ -138,6 +138,8 @@ def p_error(p):
 def p_empty(p):
     '''empty :'''
     pass
+
+"""
 
 
 import sys
