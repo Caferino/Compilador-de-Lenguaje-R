@@ -9,12 +9,14 @@
 
 **22 Abril 2023**
 
-    *+ Avance a Sintaxis (50%).*
+*
+    > Avance a Sintaxis (50%).*
 
 
 **23 Abril 2023**
 
-    *+ Avance a Sintaxis (95%), ya está construido, pero falta testear y romperlo; intentaré hacerlo durante esta semana, para enfocarme en la tablas d evariables, direcciones y el examen de mañana. En sí, donde siento me causará más ruido será el Loop y tl vez Statement/Expressions, lo demás siento ya está muy bien, o requerirá fixes pequeños. Las tablas de variables y direcciones las considero muy sencillas, así que aprovecharé esta semana para intentar ya ponerme al tan al tanto como pueda; siento que voy muy lento, pero no lo sé.*
+*
+    > Avance a Sintaxis (95%), ya está construido, pero falta testear y romperlo; intentaré hacerlo durante esta semana, para enfocarme en la tablas d evariables, direcciones y el examen de mañana. En sí, donde siento me causará más ruido será el Loop y tal vez Statement/Expressions, lo demás siento ya está bien, o requerirá fixes pequeños. Las tablas de variables y direcciones las considero muy sencillas, así que aprovecharé esta semana para intentar ya ponerme al tan al tanto como pueda; siento que voy muy lento, pero no lo sé.*
 
 
 ~Óscar Antonio Hinojosa Salum A00821930
