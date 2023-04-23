@@ -25,7 +25,7 @@ keywords = {
 # Tokens
 
 tokens = ['SEMICOLON', 'LEFTBRACKET', 'RIGHTBRACKET', 'GREATER', 'LESS', 'NOTEQUAL', 'PLUS', 'MINUS', 'TIMES', 'DIVIDE',
-          'EXPONENTIAL', 'MODULUS', 'LEFTPAREN', 'RIGHTPAREN', 'ID', 'CTEI', 'CTEF', 'COLON', 'EQUALS', 'ASSIGNL', 'ASSIGNR',
+          'EXPONENTIAL', 'MODULUS', 'LEFTPAREN', 'RIGHTPAREN', 'ID', 'CTEI', 'CTEF', 'COLON', 'EQUALS', 'ASSIGNL',
           'LEFTCORCH', 'RIGHTCORCH', 'CTESTRING', 'COMMA', 'PROGRAM', 'PRINT', 'IF', 'ELSE', 'VAR', 'INT', 'FLOAT']
 
 
@@ -48,7 +48,7 @@ t_RIGHTPAREN = r'\)'
 t_COLON = r':'
 t_EQUALS = r'\='
 t_ASSIGNL = r'<-'
-t_ASSIGNR = r'->'
+# t_ASSIGNR = r'->'     Wakala
 t_LEFTCORCH = r'\['
 t_RIGHTCORCH = r'\]'
 t_CTESTRING = r'\".*\"'

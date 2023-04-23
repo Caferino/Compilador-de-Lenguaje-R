@@ -6,6 +6,77 @@
     Compilador para lenguaje al estilo R.
 """
 
+# Sintáxis Estilo R
+
+def p_program(p):
+    '''program : block program
+                | empty'''
+    p[0] = "COMPILED"
+
+
+def p_block(p):
+    '''block : vars
+                | statement
+                | condition
+                | print'''
+
+
+def p_vars(p):
+    '''vars : type ID vars_equals SEMICOLON'''
+    
+
+def p_vars_equals(p):
+    '''vars_equals : EQUALS expression extra_vars
+                | ASSIGNL expression extra_vars'''
+                
+
+def p_extra_vars(p):
+    '''extra_vars : COMMA vars_equals
+                | empty'''
+
+
+def p_statement(p):
+    '''statement : assignment_block
+                 | loop
+                 | condition
+                 | writing
+                 | empty'''
+
+
+def p_assignment_block(p):
+    '''assignment_block : assignment expression SEMICOLON'''
+
+
+def p_assigment(p):
+    '''assignment : EQUALS
+                 | ASSIGNL'''
+
+
+def p_condition(p):
+    '''condition : IF LEFTPAREN expression RIGHTPAREN block else_condition SEMICOLON'''
+
+
+def p_else_condition(p):
+    '''else_condition : ELSE block
+                      | empty'''
+
+
+def p_writing(p):
+    '''writing : PRINT LEFTPAREN print_val RIGHTPAREN SEMICOLON'''
+
+
+def p_print_val(p):
+    '''print_val : expression print_exp
+                 | CTESTRING print_exp'''
+
+
+def p_print_exp(p):
+    '''print_exp : COMMA  print_val
+                 | empty'''
+
+
+
+##############################################
 # Gramática LittleDuck
 """
 def p_program(p):
