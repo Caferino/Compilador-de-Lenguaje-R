@@ -52,6 +52,10 @@ def p_assigment(p):
                  | ASSIGNL'''
 
 
+def p_loop(p):
+    '''loop : WHILE LEFTPAREN expression RIGHTPAREN LEFTCORCH block RIGHTCORCH'''
+
+
 def p_condition(p):
     '''condition : IF LEFTPAREN expression RIGHTPAREN block else_condition SEMICOLON'''
 
@@ -75,9 +79,58 @@ def p_print_exp(p):
                  | empty'''
 
 
+def p_expression(p):
+    '''expression : exp comparation'''
+
+
+def p_exp(p):
+    '''exp : term operator'''
+
+
+def p_comparation(p):
+    '''comparation : GREATER exp
+                      | LESS exp
+                      | NOTEQUAL exp
+                      | empty'''
+
+
+def p_term(p):
+    '''term : factor term_operator'''
+
+
+def p_operator(p):
+    '''operator : PLUS term operator
+                | MINUS term operator
+                | empty'''
+
+
+def p_term_operator(p):
+    '''term_operator : TIMES factor term_operator
+                     | DIVIDE factor term_operator
+                     | empty'''
+
+
+def p_factor(p):
+    '''factor : LEFTPAREN expression RIGHTPAREN
+              | sign var_cte'''
+
+
+def p_sign(p):
+    '''sign : PLUS
+            | MINUS
+            | empty'''
+
+
+def p_var_cte(p):
+    '''var_cte : ID
+               | CTEI
+               | CTEF'''
+
+
+
 
 ##############################################
-# Gramática LittleDuck
+# Gramática LittleDuck, Backup Temporal BORRAR
 """
 def p_program(p):
     '''program : PROGRAM ID SEMICOLON program_vars block'''
