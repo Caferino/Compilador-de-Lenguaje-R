@@ -24,7 +24,7 @@ keywords = {
 
 # Tokens
 
-tokens = ['SEMICOLON', 'LEFTBRACKET', 'RIGHTBRACKET', 'GREATER', 'LESS', 'NOTEQUAL', 'PLUS', 'MINUS', 'TIMES', 'DIVIDE',
+tokens = ['SEMICOLON', 'LEFTBRACKET', 'RIGHTBRACKET', 'GREATER', 'LESS', 'NOTEQUAL', 'NOTEQUALNUM', 'PLUS', 'MINUS', 'TIMES', 'DIVIDE',
           'EXPONENTIAL', 'MODULUS', 'LEFTPAREN', 'RIGHTPAREN', 'ID', 'CTEI', 'CTEF', 'COLON', 'EQUALS', 'ASSIGNL',
           'LEFTCORCH', 'RIGHTCORCH', 'CTESTRING', 'COMMA', 'PROGRAM', 'PRINT', 'IF', 'ELSE', 'VAR', 'INT', 'FLOAT', 'FOR'
           'AND', 'OR']
@@ -37,7 +37,8 @@ t_LEFTBRACKET = r'\{'
 t_RIGHTBRACKET = r'\}'
 t_GREATER = r'>'
 t_LESS = r'<'
-t_NOTEQUAL = r'<>'
+t_NOTEQUAL = r'!='
+t_NOTEQUALNUM = r'<>'
 t_PLUS = r'\+'
 t_MINUS = r'-'
 t_TIMES = r'\*'
