@@ -26,8 +26,7 @@ keywords = {
 
 tokens = ['SEMICOLON', 'LEFTBRACKET', 'RIGHTBRACKET', 'GREATER', 'LESS', 'NOTEQUAL', 'NOTEQUALNUM', 'PLUS', 'MINUS', 'TIMES', 'DIVIDE',
           'EXPONENTIAL', 'MODULUS', 'LEFTPAREN', 'RIGHTPAREN', 'ID', 'CTEI', 'CTEF', 'COLON', 'EQUALS', 'ASSIGNL',
-          'LEFTCORCH', 'RIGHTCORCH', 'CTESTRING', 'COMMA', 'PROGRAM', 'PRINT', 'IF', 'ELSE', 'VAR', 'INT', 'FLOAT', 'FOR'
-          'AND', 'OR']
+          'LEFTCORCH', 'RIGHTCORCH', 'CTESTRING', 'COMMA', 'PRINT', 'IF', 'ELSE', 'INT', 'FLOAT', 'WHILE', 'AND', 'OR']
 
 
 # Expresiones Regulares de Operadores
@@ -55,9 +54,9 @@ t_LEFTCORCH = r'\['
 t_RIGHTCORCH = r'\]'
 t_CTESTRING = r'\".*\"'
 t_COMMA = r'\,'
-t_FOR = r'while'
+# t_WHILE = r'while' # Posible error entre el WHILE, AND y OR, por el backslash \
 t_AND = r'&&'
-t_OR = r'||'
+t_OR = r'\|\|'
 t_ignore = " \t"
 
 
