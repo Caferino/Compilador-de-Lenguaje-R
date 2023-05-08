@@ -26,7 +26,8 @@ def p_vars(p):
 
 def p_type(p):
     '''type : INT
-            | FLOAT'''
+            | FLOAT
+            | VOID'''
     
 
 def p_vars_equals(p):
@@ -54,7 +55,9 @@ def p_var_cte(p):
 
 def p_statement(p):
     '''statement : assignment_block
+                 | module
                  | expression
+                 | function_call
                  | loop
                  | condition
                  | writing
@@ -76,8 +79,32 @@ def p_assigment(p):
                  | ASSIGNL'''
 
 
+def p_module(p):
+    '''module : VOID ID LEFTPAREN module_params RIGHTPAREN block SEMICOLON
+                 | empty'''
+
+
+def p_function_call(p):
+    '''function_call : ID LEFTPAREN expression function_call_expressions RIGHTPAREN'''
+
+
+def p_function_call_expressions(p):
+    '''function_call_expressions : COMMA function_call_expressions
+                 | empty'''
+
+
+def p_module_params(p):
+    '''module_params : type ID module_extra_params'''
+
+
+def p_module_extra_params(p):
+    '''module_extra_params : COMMA type ID module_extra_params
+                 | empty'''
+
+
 def p_loop(p):
-    '''loop : WHILE LEFTPAREN expression RIGHTPAREN LEFTCORCH block RIGHTCORCH'''
+    '''loop : WHILE LEFTPAREN expression RIGHTPAREN LEFTCORCH block RIGHTCORCH
+                 | empty'''
 
 
 def p_condition(p):
