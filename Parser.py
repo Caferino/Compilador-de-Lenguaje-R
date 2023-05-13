@@ -56,7 +56,6 @@ def p_var_cte(p):
 def p_statement(p):
     '''statement : function
                  | assignment_block
-                 | module
                  | expression
                  | function_call
                  | loop
@@ -88,9 +87,11 @@ def p_assigment(p):
                  | ASSIGNL'''
 
 
+"""
 def p_module(p):
     '''module : VOID ID LEFTPAREN module_params RIGHTPAREN block SEMICOLON
                  | empty'''
+"""
 
 
 def p_function_call(p):
@@ -102,6 +103,7 @@ def p_function_call_expressions(p):
                  | empty'''
 
 
+"""
 def p_module_params(p):
     '''module_params : type ID module_extra_params'''
 
@@ -109,6 +111,7 @@ def p_module_params(p):
 def p_module_extra_params(p):
     '''module_extra_params : COMMA type ID module_extra_params
                  | empty'''
+"""
 
 
 def p_loop(p):
