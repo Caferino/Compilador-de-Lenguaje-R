@@ -20,7 +20,7 @@ def p_block(p):
 
 
 def p_vars(p):
-    '''vars : type ID vars_equals SEMICOLON vars
+    '''vars : type ID vars_equals SEMICOLON
             | empty'''
 
 
@@ -31,13 +31,13 @@ def p_type(p):
     
 
 def p_vars_equals(p):
-    '''vars_equals : EQUALS var_cte extra_vars
-                | ASSIGNL var_cte extra_vars
+    '''vars_equals : assignment expression extra_vars
+                | extra_vars
                 | empty'''
                 
 
 def p_extra_vars(p):
-    '''extra_vars : COMMA ID extra_vars
+    '''extra_vars : COMMA ID vars_equals
                 | empty'''
 
 
@@ -54,7 +54,8 @@ def p_var_cte(p):
 
 
 def p_statement(p):
-    '''statement : assignment_block
+    '''statement : function
+                 | assignment_block
                  | module
                  | expression
                  | function_call
@@ -64,10 +65,18 @@ def p_statement(p):
                  | empty'''
 
 
-"""
 def p_function(p):
-    '''function : type ID LEFTPAREN parameters RIGHTPAREN LEFTCORCH block RIGHTCORCH'''
-"""
+    '''function : type ID LEFTPAREN function_parameters RIGHTPAREN LEFTCORCH block RIGHTCORCH
+                | empty'''
+
+
+def p_function_parameters(p):
+    '''function_parameters : type ID function_extra_parameters'''
+
+
+def p_function_extra_parameters(p):
+    '''function_extra_parameters : COMMA function_parameters
+                | empty'''
 
 
 def p_assignment_block(p):
@@ -201,150 +210,3 @@ if __name__ == '__main__':
             print(EOFError)
     else:
         print("File not found")
-
-
-
-"""
-def p_expression(p):
-    '''expression : exp comparation'''
-
-
-def p_exp(p):
-    '''exp : term operator'''
-
-
-def p_comparation(p):
-    '''comparation : GREATER exp
-                      | LESS exp
-                      | NOTEQUAL exp
-                      | empty'''
-
-
-def p_term(p):
-    '''term : factor term_operator'''
-
-
-def p_operator(p):
-    '''operator : PLUS term operator
-                | MINUS term operator
-                | empty'''
-
-
-def p_term_operator(p):
-    '''term_operator : TIMES factor term_operator
-                     | DIVIDE factor term_operator
-                     | empty'''
-
-
-def p_factor(p):
-    '''factor : LEFTPAREN expression RIGHTPAREN
-              | sign var_cte'''
-
-
-def p_sign(p):
-    '''sign : PLUS
-            | MINUS
-            | empty'''
-
-
-def p_var_cte(p):
-    '''var_cte : ID
-               | CTEI
-               | CTEF'''
-
-"""
-
-"""
-def p_statement(p):
-    '''statement : assignment_block
-                 | loop
-                 | condition
-                 | writing
-                 | empty'''
-
-
-def p_assignment_block(p):
-    '''assignment_block : assignment expression SEMICOLON'''
-
-
-def p_assigment(p):
-    '''assignment : EQUALS
-                 | ASSIGNL'''
-
-
-def p_loop(p):
-    '''loop : WHILE LEFTPAREN expression RIGHTPAREN LEFTCORCH block RIGHTCORCH'''
-
-
-def p_condition(p):
-    '''condition : IF LEFTPAREN expression RIGHTPAREN block else_condition SEMICOLON'''
-
-
-def p_else_condition(p):
-    '''else_condition : ELSE block
-                      | empty'''
-
-
-def p_writing(p):
-    '''writing : PRINT LEFTPAREN print_val RIGHTPAREN SEMICOLON'''
-
-
-def p_print_val(p):
-    '''print_val : expression print_exp
-                 | CTESTRING print_exp'''
-
-
-def p_print_exp(p):
-    '''print_exp : COMMA  print_val
-                 | empty'''
-
-
-def p_expression(p):
-    '''expression : exp comparation'''
-
-
-def p_exp(p):
-    '''exp : term operator'''
-
-
-def p_comparation(p):
-    '''comparation : GREATER exp
-                      | LESS exp
-                      | NOTEQUAL exp
-                      | empty'''
-
-
-def p_term(p):
-    '''term : factor term_operator'''
-
-
-def p_operator(p):
-    '''operator : PLUS term operator
-                | MINUS term operator
-                | empty'''
-
-
-def p_term_operator(p):
-    '''term_operator : TIMES factor term_operator
-                     | DIVIDE factor term_operator
-                     | empty'''
-
-
-def p_factor(p):
-    '''factor : LEFTPAREN expression RIGHTPAREN
-              | sign var_cte'''
-
-
-def p_sign(p):
-    '''sign : PLUS
-            | MINUS
-            | empty'''
-
-
-def p_var_cte(p):
-    '''var_cte : ID
-               | CTEI
-               | CTEF'''
-
-
-"""
