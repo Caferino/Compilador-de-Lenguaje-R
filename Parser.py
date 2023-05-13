@@ -108,11 +108,11 @@ def p_loop(p):
 
 
 def p_condition(p):
-    '''condition : IF LEFTPAREN expression RIGHTPAREN LEFTBRACKET block RIGHTBRACKET else_condition'''
+    '''condition : IF LEFTPAREN expression RIGHTPAREN LEFTCORCH block RIGHTCORCH else_condition'''
 
 
 def p_else_condition(p):
-    '''else_condition : ELSE LEFTBRACKET block RIGHTBRACKET
+    '''else_condition : ELSE LEFTCORCH block RIGHTCORCH
                       | empty'''
 
 
