@@ -33,8 +33,8 @@ tokens = ['SEMICOLON', 'LEFTBRACKET', 'RIGHTBRACKET', 'GREATER', 'LESS', 'NOTEQU
 # Expresiones Regulares de Operadores
 
 t_SEMICOLON = r'\;'
-t_LEFTBRACKET = r'\{'
-t_RIGHTBRACKET = r'\}'
+t_LEFTBRACKET = r'\['
+t_RIGHTBRACKET = r'\]'
 t_GREATER = r'>'
 t_LESS = r'<'
 t_NOTEQUAL = r'!='
@@ -51,8 +51,8 @@ t_COLON = r':'
 t_EQUALS = r'\='
 t_ASSIGNL = r'<-'
 # t_ASSIGNR = r'->'     Wakala
-t_LEFTCORCH = r'\['
-t_RIGHTCORCH = r'\]'
+t_LEFTCORCH = r'\{'
+t_RIGHTCORCH = r'\}'
 t_CTESTRING = r'\".*\"'
 t_COMMA = r'\,'
 t_AND = r'&&'
