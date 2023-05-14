@@ -50,7 +50,7 @@ t_RIGHTPAREN = r'\)'
 t_COLON = r':'
 t_EQUALS = r'\='
 t_ASSIGNL = r'<-'
-# t_ASSIGNR = r'->'     Wakala
+# t_ASSIGNR = r'->'     # Wakala
 t_LEFTCORCH = r'\{'
 t_RIGHTCORCH = r'\}'
 t_CTESTRING = r'\".*\"'

@@ -1,15 +1,14 @@
-int x <- 5;
-int x, y, z;
-int x = 1, y <- 2, w = (x + y), z <- (w + 1);
+float listaI2[4][4] <- [5.0];
+int listota[3:3] <- [1, 1]; // Una matriz de 3 filas y 3 columnas
 
 void uno(int x, int y, int z){
     print("Me hice caca en el pantalón.");
 }
 
-while(x > 1){
+while(x + y > z - 4){
     x = x - 1;
 }
-if (x > 6) {
+if (x > 6 %% 2) {
     x = x - 2;
 }
 else{

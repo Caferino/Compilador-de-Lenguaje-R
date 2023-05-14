@@ -19,9 +19,14 @@ def p_block(p):
                 | empty'''
 
 
+# Si se llega a pedir matrices cúbicas o más, 
+# tal vez pueda ciclarlo aquí y ver cómo sería al guardar en memoria.
+# Por ahora solo me interesan las de una o dos dimensiones.
 def p_vars(p):
     '''vars : type ID vars_equals SEMICOLON
-            | empty'''
+            | type ID LEFTBRACKET CTEI RIGHTBRACKET vars_equals SEMICOLON
+            | type ID LEFTBRACKET CTEI RIGHTBRACKET LEFTBRACKET CTEI RIGHTBRACKET vars_equals SEMICOLON
+            | type ID LEFTBRACKET CTEI COLON CTEI RIGHTBRACKET vars_equals SEMICOLON'''
 
 
 def p_type(p):
@@ -31,13 +36,19 @@ def p_type(p):
     
 
 def p_vars_equals(p):
-    '''vars_equals : assignment expression extra_vars
+    '''vars_equals : assignment LEFTBRACKET expression array_vars RIGHTBRACKET extra_vars
+                | assignment expression extra_vars
                 | extra_vars
                 | empty'''
                 
 
 def p_extra_vars(p):
     '''extra_vars : COMMA ID vars_equals
+                | empty'''
+
+
+def p_array_vars(p):
+    '''array_vars : COMMA expression array_vars
                 | empty'''
 
 
@@ -83,15 +94,8 @@ def p_assignment_block(p):
 
 
 def p_assigment(p):
-    '''assignment : EQUALS
-                 | ASSIGNL'''
-
-
-"""
-def p_module(p):
-    '''module : VOID ID LEFTPAREN module_params RIGHTPAREN block SEMICOLON
-                 | empty'''
-"""
+    '''assignment : ASSIGNL
+                 | EQUALS'''
 
 
 def p_function_call(p):
@@ -101,17 +105,6 @@ def p_function_call(p):
 def p_function_call_expressions(p):
     '''function_call_expressions : COMMA function_call_expressions
                  | empty'''
-
-
-"""
-def p_module_params(p):
-    '''module_params : type ID module_extra_params'''
-
-
-def p_module_extra_params(p):
-    '''module_extra_params : COMMA type ID module_extra_params
-                 | empty'''
-"""
 
 
 def p_loop(p):
@@ -151,11 +144,13 @@ def p_exp(p):
 
 
 def p_comparation(p):
-    '''comparation : GREATER exp
-                      | LESS exp
-                      | NOTEQUAL exp
-                      | NOTEQUALNUM exp
-                      | empty'''
+    '''comparation : AND exp
+                 | OR exp
+                 | GREATER exp
+                 | LESS exp
+                 | NOTEQUAL exp
+                 | NOTEQUALNUM exp
+                 | empty'''
 
 
 def p_term(p):
@@ -171,6 +166,7 @@ def p_operator(p):
 def p_term_operator(p):
     '''term_operator : TIMES factor term_operator
                      | DIVIDE factor term_operator
+                     | MODULUS factor term_operator
                      | empty'''
 
 
