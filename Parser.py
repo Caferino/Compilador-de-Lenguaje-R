@@ -6,7 +6,9 @@
     Compilador para lenguaje al estilo R.
 """
 
-# Sintáxis Estilo R
+# ============ Sintáxis Estilo R ============
+
+from Memory import MemoryMap
 
 def p_program(p):
     '''program : block'''
@@ -186,7 +188,7 @@ def p_empty(p):
     pass
 
 
-# Programa Principal - lector de archivos ".txt"
+# ============ Main - Lector de Archivos ============
 
 import sys
 import ply.yacc as yacc

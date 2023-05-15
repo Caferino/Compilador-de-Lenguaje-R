@@ -41,9 +41,10 @@
 >
 > Surgió un extraño error relacionado a mis floats; por alguna razón se quiebra, los lee siempre con valor de "0.0", no importa si es un int, float o ID de otra variable ya declarada o no... Llevo horas investigándolo, ni el ChatGPT pudo decirme bien qué sucede, pero creo lo iré resolviendo a lado de la memoria/MV, para ya no perder tiempo.
 
-**13 Mayo 2023 - Mockingjay Parte 2**
+**14 Mayo 2023 - Mockingjay Parte 2**
 
-> SDD.
+> Pendiente: Léxico de Return, del Exponencial y de Corchetes al asignar matrices (int x[2][2] = [**{**1,2**}**, **{**1,2**}**]).
+>
 >
 > (https://youtu.be/QKdFtnnj2lk?t=173 - Yo vs todas mis neuronas después de esta materia)
 

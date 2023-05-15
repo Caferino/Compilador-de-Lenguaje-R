@@ -1,4 +1,4 @@
-float listaI2[4][4] <- [5.0];
+float listaI2[1] <- [5.0];
 int listota[3:3] <- [1, 1]; // Una matriz de 3 filas y 3 columnas
 
 void uno(int x, int y, int z){
