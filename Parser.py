@@ -8,8 +8,6 @@
 
 # ============ Sintáxis Estilo R ============
 
-from Memory import MemoryMap
-
 def p_program(p):
     '''program : block'''
     p[0] = "COMPILED"
@@ -177,7 +175,7 @@ def p_factor(p):
               | sign var_cte'''
 
 
-# Reglas de Errores
+# # ============ Reglas de Errores ============
 
 def p_error(p):
     print("Syntax error in input! - {} ".format(p))
@@ -187,6 +185,15 @@ def p_empty(p):
     '''empty :'''
     pass
 
+
+# ============ Reglas de Semántica ============
+
+from Memory import MemoryMap
+
+memory = MemoryMap()
+
+def p_logicalExpressionEnter(p):
+    memory.operands.append(p)
 
 # ============ Main - Lector de Archivos ============
 

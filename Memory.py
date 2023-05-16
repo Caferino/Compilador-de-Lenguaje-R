@@ -15,6 +15,9 @@ def validateSize(self, address):
 class MemoryMap:
     def __init__(self, size):
         self.memory = [None] * size
+        self.operands = []
+        self.operators = []
+        self.memoryMap = {}
     
 
     def read(self, address):
