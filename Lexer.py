@@ -26,8 +26,8 @@ keywords = {
 # Tokens
 
 tokens = ['SEMICOLON', 'LEFTBRACKET', 'RIGHTBRACKET', 'GREATER', 'LESS', 'NOTEQUAL', 'NOTEQUALNUM', 'PLUS', 'MINUS', 'TIMES', 'DIVIDE',
-          'EXPONENTIAL', 'MODULUS', 'LEFTPAREN', 'RIGHTPAREN', 'ID', 'CTEI', 'CTEF', 'EQUALS', 'ASSIGNL',
-          'COLON', 'LEFTCORCH', 'RIGHTCORCH', 'CTESTRING', 'COMMA', 'PRINT', 'IF', 'ELSE', 'INT', 'FLOAT', 'AND', 'OR', 'VOID', 'WHILE']
+          'MODULUS', 'LEFTPAREN', 'RIGHTPAREN', 'ID', 'CTEI', 'CTEF', 'EQUALS', 'ASSIGNL',
+          'LEFTCORCH', 'RIGHTCORCH', 'CTESTRING', 'COMMA', 'PRINT', 'IF', 'ELSE', 'INT', 'FLOAT', 'AND', 'OR', 'VOID', 'WHILE']
 
 
 # Expresiones Regulares de Operadores
@@ -43,11 +43,11 @@ t_PLUS = r'\+'
 t_MINUS = r'-'
 t_TIMES = r'\*'
 t_DIVIDE = r'\/'
-t_EXPONENTIAL = r'\^'
+# t_EXPONENTIAL = r'\^' # Standby
 t_MODULUS = r'\%\%'
 t_LEFTPAREN = r'\('
 t_RIGHTPAREN = r'\)'
-t_COLON = r':'
+# t_COLON = r':'        # Este maldito desgraciado me quitó un día de mi vida, a ver si después le tengo algún uso...
 t_EQUALS = r'\='
 t_ASSIGNL = r'<-'
 # t_ASSIGNR = r'->'     # Wakala

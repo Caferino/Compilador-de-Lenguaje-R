@@ -29,8 +29,7 @@ def p_block(p):
 def p_vars(p):
     '''vars : type ID vars_equals SEMICOLON
             | type ID LEFTBRACKET CTEI RIGHTBRACKET vars_equals SEMICOLON
-            | type ID LEFTBRACKET CTEI RIGHTBRACKET LEFTBRACKET CTEI RIGHTBRACKET vars_equals SEMICOLON
-            | type ID LEFTBRACKET CTEI COMMA CTEI RIGHTBRACKET vars_equals SEMICOLON'''
+            | type ID LEFTBRACKET CTEI RIGHTBRACKET LEFTBRACKET CTEI RIGHTBRACKET vars_equals SEMICOLON'''
     
     # Lectura de datos según el tamaño del array
     if len(p) == 5:
