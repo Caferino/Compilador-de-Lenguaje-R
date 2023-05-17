@@ -57,4 +57,11 @@
 
 ![1684256071125](image/README/1684256071125.png)
 
+**17 Mayo 2023 - Irreversible**
+
+> Tomé la decisión de abandonar la declaración de matrices al estilo R, con rangos o colon, es decir: "float listota**[3:3]** <- {1.5, 1.3...};". Perdí fácilmente más de 7 horas a lo largo de varios días intentando repararlo. Ni ChatGPT puede, ya intentamos de todo: procedencia en la lista de tokens, typos, el orden de las reglas, etc. Nada lo soluciona, y solamente parece ser esa regla de mi producción "p_vars", la cual dice así:
+> "| type ID LEFTBRACKET CTEI COLON CTEI RIGHTBRACKET vars_equals SEMICOLON''' ". Por más que le he movido al lexer y a otras reglas, nada lo soluciona, está muy raro y solo sucede allí hasta ahora, así que creo que mejor lo cancelaré o dejaré al último.
+>
+> Fuera de eso, añadí los primeros intentos de extracción de IDs, types y después operandos y operadores para ir desarrollando la memoria. Sigo viendo cómo serían algunos casos, pero creo ya entendí cómo va a ser.
+
 ~Óscar Antonio Hinojosa Salum A00821930

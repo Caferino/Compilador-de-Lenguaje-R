@@ -13,10 +13,12 @@ def validateSize(self, address):
 # ============ Main - Clase de Memoria ============
 
 class MemoryMap:
-    def __init__(self, size):
-        self.memory = [None] * size
+    def __init__(self):
+        # self.memory = [None] * size
         self.operands = []
         self.operators = []
+        self.types = []
+        self.varsDir = []
         self.memoryMap = {}
     
 
@@ -32,4 +34,9 @@ class MemoryMap:
         if(validateSize(address)):
             # Si es válido, escribir el valor en la dirección
             self.memory[address] = value
+
+
+    def p_varsEnter(self, vars_type, vars_name, var_size, var_dimensions, vars_assignment):
+        self.types.append(vars_type)
+        self.varsDir.append(vars_name)
         

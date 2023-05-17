@@ -26,8 +26,8 @@ keywords = {
 # Tokens
 
 tokens = ['SEMICOLON', 'LEFTBRACKET', 'RIGHTBRACKET', 'GREATER', 'LESS', 'NOTEQUAL', 'NOTEQUALNUM', 'PLUS', 'MINUS', 'TIMES', 'DIVIDE',
-          'EXPONENTIAL', 'MODULUS', 'LEFTPAREN', 'RIGHTPAREN', 'ID', 'CTEI', 'CTEF', 'COLON', 'EQUALS', 'ASSIGNL',
-          'LEFTCORCH', 'RIGHTCORCH', 'CTESTRING', 'COMMA', 'PRINT', 'IF', 'ELSE', 'INT', 'FLOAT', 'AND', 'OR', 'VOID', 'WHILE']
+          'EXPONENTIAL', 'MODULUS', 'LEFTPAREN', 'RIGHTPAREN', 'ID', 'CTEI', 'CTEF', 'EQUALS', 'ASSIGNL',
+          'COLON', 'LEFTCORCH', 'RIGHTCORCH', 'CTESTRING', 'COMMA', 'PRINT', 'IF', 'ELSE', 'INT', 'FLOAT', 'AND', 'OR', 'VOID', 'WHILE']
 
 
 # Expresiones Regulares de Operadores
@@ -53,7 +53,6 @@ t_ASSIGNL = r'<-'
 # t_ASSIGNR = r'->'     # Wakala
 t_LEFTCORCH = r'\{'
 t_RIGHTCORCH = r'\}'
-t_CTESTRING = r'\".*\"'
 t_COMMA = r'\,'
 t_AND = r'&&'
 t_OR = r'\|\|'
@@ -68,6 +67,10 @@ def t_ID(t):
     t.type = keywords.get(t.value, 'ID')
     return t
 
+# Strings
+def t_CTESTRING(t):
+    r'\".*\"'
+    return t
 
 # Número Flotante (float)
 def t_CTEF(t):
@@ -91,7 +94,7 @@ def t_newline(t):
 
 # Comentarios
 def t_comment(t):
-    r'\//.*'
+    r'\/\/.*'
     pass
 
 

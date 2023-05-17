@@ -8,6 +8,10 @@
 
 # ============ Sintáxis Estilo R ============
 
+from Memory import MemoryMap
+
+memory = MemoryMap()
+
 def p_program(p):
     '''program : block'''
     p[0] = "COMPILED"
@@ -26,8 +30,38 @@ def p_vars(p):
     '''vars : type ID vars_equals SEMICOLON
             | type ID LEFTBRACKET CTEI RIGHTBRACKET vars_equals SEMICOLON
             | type ID LEFTBRACKET CTEI RIGHTBRACKET LEFTBRACKET CTEI RIGHTBRACKET vars_equals SEMICOLON
-            | type ID LEFTBRACKET CTEI COLON CTEI RIGHTBRACKET vars_equals SEMICOLON'''
-
+            | type ID LEFTBRACKET CTEI COMMA CTEI RIGHTBRACKET vars_equals SEMICOLON'''
+    
+    # Lectura de datos según el tamaño del array
+    if len(p) == 5:
+        # Declaración de una variable
+        var_type = p[1]
+        var_name = p[2]
+        var_size = None
+        var_dimensions = None
+        var_assignment = p[3]
+        memory.p_varsEnter(var_type, var_name, var_size, var_dimensions, var_assignment)
+    elif len(p) == 8:
+        # Array con una dimensión
+        var_type = p[1]
+        var_name = p[2]
+        var_size = p[4]
+        var_dimensions = 1
+        var_assignment = p[6]
+    elif len(p) == 11:
+        # Matrices
+        var_type = p[1]
+        var_name = p[2]
+        var_size = [p[4], p[8]]
+        var_dimensions = 2
+        var_assignment = p[10]
+    elif len(p) == 10:
+        # Matriz con rango de tamaño
+        var_type = p[1]
+        var_name = p[2]
+        var_size = [p[4], p[6]]
+        var_dimensions = 2
+        var_assignment = p[8]
 
 def p_type(p):
     '''type : INT
@@ -36,11 +70,11 @@ def p_type(p):
     
 
 def p_vars_equals(p):
-    '''vars_equals : assignment LEFTBRACKET expression array_vars RIGHTBRACKET extra_vars
+    '''vars_equals : assignment LEFTCORCH expression array_vars RIGHTCORCH extra_vars
                 | assignment expression extra_vars
                 | extra_vars
                 | empty'''
-                
+
 
 def p_extra_vars(p):
     '''extra_vars : COMMA ID vars_equals
@@ -93,7 +127,7 @@ def p_assignment_block(p):
     '''assignment_block : ID assignment expression SEMICOLON'''
 
 
-def p_assigment(p):
+def p_assignment(p):
     '''assignment : ASSIGNL
                  | EQUALS'''
 
@@ -188,12 +222,13 @@ def p_empty(p):
 
 # ============ Reglas de Semántica ============
 
-from Memory import MemoryMap
 
-memory = MemoryMap()
 
-def p_logicalExpressionEnter(p):
-    memory.operands.append(p)
+'''
+def p_varsEnter(vars_type, vars_name):
+    memory.types.append(vars_type)
+    memory.varsDir.append(vars_name)
+'''
 
 # ============ Main - Lector de Archivos ============
 
@@ -213,6 +248,7 @@ if __name__ == '__main__':
             data = f.read()
             f.close()
             if yacc.parse(data) == "COMPILED":
+                # print(data)
                 print("Compilation Completed")
         except EOFError:
             print(EOFError)
