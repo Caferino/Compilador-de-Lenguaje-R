@@ -1,4 +1,3 @@
-# coding=utf-8
 """
     Proyecto Final
     Autor: Óscar Antonio Hinojosa Salum A00821930
@@ -8,9 +7,7 @@
 
 # ============ Sintáxis Estilo R ============
 
-from Memory import MemoryMap
-
-memory = MemoryMap()
+from Semantics import Rules
 
 def p_program(p):
     '''program : block'''
@@ -39,7 +36,17 @@ def p_vars(p):
         var_size = None
         var_dimensions = None
         var_assignment = p[3]
-        memory.p_varsEnter(var_type, var_name, var_size, var_dimensions, var_assignment)
+        print(p[1])
+        print(p[2])
+        print(p[3])
+        print(p[4])
+        print(len(p)) # Debug
+        print("Len 5 Checkpoint") # DEBUG
+        print(var_type)
+        print(var_name)
+        print(var_size)
+        print(var_dimensions)
+        print(var_assignment)
     elif len(p) == 8:
         # Array con una dimensión
         var_type = p[1]
@@ -47,6 +54,7 @@ def p_vars(p):
         var_size = p[4]
         var_dimensions = 1
         var_assignment = p[6]
+        print("Len 8 Checkpoint") # DEBUG
     elif len(p) == 11:
         # Matrices
         var_type = p[1]
@@ -54,6 +62,7 @@ def p_vars(p):
         var_size = [p[4], p[8]]
         var_dimensions = 2
         var_assignment = p[10]
+        print("Len 11 Checkpoint") # DEBUG
     elif len(p) == 10:
         # Matriz con rango de tamaño
         var_type = p[1]
@@ -61,6 +70,11 @@ def p_vars(p):
         var_size = [p[4], p[6]]
         var_dimensions = 2
         var_assignment = p[8]
+        print("Len 10 Checkpoint") # DEBUG
+
+    print("===========================") # DEBUG
+    
+    Rules.p_varsEnter(p)
 
 def p_type(p):
     '''type : INT

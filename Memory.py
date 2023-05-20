@@ -1,3 +1,10 @@
+"""
+    Proyecto Final
+    Autor: Óscar Antonio Hinojosa Salum A00821930
+    Abril 15 2023
+    Compilador para lenguaje al estilo R.
+"""
+
 # ============ Métodos globales ============
 
 def validateSize(self, address):
