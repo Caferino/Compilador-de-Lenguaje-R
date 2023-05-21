@@ -15,9 +15,9 @@ keywords = {
     'print': 'PRINT',
     'if': 'IF',
     'else': 'ELSE',
-    'var': 'VAR',
     'int': 'INT',
     'float': 'FLOAT',
+    'bool' : 'BOOL',
     'void': 'VOID',
     'while': 'WHILE'
 }
@@ -26,8 +26,8 @@ keywords = {
 # Tokens
 
 tokens = ['SEMICOLON', 'LEFTBRACKET', 'RIGHTBRACKET', 'GREATER', 'LESS', 'NOTEQUAL', 'NOTEQUALNUM', 'PLUS', 'MINUS', 'TIMES', 'DIVIDE',
-          'MODULUS', 'LEFTPAREN', 'RIGHTPAREN', 'ID', 'CTEI', 'CTEF', 'EQUALS', 'ASSIGNL',
-          'LEFTCORCH', 'RIGHTCORCH', 'CTESTRING', 'COMMA', 'PRINT', 'IF', 'ELSE', 'INT', 'FLOAT', 'AND', 'OR', 'VOID', 'WHILE']
+          'MODULUS', 'LEFTPAREN', 'RIGHTPAREN', 'ID', 'CTEI', 'CTEF', 'EQUALS', 'ASSIGNL', 'LEFTCORCH', 'RIGHTCORCH', 'CTESTRING', 'COMMA', 
+          'PRINT', 'IF', 'ELSE', 'INT', 'FLOAT', 'BOOL', 'AND', 'OR', 'VOID', 'WHILE']
 
 
 # Expresiones Regulares de Operadores

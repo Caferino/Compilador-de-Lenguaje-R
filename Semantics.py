@@ -58,8 +58,31 @@ class Rules:
         4.- K = K + 1, move to next parameter.
 
         5.- Verify that the last parameter points to null (coherence in number of parameters).
-        
+
         6.- Generate action GOSUB, procedure-name, , initial-address
+        '''
+
+
+
+    # ------ IF / ELSE ------ #
+    def p_elif(p):
+        '''
+        1.- exp_type = PTypes.Pop()
+        if (exp_type != bool) ERROR(Type-mismatch)
+        else
+        result = PilaO.Pop()
+        Generate quad: GotoF, result , , ___
+        PJumps.Push (cont-1)
+        Our Quad_Pointer is always pointing to the
+        next quadruple to be generated
+        
+        2.- end=PJumps.Pop()
+        FILL (end, cont)
+        
+        3.- Generate quad: GOTO ___
+        false= PJumps.Pop()
+        PJumps.Push(cont-1)
+        FILL (false, cont)
         '''
 
 

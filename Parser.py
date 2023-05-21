@@ -79,6 +79,7 @@ def p_vars(p):
 def p_type(p):
     '''type : INT
             | FLOAT
+            | BOOL
             | VOID'''
     
 
@@ -125,6 +126,15 @@ def p_statement(p):
 def p_function(p):
     '''function : type ID LEFTPAREN function_parameters RIGHTPAREN LEFTCORCH block RIGHTCORCH
                 | empty'''
+
+    print(" ===== FUNCTION ===== ")
+    print(p[1])
+    print(p[2])
+    print(p[3])
+    print(p[4])
+    print(len(p))
+    print(" === END OF FUNCTION === ")
+
 
 
 def p_function_parameters(p):
