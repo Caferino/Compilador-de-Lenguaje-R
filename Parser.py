@@ -12,109 +12,15 @@ from Memory import MemoryMap
 memory = MemoryMap()
 
 # ------ VARIABLES ------ #
-def p_varsEnter(p):
-    memory.types.append(p[1])
-    memory.varsDir.append(p[2])
-    # print("Checkpoint") # Debug
-    # print(p) # Debug
-    # print(p[1], p[2], p[3]) # Debug
-
-
-
-# ------ FUNCTION ------ #
-def p_function(p):
-    '''
-    1.- Insert Procedure name into the DirFunc table, verify semantics.
-
-    2.- Insert every parameter into the current (local) VarTable.
-    3.- Insert the type to every parameter uploaded into the VarTable. At the same time into the ParameterTable
-    (to create the Function’s signature)..
-
-    4.- Insert into DirFunc the number of parameters defined. **to calculate the workspace required for execution
-
-    5.- Insert into DirFunc the number of local variables defined. **to calculate the workspace required for execution
-    6.- Insert into DirFunc the current quadruple counter (CONT), **to establish where the procedure starts
-
-    7.- Release the current VarTable (local).
-    Generate an action to end the procedure (ENDFUNC).
-    Insert into DirFunc the number of temporal vars used. **to calculate the workspace required for execution
-    '''
-
-
-# ------ FUNCATION CALL ------ #
-def p_functionCall(p):
-    '''
-    1.- Verify that the procedure exists into the DirFunc.
+# def p_vars_SR1(p):
+    # '''vars_SR1 :'''
     
-    2.- Generate action ERA size (Activation Record expansion –NEW—size).
-    Start the parameter counter (k) in 1.
-    Add a pointer to the first parameter type in the ParameterTable.
-
-    3.- Argument= PilaO.Pop() ArgumentType= PTypes.Pop().
-    Verify ArgumentType against current Parameter (#k) in ParameterTable.
-    Generate action PARAMETER, Argument, Argument#k
-
-    4.- K = K + 1, move to next parameter.
-
-    5.- Verify that the last parameter points to null (coherence in number of parameters).
-
-    6.- Generate action GOSUB, procedure-name, , initial-address
-    '''
-
-
-
-# ------ IF / ELSE ------ #
-def p_elif(p):
-    '''
-    1.- exp_type = PTypes.Pop()
-    if (exp_type != bool) ERROR(Type-mismatch)
-    else
-    result = PilaO.Pop()
-    Generate quad: GotoF, result , , ___
-    PJumps.Push (cont-1)
-    Our Quad_Pointer is always pointing to the
-    next quadruple to be generated
-    
-    2.- end=PJumps.Pop()
-    FILL (end, cont)
-    
-    3.- Generate quad: GOTO ___
-    false= PJumps.Pop()
-    PJumps.Push(cont-1)
-    FILL (false, cont)
-    '''
-
-
-
-# ------ WHILE LOOP ------ #
-def p_while_step1(p):
-    '''
-    1.- PJumps.Push (cont)
-    '''
-
-def p_while_step2(p):
-    '''
-    2.- exp_type = PTypes.Pop()
-    if (exp_type != bool) ERROR(Type-mismatch)
-    else
-    result = PilaO.Pop()
-    Generate quad: GotoF, result , , ___
-    PJumps.Push (cont-1)
-    '''
-
-def p_while_step3(p):
-    '''
-    3.- end=PJumps.Pop()
-    return=PJumps.Pop()
-    Generate quad: GOTO return
-    FILL (end, cont)
-    '''
-
+    # print(p[1])
+    # memory.types.append(p[1])
+    # memory.varsDir.append(p[2])
 
 
 # ======================== Sintáxis Estilo R ======================== #
-
-from Semantics import Rules
 
 def p_program(p):
     '''program : block'''
@@ -143,17 +49,12 @@ def p_vars(p):
         var_size = None
         var_dimensions = None
         var_assignment = p[3]
-        print(p[1])
+        # print(p[1]) # None
         print(p[2])
-        print(p[3])
+        # print(p[3]) # None
         print(p[4])
-        print(len(p)) # Debug
-        print("Len 5 Checkpoint") # DEBUG
-        print(var_type)
-        print(var_name)
-        print(var_size)
-        print(var_dimensions)
-        print(var_assignment)
+        print("Length = ", len(p)) # Debug
+
     elif len(p) == 8:
         # Array con una dimensión
         var_type = p[1]
@@ -180,14 +81,17 @@ def p_vars(p):
         print("Len 10 Checkpoint") # DEBUG
 
     print("===========================") # DEBUG
-    
-    Rules.p_varsEnter(p)
 
 def p_type(p):
     '''type : INT
             | FLOAT
             | BOOL
             | VOID'''
+
+    print(p[1])
+
+    # if p[1] == "INT":
+        # Something
     
 
 def p_vars_equals(p):
