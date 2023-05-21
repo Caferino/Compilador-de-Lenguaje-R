@@ -64,4 +64,8 @@
 >
 > Fuera de eso, añadí los primeros intentos de extracción de IDs, types y después operandos y operadores para ir desarrollando la memoria. Sigo viendo cómo serían algunos casos, pero creo ya entendí cómo va a ser.
 
+**20 Mayo 2023 -** 
+
+> Había olvidado añadir a los bools, así que lo hice. Avancé a semántica, pero perdí tiempo con el debugging de la extracción de los tokens para crear cuádruplos. Terminé dándome cuenta que, Yacc y Ply guarda el nombre de los arrays o matrices con todo y dimensiones en brackets pegados (es decir, si tengo una declaración que dice "int matriz[4][5] = {1, 2, ...}" y quisiera que al llamar "p[2] me regresara el token ID "matriz", regresa en realidad "matriz[4][5]"), lo cual me obligó a cambiar mi diseño inicial para las reglas de semántica: quería que estuvieran en un archivo separado, adentro de una clase/objeto llamado "Rules" o "Semantics", pero eso implicaría varios códigos para lidiar con varios tokens pegados de distintas maneras en distintos statements, o el camino más fácil: que las reglas de semántica estén en el mismo archivo del Parser, y se manden a llamar en medio de las producciones de léxico y sintaxis. Veré si así, llamar a p[n] me regresa los tokens de forma individual y apropiada. Haría de la lectura del léxico y sintaxis más detallada, por incluir los nombres de los nodos neuronales ahora, pero no importa, creo que está hasta mejor para aprender.
+
 ~Óscar Antonio Hinojosa Salum A00821930
