@@ -2,25 +2,14 @@
     Proyecto Final
     Autor: Óscar Antonio Hinojosa Salum A00821930
     Abril 15 2023
-    Compilador para lenguaje al estilo R.
+    Compilador para lenguaje al estilo R/C++.
+
+    CR++, El Cristiano Ronaldo de los Lenguajes de Programación.
 """
 
-# ======================== Reglas de Semántica ======================== #
+# ======================== Sintáxis ======================== #
 
-from Memory import MemoryMap
-
-memory = MemoryMap()
-
-# ------ VARIABLES ------ #
-# def p_vars_SR1(p):
-    # '''vars_SR1 :'''
-    
-    # print(p[1])
-    # memory.types.append(p[1])
-    # memory.varsDir.append(p[2])
-
-
-# ======================== Sintáxis Estilo R ======================== #
+from Semantics import Rules
 
 def p_program(p):
     '''program : block'''
@@ -40,47 +29,8 @@ def p_vars(p):
     '''vars : type ID vars_equals SEMICOLON
             | type ID LEFTBRACKET CTEI RIGHTBRACKET vars_equals SEMICOLON
             | type ID LEFTBRACKET CTEI RIGHTBRACKET LEFTBRACKET CTEI RIGHTBRACKET vars_equals SEMICOLON'''
-    
-    # Lectura de datos según el tamaño del array
-    if len(p) == 5:
-        # Declaración de una variable
-        var_type = p[1]
-        var_name = p[2]
-        var_size = None
-        var_dimensions = None
-        var_assignment = p[3]
-        # print(p[1]) # None
-        print(p[2])
-        # print(p[3]) # None
-        print(p[4])
-        print("Length = ", len(p)) # Debug
 
-    elif len(p) == 8:
-        # Array con una dimensión
-        var_type = p[1]
-        var_name = p[2]
-        var_size = p[4]
-        var_dimensions = 1
-        var_assignment = p[6]
-        print("Len 8 Checkpoint") # DEBUG
-    elif len(p) == 11:
-        # Matrices
-        var_type = p[1]
-        var_name = p[2]
-        var_size = [p[4], p[8]]
-        var_dimensions = 2
-        var_assignment = p[10]
-        print("Len 11 Checkpoint") # DEBUG
-    elif len(p) == 10:
-        # Matriz con rango de tamaño
-        var_type = p[1]
-        var_name = p[2]
-        var_size = [p[4], p[6]]
-        var_dimensions = 2
-        var_assignment = p[8]
-        print("Len 10 Checkpoint") # DEBUG
-
-    print("===========================") # DEBUG
+    Rules.p_vars_Rule1(p)
 
 def p_type(p):
     '''type : INT
@@ -88,10 +38,7 @@ def p_type(p):
             | BOOL
             | VOID'''
 
-    print(p[1])
-
-    # if p[1] == "INT":
-        # Something
+    Rules.p_types_Rule1(p)
     
 
 def p_vars_equals(p):

@@ -12,13 +12,34 @@ from Memory import MemoryMap
 memory = MemoryMap()
 
 class Rules:
+    # ------ TYPES ------ #
+    def p_types_Rule1(p):
+        print(p[1])
+
     # ------ VARIABLES ------ #
-    def p_varsEnter(p):
-        memory.types.append(p[1])
-        memory.varsDir.append(p[2])
+    def p_vars_Rule1(p):
+        if len(p) == 5:
+            # DECLARACIÓN DE MATRICES
+            if "[" in p[2]:
+                varNameIndex = p[2].index('[')
+                varName = p[2][:varNameIndex]
+                print(varName)
+
+            # DECLARACIÓN DE UNA VARIABLE
+            else:
+                print(p[2]) # "varName"
+
+            
+            # print(p[3]) # None
+            print(p[4])
+            print("Length = ", len(p)) # Debug
+        print("===========================") # DEBUG
+        # memory.types.append(p[1])
+        # memory.varsDir.append(p[2])
         # print("Checkpoint") # Debug
         # print(p) # Debug
         # print(p[1], p[2], p[3]) # Debug
+        # Lectura de datos según el tamaño del array
 
 
 
