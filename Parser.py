@@ -43,6 +43,7 @@ def p_type(p):
 
 def p_vars_equals(p):
     '''vars_equals : assignment LEFTCORCH expression array_vars RIGHTCORCH extra_vars
+                | assignment LEFTCORCH empty RIGHTCORCH extra_vars
                 | assignment expression extra_vars
                 | extra_vars
                 | empty'''

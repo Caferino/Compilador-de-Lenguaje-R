@@ -6,6 +6,7 @@
 
     Reglas de Semántica
 """
+import re # Librería para expresiones regulares RegEX
 
 from Memory import MemoryMap
 
@@ -21,9 +22,13 @@ class Rules:
         if len(p) == 5:
             # DECLARACIÓN DE MATRICES
             if "[" in p[2]:
+                # Separamos el nombre de la matriz de sus dimensiones
                 varNameIndex = p[2].index('[')
                 varName = p[2][:varNameIndex]
                 print(varName)
+                # Extraemos las dimensiones de los brackets a una lista
+                indices = re.findall(r'\[(.*?)\]', p[2]) 
+                print(indices)
 
             # DECLARACIÓN DE UNA VARIABLE
             else:
