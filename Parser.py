@@ -29,16 +29,15 @@ def p_vars(p):
     '''vars : type ID vars_equals SEMICOLON
             | type ID LEFTBRACKET CTEI RIGHTBRACKET vars_equals SEMICOLON
             | type ID LEFTBRACKET CTEI RIGHTBRACKET LEFTBRACKET CTEI RIGHTBRACKET vars_equals SEMICOLON'''
+    Rules.p_vars(p)
 
-    Rules.p_vars_Rule1(p)
 
 def p_type(p):
     '''type : INT
             | FLOAT
             | BOOL
             | VOID'''
-
-    Rules.p_types_Rule1(p)
+    Rules.p_types(p)
     
 
 def p_vars_equals(p):
@@ -52,6 +51,7 @@ def p_vars_equals(p):
 def p_extra_vars(p):
     '''extra_vars : COMMA ID vars_equals
                 | empty'''
+    Rules.p_vars(p)
 
 
 def p_array_vars(p):
@@ -206,6 +206,7 @@ def p_error(p):
 def p_empty(p):
     '''empty :'''
     pass
+
 
 
 

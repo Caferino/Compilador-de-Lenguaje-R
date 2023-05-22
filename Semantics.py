@@ -6,19 +6,21 @@
 
     Reglas de Semántica
 """
-import re # Librería para expresiones regulares RegEX
 
+# ======================== Semántica ======================== #
+
+import re # Librería para expresiones regulares RegEX
 from Memory import MemoryMap
 
 memory = MemoryMap()
 
 class Rules:
     # ------ TYPES ------ #
-    def p_types_Rule1(p):
+    def p_types(p):
         print(p[1])
 
     # ------ VARIABLES ------ #
-    def p_vars_Rule1(p):
+    def p_vars(p):
         if len(p) == 5:
             # DECLARACIÓN DE MATRICES
             if "[" in p[2]:
@@ -27,7 +29,8 @@ class Rules:
                 varName = p[2][:varNameIndex]
                 print(varName)
                 # Extraemos las dimensiones de los brackets a una lista
-                indices = re.findall(r'\[(.*?)\]', p[2]) 
+                indices = re.findall(r'\[(.*?)\]', p[2])
+                indices = [int(index) for index in indices]
                 print(indices)
 
             # DECLARACIÓN DE UNA VARIABLE
@@ -38,7 +41,26 @@ class Rules:
             # print(p[3]) # None
             print(p[4])
             print("Length = ", len(p)) # Debug
+        
+        # Ply y Yacc es una estupidez
+        if len(p) == 2:
+            print(p[1])
+        if len(p) == 4:
+            if "[" in p[2]:
+                # Separamos el nombre de la matriz de sus dimensiones
+                varNameIndex = p[2].index('[')
+                varName = p[2][:varNameIndex]
+                print(varName)
+                # Extraemos las dimensiones de los brackets a una lista
+                indices = re.findall(r'\[(.*?)\]', p[2]) 
+                indices = [int(index) for index in indices]
+                print(indices)
+            
+            else:
+                print(p[2])
+
         print("===========================") # DEBUG
+
         # memory.types.append(p[1])
         # memory.varsDir.append(p[2])
         # print("Checkpoint") # Debug
