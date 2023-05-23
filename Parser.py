@@ -14,6 +14,7 @@ from Semantics import Rules
 def p_program(p):
     '''program : block'''
     p[0] = "COMPILED"
+    Rules.p_end_program()
 
 
 def p_block(p):

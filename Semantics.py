@@ -14,10 +14,14 @@ from Memory import MemoryMap
 
 memory = MemoryMap()
 
+# Para construir cada fila del Symbol Table
+new_row = {}
+
 class Rules:
     # ------ TYPES ------ #
     def p_types(p):
         print(p[1])
+        new_row['type'] = p[1]
 
     # ------ VARIABLES ------ #
     def p_vars(p):
@@ -28,22 +32,31 @@ class Rules:
                 varNameIndex = p[2].index('[')
                 varName = p[2][:varNameIndex]
                 print(varName)
+                new_row['name'] = varName
+                # VERIFICAR QUE YA EXISTE
+                memory.insertRow(new_row)
                 # Extraemos las dimensiones de los brackets a una lista
                 indices = re.findall(r'\[(.*?)\]', p[2])
+                # Tranformar de strings a integers ['1', '2', ...] -> [1, 2, ...]
                 indices = [int(index) for index in indices]
                 print(indices)
 
             # DECLARACIÓN DE UNA VARIABLE
             else:
                 print(p[2]) # "varName"
+                varName = p[2]
+                new_row['name'] = varName
+                # VERIFICAR QUE YA EXISTE
+                memory.insertRow(new_row)
 
             
             # print(p[3]) # None
-            print(p[4])
+            print(p[4]) # ;
             print("Length = ", len(p)) # Debug
         
         # Ply y Yacc es una estupidez
         if len(p) == 2:
+            # print("Que es?")
             print(p[1])
         if len(p) == 4:
             if "[" in p[2]:
@@ -51,14 +64,24 @@ class Rules:
                 varNameIndex = p[2].index('[')
                 varName = p[2][:varNameIndex]
                 print(varName)
+                new_row['name'] = varName
+                # VERIFICAR QUE YA EXISTE
+                memory.insertRow(new_row)
                 # Extraemos las dimensiones de los brackets a una lista
-                indices = re.findall(r'\[(.*?)\]', p[2]) 
+                indices = re.findall(r'\[(.*?)\]', p[2])
+                # Tranformar de strings a integers ['1', '2', ...] -> [1, 2, ...]
                 indices = [int(index) for index in indices]
                 print(indices)
             
             else:
                 print(p[2])
+                varName = p[2]
+                new_row['name'] = varName
+                # VERIFICAR QUE YA EXISTE
+                memory.insertRow(new_row)
 
+
+        print(memory.symbolTable)
         print("===========================") # DEBUG
 
         # memory.types.append(p[1])
@@ -158,3 +181,7 @@ class Rules:
         Generate quad: GOTO return
         FILL (end, cont)
         '''
+
+
+    def p_end_program():
+        print(memory.symbolTable)
