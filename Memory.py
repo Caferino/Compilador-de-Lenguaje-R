@@ -57,6 +57,8 @@ class MemoryMap:
         if not self.symbolTable:
             self.symbolTable[self.rowCount] = new_row
             self.rowCount = self.rowCount + 1
+            print("Added a new row!")
+            print("Row Counter: ", self.rowCount)
 
         # Si la Symbol Table NO está vacía, verificar existencia
         else:
@@ -71,5 +73,7 @@ class MemoryMap:
             if not found:
                 self.symbolTable[self.rowCount] = new_row
                 self.rowCount = self.rowCount + 1
+                print("Added a new row!")
+                print("Row Counter: ", self.rowCount)
 
                 

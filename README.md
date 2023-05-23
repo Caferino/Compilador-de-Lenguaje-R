@@ -70,4 +70,9 @@
 >
 > No funcionó, tendré que lidiar con strings de diferentes tipos. Soy un payaso. Al menos Semantics.py tendrá uso después de todo, y se verá más organizado y modular.
 
+**22 Mayo 2023 - WTF**
+
+> Bitácora espacial 23-05-23, estoy perdiendo la cabeza. Por cada cosa simple que hago, salen errores abstractos. Al momento de meter filas a mi diccionario de symbolTable, por alguna razón sobreescribe todos los índices con el mismo hasta el final, lo cual es imposible, el counter/index nunca lo repito, etc. Tampoco soy tan pelele con los loops y estas cosas; es Dios el quien no quiere que me gradúe.
+
+
 ~Óscar Antonio Hinojosa Salum A00821930

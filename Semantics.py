@@ -25,15 +25,15 @@ class Rules:
 
     # ------ VARIABLES ------ #
     def p_vars(p):
+        # DECLARACIÓN DE MATRICES
         if len(p) == 5:
-            # DECLARACIÓN DE MATRICES
+            # Separamos el nombre de la matriz de sus dimensiones
             if "[" in p[2]:
-                # Separamos el nombre de la matriz de sus dimensiones
                 varNameIndex = p[2].index('[')
                 varName = p[2][:varNameIndex]
                 print(varName)
                 new_row['name'] = varName
-                # VERIFICAR QUE YA EXISTE
+                # Lo mandamos a memoria, donde se verifica si existe o no (actualizamos solo el value si sí)
                 memory.insertRow(new_row)
                 # Extraemos las dimensiones de los brackets a una lista
                 indices = re.findall(r'\[(.*?)\]', p[2])
