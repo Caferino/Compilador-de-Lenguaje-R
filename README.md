@@ -78,4 +78,8 @@
 
 > Después de 7 horas (no es broma) mirando la pantalla, descubrí que en Python necesito hacer un ".copy()" al momento de guardar una nueva fila en la symbol table, sino lo manda como pointer, como referencia, y eso estuvo rompiéndome la cabeza terrible todo este tiempo. Pensé que el problema era en el counter, en mis ifs, etc. Ya pude al fin extraer las variables y sus tipos, con esto ya puedo extraer lo que sea.
 
+**24 Mayo 2023 - Parte 1**
+
+> Cambié la symbolTable de un diccionario, a pilas de Types, Names, etc. Puedo unirlos en una misma matriz o lista de tuplas, para evitar las keys de los hashmaps/diccionarios (no sabía que eran lo mismo). Igual, me empujó a estructurar el código de manera más limpia (separé el registro de IDs en una sola production rule para así evitar ciertas complicaciones con la memoria, declaración de variables cíclicas, etc.).
+
 ~Óscar Antonio Hinojosa Salum A00821930

@@ -22,15 +22,14 @@ def validateSize(self, address):
 class MemoryMap:
     def __init__(self):
         # self.memory = [None] * size
-        self.operands = []
-        self.operators = []
-        self.types = []
-        self.memoryMap = {}
-
+        
         # Symbol Table
         print("Reset")
         self.symbolTable = {}
         self.rowCount = 1
+
+        self.pTypes = []
+        self.pNames = []
     
     '''
     def read(self, address):
@@ -54,10 +53,11 @@ class MemoryMap:
             self.symbolTable[self.rowCount] = new_row.copy()
             self.rowCount += 1
 
-        # Si la Symbol Table NO está vacía, verificar existencia de la variable
+        # Si la Symbol Table NO está vacía, verificar existencia de la variable primero
         else:
             found = False
             for existing_row in self.symbolTable.values():
+                # Si la variable ya existe, actualizamos solo el value
                 if new_row['name'] == existing_row['name']:
                     # ACTUALIZAR VALUE SOLAMENTE
                     # VERIFICAR TIPOS, EJEMPLO: FLOAT Z ... BOOL Z, ¿QUÉ SUCEDE?
@@ -68,3 +68,10 @@ class MemoryMap:
             if not found:
                 self.symbolTable[self.rowCount] = new_row.copy()
                 self.rowCount += 1
+    
+    def printSymbolTable(self):
+        # DDD
+        i = 0
+        while i < len(self.pTypes):
+            print(self.pTypes[i], " ", self.pNames[i])
+            i += 1

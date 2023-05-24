@@ -20,13 +20,40 @@ class Rules:
     # ------ TYPES ------ #
     def p_types(p):
         new_row['type'] = p[1]
+        memory.pTypes.append(p[1])
 
 
+    # ------ VARIABLES / IDs ------ #
+    def p_id(p):
+        # Separar nombre de la matriz de sus dimensiones
+        if "[" in p[1]:
+                varNameIndex = p[1].index('[')
+                varName = p[1][:varNameIndex]
+                print(varName)
+                new_row['name'] = varName
+                # Lo mandamos a memoria, donde se verifica si existe o no (actualizamos solo el value si sí)
+                memory.insertRow(new_row)
+                memory.pNames.append(varName)
+                # Extraemos las dimensiones de los brackets a una lista
+                indices = re.findall(r'\[(.*?)\]', p[1])
+                # Tranformar de strings a integers ['1', '2', ...] -> [1, 2, ...]
+                indices = [int(index) for index in indices]
+                print(indices)
+                
 
+        else:
+            new_row['name'] = p[1]
+            memory.insertRow(new_row)
+            memory.pNames.append(p[1])
+            # AL INSERTAR UN NAME, AMBAS PILAS TYPES Y NAMES DEBEN MEDIR LO MISMO
+            # SI NO, DUPLICAR EL ÚLTIMO VALOR EN TYPES, PUES ES UN CICLO "int x, y, z" vs "int x, int y, int z ..."
+
+
+    
     # ------ VARIABLES ------ #
     def p_vars(p):
         # DECLARACIÓN DE MATRICES
-        if len(p) == 5:
+        if len(p) >= 5:
             # Separar nombre de la matriz de sus dimensiones
             if "[" in p[2]:
                 varNameIndex = p[2].index('[')
@@ -35,6 +62,7 @@ class Rules:
                 new_row['name'] = varName
                 # Lo mandamos a memoria, donde se verifica si existe o no (actualizamos solo el value si sí)
                 memory.insertRow(new_row)
+                memory.pNames.append(varName)
                 # Extraemos las dimensiones de los brackets a una lista
                 indices = re.findall(r'\[(.*?)\]', p[2])
                 # Tranformar de strings a integers ['1', '2', ...] -> [1, 2, ...]
@@ -48,6 +76,7 @@ class Rules:
                 new_row['name'] = varName
                 # VERIFICAR QUE YA EXISTE
                 memory.insertRow(new_row)
+                memory.pNames.append(varName)
 
             
             # print(p[3]) # None
@@ -63,6 +92,7 @@ class Rules:
                 new_row['name'] = varName
                 # VERIFICAR QUE YA EXISTE
                 memory.insertRow(new_row)
+                memory.pNames.append(varName)
                 # Extraemos las dimensiones de los brackets a una lista
                 indices = re.findall(r'\[(.*?)\]', p[2])
                 # Tranformar de strings a integers ['1', '2', ...] -> [1, 2, ...]
@@ -75,6 +105,14 @@ class Rules:
                 new_row['name'] = varName
                 # VERIFICAR QUE YA EXISTE
                 memory.insertRow(new_row)
+                memory.pNames.append(varName)
+
+        """ elif len(p) == 2:
+            varName = p[1]
+            new_row['name'] = varName
+            # VERIFICAR QUE YA EXISTE
+            memory.insertRow(new_row)
+            memory.pNames.append(varName) """
 
         print("Current Row Count: ", memory.rowCount)
         print("===========================") # DEBUG
@@ -173,3 +211,7 @@ class Rules:
 
     def p_end_program():
         pprint.pprint(memory.symbolTable, indent=4)
+        print("O O O O O O")
+        print(memory.pTypes)
+        print(memory.pNames)
+        memory.printSymbolTable()

@@ -11,6 +11,8 @@
 
 from Semantics import Rules
 
+scope = 'g'
+
 def p_program(p):
     '''program : block'''
     p[0] = "COMPILED"
@@ -23,14 +25,18 @@ def p_block(p):
                 | empty'''
 
 
+def p_id(p):
+    '''id : ID'''
+    Rules.p_id(p)
+
+
 # Si se llega a pedir matrices cúbicas o más, 
 # tal vez pueda ciclarlo aquí y ver cómo sería al guardar en memoria.
 # Por ahora solo me interesan las de una o dos dimensiones.
 def p_vars(p):
-    '''vars : type ID vars_equals SEMICOLON
-            | type ID LEFTBRACKET CTEI RIGHTBRACKET vars_equals SEMICOLON
-            | type ID LEFTBRACKET CTEI RIGHTBRACKET LEFTBRACKET CTEI RIGHTBRACKET vars_equals SEMICOLON'''
-    Rules.p_vars(p)
+    '''vars : type id vars_equals SEMICOLON
+            | type id LEFTBRACKET CTEI RIGHTBRACKET vars_equals SEMICOLON
+            | type id LEFTBRACKET CTEI RIGHTBRACKET LEFTBRACKET CTEI RIGHTBRACKET vars_equals SEMICOLON'''
 
 
 def p_type(p):
@@ -50,9 +56,8 @@ def p_vars_equals(p):
 
 
 def p_extra_vars(p):
-    '''extra_vars : COMMA ID vars_equals
+    '''extra_vars : COMMA id vars_equals
                 | empty'''
-    Rules.p_vars(p)
 
 
 def p_array_vars(p):
@@ -84,10 +89,10 @@ def p_statement(p):
 
 
 def p_function(p):
-    '''function : type ID LEFTPAREN function_parameters RIGHTPAREN LEFTCORCH block RIGHTCORCH
+    '''function : type id LEFTPAREN function_parameters RIGHTPAREN LEFTCORCH block RIGHTCORCH
                 | empty'''
 
-    print(" ===== FUNCTION ===== ")
+    """ print(" ===== FUNCTION ===== ")
     print(p[1])
     print(p[2])
     print(p[3])
@@ -97,12 +102,13 @@ def p_function(p):
     print(p[7])
     print(p[8])
     print(len(p))
-    print(" === END OF FUNCTION === ")
+    print(" === END OF FUNCTION === ") """
+
 
 
 
 def p_function_parameters(p):
-    '''function_parameters : type ID function_extra_parameters'''
+    '''function_parameters : type id function_extra_parameters'''
 
 
 def p_function_extra_parameters(p):
@@ -111,7 +117,7 @@ def p_function_extra_parameters(p):
 
 
 def p_assignment_block(p):
-    '''assignment_block : ID assignment expression SEMICOLON'''
+    '''assignment_block : id assignment expression SEMICOLON'''
 
 
 def p_assignment(p):
@@ -120,7 +126,7 @@ def p_assignment(p):
 
 
 def p_function_call(p):
-    '''function_call : ID LEFTPAREN expression function_call_expressions RIGHTPAREN'''
+    '''function_call : id LEFTPAREN expression function_call_expressions RIGHTPAREN'''
 
 
 def p_function_call_expressions(p):
@@ -229,7 +235,6 @@ if __name__ == '__main__':
             data = f.read()
             f.close()
             if yacc.parse(data) == "COMPILED":
-                # print(data)
                 print("Compilation Completed")
         except EOFError:
             print(EOFError)
