@@ -11,23 +11,23 @@
 
 import re # Librería para expresiones regulares RegEX
 from Memory import MemoryMap
+import pprint # Para imprimir el Symbol Table de manera bonita
 
 memory = MemoryMap()
-
-# Para construir cada fila del Symbol Table
 new_row = {}
 
 class Rules:
     # ------ TYPES ------ #
     def p_types(p):
-        print(p[1])
         new_row['type'] = p[1]
+
+
 
     # ------ VARIABLES ------ #
     def p_vars(p):
         # DECLARACIÓN DE MATRICES
         if len(p) == 5:
-            # Separamos el nombre de la matriz de sus dimensiones
+            # Separar nombre de la matriz de sus dimensiones
             if "[" in p[2]:
                 varNameIndex = p[2].index('[')
                 varName = p[2][:varNameIndex]
@@ -54,10 +54,6 @@ class Rules:
             print(p[4]) # ;
             print("Length = ", len(p)) # Debug
         
-        # Ply y Yacc es una estupidez
-        if len(p) == 2:
-            # print("Que es?")
-            print(p[1])
         if len(p) == 4:
             if "[" in p[2]:
                 # Separamos el nombre de la matriz de sus dimensiones
@@ -80,16 +76,8 @@ class Rules:
                 # VERIFICAR QUE YA EXISTE
                 memory.insertRow(new_row)
 
-
-        print(memory.symbolTable)
+        print("Current Row Count: ", memory.rowCount)
         print("===========================") # DEBUG
-
-        # memory.types.append(p[1])
-        # memory.varsDir.append(p[2])
-        # print("Checkpoint") # Debug
-        # print(p) # Debug
-        # print(p[1], p[2], p[3]) # Debug
-        # Lectura de datos según el tamaño del array
 
 
 
@@ -184,4 +172,4 @@ class Rules:
 
 
     def p_end_program():
-        print(memory.symbolTable)
+        pprint.pprint(memory.symbolTable, indent=4)

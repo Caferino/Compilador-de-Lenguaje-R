@@ -28,11 +28,11 @@ class MemoryMap:
         self.memoryMap = {}
 
         # Symbol Table
+        print("Reset")
         self.symbolTable = {}
-        self.new_row = {}
         self.rowCount = 1
     
-
+    '''
     def read(self, address):
         # Verificar que tenga un tamaño válido
         if(validateSize(address)):
@@ -45,35 +45,26 @@ class MemoryMap:
         if(validateSize(address)):
             # Si es válido, escribir el valor en la dirección
             self.memory[address] = value
-
-
-    def p_varsEnter(self, vars_type, vars_name, var_size, var_dimensions, vars_assignment):
-        self.types.append(vars_type)
-        self.varsDir.append(vars_name)
+    '''
 
 
     def insertRow(self, new_row):
         # Si la Symbol Table está vacía, insertar row sí o sí
         if not self.symbolTable:
-            self.symbolTable[self.rowCount] = new_row
-            self.rowCount = self.rowCount + 1
-            print("Added a new row!")
-            print("Row Counter: ", self.rowCount)
+            self.symbolTable[self.rowCount] = new_row.copy()
+            self.rowCount += 1
 
-        # Si la Symbol Table NO está vacía, verificar existencia
+        # Si la Symbol Table NO está vacía, verificar existencia de la variable
         else:
             found = False
             for existing_row in self.symbolTable.values():
-                print("Row: ")
-                print(existing_row)
-                if new_row == existing_row:
+                if new_row['name'] == existing_row['name']:
                     # ACTUALIZAR VALUE SOLAMENTE
+                    # VERIFICAR TIPOS, EJEMPLO: FLOAT Z ... BOOL Z, ¿QUÉ SUCEDE?
                     found = True
+                    break
 
+            # Si la variable aún no existe, insertarla
             if not found:
-                self.symbolTable[self.rowCount] = new_row
-                self.rowCount = self.rowCount + 1
-                print("Added a new row!")
-                print("Row Counter: ", self.rowCount)
-
-                
+                self.symbolTable[self.rowCount] = new_row.copy()
+                self.rowCount += 1

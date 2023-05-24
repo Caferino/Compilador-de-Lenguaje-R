@@ -74,5 +74,8 @@
 
 > Bitácora espacial 23-05-23, estoy perdiendo la cabeza. Por cada cosa simple que hago, salen errores abstractos. Al momento de meter filas a mi diccionario de symbolTable, por alguna razón sobreescribe todos los índices con el mismo hasta el final, lo cual es imposible, el counter/index nunca lo repito, etc. Tampoco soy tan pelele con los loops y estas cosas; es Dios el quien no quiere que me gradúe.
 
+**23 Mayo 2023**
+
+> Después de 7 horas (no es broma) mirando la pantalla, descubrí que en Python necesito hacer un ".copy()" al momento de guardar una nueva fila en la symbol table, sino lo manda como pointer, como referencia, y eso estuvo rompiéndome la cabeza terrible todo este tiempo. Pensé que el problema era en el counter, en mis ifs, etc. Ya pude al fin extraer las variables y sus tipos, con esto ya puedo extraer lo que sea.
 
 ~Óscar Antonio Hinojosa Salum A00821930
