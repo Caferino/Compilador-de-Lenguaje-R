@@ -14,115 +14,123 @@ from Memory import MemoryMap
 import pprint # Para imprimir el Symbol Table de manera bonita
 
 memory = MemoryMap()
-new_row = {}
+
+typeMatchTable = [
+    #    OpI   OpD   ^    *    /    %    +    -    >    <   <>   !=   ==    =   &&   ||
+    #    ------------------------------------------------------------------
+    ['int', 'int', 'int', 'int', 'float', 'int', 'int', 'int', 'bool', 'bool', 'bool', 'bool', 'bool', 'int', 'bool', 'bool'],
+    ['int', 'float', 'float', 'float', 'float', 'float', 'float', 'float', 'bool', 'bool', 'bool', 'bool', 'bool', 'float', 'bool', 'bool'],
+    ['int', 'char', 'ERROR', 'ERROR', 'ERROR', 'ERROR', 'ERROR', 'ERROR', 'ERROR', 'ERROR', 'bool', 'bool', 'ERROR', 'ERROR', 'ERROR', 'ERROR'],
+    ['int', 'bool', 'ERROR', 'ERROR', 'ERROR', 'ERROR', 'ERROR', 'ERROR', 'bool', 'bool', 'bool', 'bool', 'bool', 'bool', 'bool', 'bool'],
+    ['float', 'int', 'float', 'float', 'float', 'float', 'float', 'float', 'bool', 'bool', 'bool', 'bool', 'bool', 'float', 'bool', 'bool'],
+    ['float', 'float', 'float', 'float', 'float', 'float', 'float', 'float', 'bool', 'bool', 'bool', 'bool', 'bool', 'float', 'bool', 'bool'],
+    ['float', 'char', 'ERROR', 'ERROR', 'ERROR', 'ERROR', 'ERROR', 'ERROR', 'ERROR', 'ERROR', 'bool', 'bool', 'ERROR', 'ERROR', 'ERROR', 'ERROR'],
+    ['float', 'bool', 'ERROR', 'ERROR', 'ERROR', 'ERROR', 'ERROR', 'ERROR', 'bool', 'bool', 'bool', 'bool', 'bool', 'bool', 'bool', 'bool'],
+    ['char', 'int', 'ERROR', 'ERROR', 'ERROR', 'ERROR', 'ERROR', 'ERROR', 'ERROR', 'ERROR', 'bool', 'bool', 'ERROR', 'ERROR', 'ERROR', 'ERROR'],
+    ['char', 'float', 'ERROR', 'ERROR', 'ERROR', 'ERROR', 'ERROR', 'ERROR', 'ERROR', 'ERROR', 'bool', 'bool', 'ERROR', 'ERROR', 'ERROR', 'ERROR'],
+    ['char', 'char', 'ERROR', 'ERROR', 'ERROR', 'ERROR', 'ERROR', 'ERROR', 'ERROR', 'ERROR', 'bool', 'bool', 'char', 'ERROR', 'ERROR', 'ERROR'],
+    ['char', 'bool', 'ERROR', 'ERROR', 'ERROR', 'ERROR', 'ERROR', 'ERROR', 'ERROR', 'ERROR', 'bool', 'bool', 'bool', 'bool', 'ERROR', 'ERROR'],
+    ['bool', 'int', 'ERROR', 'ERROR', 'ERROR', 'ERROR', 'ERROR', 'ERROR', 'bool', 'bool', 'bool', 'bool', 'bool', 'bool', 'bool', 'bool'],
+    ['bool', 'float', 'ERROR', 'ERROR', 'ERROR', 'ERROR', 'ERROR', 'ERROR', 'bool', 'bool', 'bool', 'bool', 'bool', 'bool', 'bool', 'bool'],
+    ['bool', 'char', 'ERROR', 'ERROR', 'ERROR', 'ERROR', 'ERROR', 'ERROR', 'ERROR', 'ERROR', 'bool', 'bool', 'ERROR', 'ERROR', 'ERROR', 'ERROR'],
+    ['bool', 'bool', 'ERROR', 'ERROR', 'ERROR', 'ERROR', 'ERROR', 'ERROR', 'ERROR', 'ERROR', 'bool', 'bool', 'bool', 'bool', 'bool', 'bool']
+]
 
 class Rules:
+    def __init__(self):
+        self.type = ''
+        self.varName = ''
+        self.scope = 'global'
+        self.isFunction = False
+        self.value = []
+
+        # Auxiliares
+        self.openList = False
+
     # ------ TYPES ------ #
-    def p_types(p):
-        new_row['type'] = p[1]
-        memory.pTypes.append(p[1])
+    def p_insertType(self, p):
+        self.type = p[1]
 
 
     # ------ VARIABLES / IDs ------ #
-    def p_id(p):
-        # Separar nombre de la matriz de sus dimensiones
-        if "[" in p[1]:
-                varNameIndex = p[1].index('[')
-                varName = p[1][:varNameIndex]
-                print(varName)
-                new_row['name'] = varName
-                # Lo mandamos a memoria, donde se verifica si existe o no (actualizamos solo el value si sí)
-                memory.insertRow(new_row)
-                memory.pNames.append(varName)
-                # Extraemos las dimensiones de los brackets a una lista
-                indices = re.findall(r'\[(.*?)\]', p[1])
-                # Tranformar de strings a integers ['1', '2', ...] -> [1, 2, ...]
-                indices = [int(index) for index in indices]
-                print(indices)
-                
+    def p_insertID(self, p, isFunction):
+        # El ID siempre tendrá que ser el primer TOKEN de p, lo buscamos
+        for row in p:
+            # Condicional respetando estructura de "p_vars" y "p_extra_vars" en Parser.py
+            if row != None and row != ',':
+                varName = row  # Por legibilidad, en vez de 'self.varName'
 
-        else:
-            new_row['name'] = p[1]
-            memory.insertRow(new_row)
-            memory.pNames.append(p[1])
-            # AL INSERTAR UN NAME, AMBAS PILAS TYPES Y NAMES DEBEN MEDIR LO MISMO
-            # SI NO, DUPLICAR EL ÚLTIMO VALOR EN TYPES, PUES ES UN CICLO "int x, y, z" vs "int x, int y, int z ..."
+                # Si tiene brackets pegados, es una matriz
+                # Separamos el nombre de sus dimensiones
+                if "[" in varName:
+                    # Separamos el nombre de las dimensiones
+                    varNameIndex = varName.index('[')
+                    varName = varName[:varNameIndex]
+
+                    # Guardamos las dimensiones
+                    indices = re.findall(r'\[(.*?)\]', row)
+                    indices = [int(index) for index in indices]
+
+                self.varName = varName              
+
+                # Antes de meter los values, conviene transformar sus elementos al type apropiado
+                if self.type == 'int':
+                    self.value = [int(num) for num in self.value]
+                # Como ya llegan como floats... ignoramos ese caso
+
+                # Insertamos la data en forma de TUPLA a la Symbol Table
+                memory.insertRow( (self.type, self.varName, self.scope, isFunction, self.value) )
+                self.value = []
+                self.isFunction = False
+
+                # Al ya tener el ID, ignoramos lo que siga
+                break
 
 
-    
-    # ------ VARIABLES ------ #
-    def p_vars(p):
-        # DECLARACIÓN DE MATRICES
-        if len(p) >= 5:
-            # Separar nombre de la matriz de sus dimensiones
-            if "[" in p[2]:
-                varNameIndex = p[2].index('[')
-                varName = p[2][:varNameIndex]
-                print(varName)
-                new_row['name'] = varName
-                # Lo mandamos a memoria, donde se verifica si existe o no (actualizamos solo el value si sí)
-                memory.insertRow(new_row)
-                memory.pNames.append(varName)
-                # Extraemos las dimensiones de los brackets a una lista
-                indices = re.findall(r'\[(.*?)\]', p[2])
-                # Tranformar de strings a integers ['1', '2', ...] -> [1, 2, ...]
-                indices = [int(index) for index in indices]
-                print(indices)
+    # ------ VALUES ------ #
+    def p_insertValue(self, p):
 
-            # DECLARACIÓN DE UNA VARIABLE
-            else:
-                print(p[2]) # "varName"
-                varName = p[2]
-                new_row['name'] = varName
-                # VERIFICAR QUE YA EXISTE
-                memory.insertRow(new_row)
-                memory.pNames.append(varName)
+        print('Value problem: ', p[1])
+        if len(p) == 3: print('Valueee 1: ', p[2])
+        if len(p) == 4: print('Valueee 2: ', p[3])
+        if len(p) == 5: print('Valueee 3: ', p[4])
 
+        # Si estamos en una lista, guardar elemento temporalmente
+        ## Por legibilidad puse "== True"
+        if '{' not in str(p[1]) and '}' not in str(p[1]):
+            print(p[1])
+            self.value.append(p[1])
+
+        # Si ya se va a cerrar la lista, cerramos este loop
+        if '}' in str(p[1]):
+            print('Entramos al }')
+            self.openList = False
+            # break  ## ¿Funcionará?
+
+        # Si no es valor de una lista/matriz, lo agregamos directamente
+        if '{' in str(p[1]):
+            print('Entramos')
+            self.openList = True  # Si el value viene dentro de "{}", será una lista de uno o más
             
-            # print(p[3]) # None
-            print(p[4]) # ;
-            print("Length = ", len(p)) # Debug
         
-        if len(p) == 4:
-            if "[" in p[2]:
-                # Separamos el nombre de la matriz de sus dimensiones
-                varNameIndex = p[2].index('[')
-                varName = p[2][:varNameIndex]
-                print(varName)
-                new_row['name'] = varName
-                # VERIFICAR QUE YA EXISTE
-                memory.insertRow(new_row)
-                memory.pNames.append(varName)
-                # Extraemos las dimensiones de los brackets a una lista
-                indices = re.findall(r'\[(.*?)\]', p[2])
-                # Tranformar de strings a integers ['1', '2', ...] -> [1, 2, ...]
-                indices = [int(index) for index in indices]
-                print(indices)
-            
-            else:
-                print(p[2])
-                varName = p[2]
-                new_row['name'] = varName
-                # VERIFICAR QUE YA EXISTE
-                memory.insertRow(new_row)
-                memory.pNames.append(varName)
+        
+        """ print("insertValue: ", p[1])
+        # Si es un signo primero
+        if p[1] == '-' or p[1] == "+":
+            self.value = p[1]
 
-        """ elif len(p) == 2:
-            varName = p[1]
-            new_row['name'] = varName
-            # VERIFICAR QUE YA EXISTE
-            memory.insertRow(new_row)
-            memory.pNames.append(varName) """
+        elif p[1] != None:
+            # IF ES UNA VARIABLE ANTERIORMENTE DECLARADA
 
-        print("Current Row Count: ", memory.rowCount)
-        print("===========================") # DEBUG
+            # Si no, debe ser un valor numérico. Verificar types y actualizar
+            self.value = self.value + str(p[1]) """
 
 
 
     # ------ FUNCTION ------ #
     def p_function(p):
         '''
-        1.- Insert Procedure name into the DirFunc table, verify semantics.
+        1.- Insert Procedure self.name into the DirFunc table, verify semantics.
 
         2.- Insert every parameter into the current (local) VarTable.
         3.- Insert the type to every parameter uploaded into the VarTable. At the same time into the ParameterTable
@@ -156,7 +164,7 @@ class Rules:
 
         5.- Verify that the last parameter points to null (coherence in number of parameters).
 
-        6.- Generate action GOSUB, procedure-name, , initial-address
+        6.- Generate action GOSUB, procedure-self.name, , initial-address
         '''
 
 
@@ -209,9 +217,11 @@ class Rules:
         '''
 
 
-    def p_end_program():
-        pprint.pprint(memory.symbolTable, indent=4)
+    def p_end_program(self):
+        print("Final Symbol Table: ")
+        pprint.pprint(memory.symbolTable)
+        """ pprint.pprint(memory.symbolTable, indent=4)
         print("O O O O O O")
         print(memory.pTypes)
         print(memory.pNames)
-        memory.printSymbolTable()
+        memory.printSymbolTable() """

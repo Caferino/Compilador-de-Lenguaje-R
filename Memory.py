@@ -5,6 +5,8 @@
     Compilador para lenguaje al estilo R.
 """
 
+import re # Librería para expresiones regulares RegEX
+
 # ============ Métodos globales ============
 
 def validateSize(self, address):
@@ -22,43 +24,26 @@ def validateSize(self, address):
 class MemoryMap:
     def __init__(self):
         # self.memory = [None] * size
+
+        self.symbolTable = []
         
-        # Symbol Table
-        print("Reset")
-        self.symbolTable = {}
-        self.rowCount = 1
 
-        self.pTypes = []
-        self.pNames = []
-    
-    '''
-    def read(self, address):
-        # Verificar que tenga un tamaño válido
-        if(validateSize(address)):
-            # Si es válido, regresar el valor en la dirección
-            return self.memory[address]
-
-
-    def write(self, address, value):
-        # Verificar que tenga un tamaño válido
-        if(validateSize(address)):
-            # Si es válido, escribir el valor en la dirección
-            self.memory[address] = value
-    '''
-
-
+    """
+        !insertRow
+        * Inserta una nueva tupla a la symbolTable
+        ? @param new_row Con formato (type, name)
+    """
     def insertRow(self, new_row):
         # Si la Symbol Table está vacía, insertar row sí o sí
         if not self.symbolTable:
-            self.symbolTable[self.rowCount] = new_row.copy()
-            self.rowCount += 1
+            self.symbolTable.append(new_row)
 
         # Si la Symbol Table NO está vacía, verificar existencia de la variable primero
         else:
             found = False
-            for existing_row in self.symbolTable.values():
+            for each_existing_tuple in self.symbolTable:
                 # Si la variable ya existe, actualizamos solo el value
-                if new_row['name'] == existing_row['name']:
+                if new_row[1] == each_existing_tuple[1]:
                     # ACTUALIZAR VALUE SOLAMENTE
                     # VERIFICAR TIPOS, EJEMPLO: FLOAT Z ... BOOL Z, ¿QUÉ SUCEDE?
                     found = True
@@ -66,12 +51,4 @@ class MemoryMap:
 
             # Si la variable aún no existe, insertarla
             if not found:
-                self.symbolTable[self.rowCount] = new_row.copy()
-                self.rowCount += 1
-    
-    def printSymbolTable(self):
-        # DDD
-        i = 0
-        while i < len(self.pTypes):
-            print(self.pTypes[i], " ", self.pNames[i])
-            i += 1
+                self.symbolTable.append(new_row)

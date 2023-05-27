@@ -25,9 +25,11 @@ keywords = {
 
 # Tokens
 
-tokens = ['SEMICOLON', 'LEFTBRACKET', 'RIGHTBRACKET', 'GREATER', 'LESS', 'NOTEQUAL', 'NOTEQUALNUM', 'PLUS', 'MINUS', 'TIMES', 'DIVIDE',
-          'MODULUS', 'LEFTPAREN', 'RIGHTPAREN', 'ID', 'CTEI', 'CTEF', 'EQUALS', 'ASSIGNL', 'LEFTCORCH', 'RIGHTCORCH', 'CTESTRING', 'COMMA', 
-          'PRINT', 'IF', 'ELSE', 'INT', 'FLOAT', 'BOOL', 'AND', 'OR', 'VOID', 'WHILE']
+tokens = [
+    'SEMICOLON', 'LEFTBRACKET', 'RIGHTBRACKET', 'GREATER', 'LESS', 'NOTEQUAL', 'NOTEQUALNUM', 'PLUS', 'MINUS', 'TIMES',
+    'DIVIDE', 'MODULUS', 'LEFTPAREN', 'RIGHTPAREN', 'ID', 'CTEI', 'CTEF', 'EQUALS', 'ASSIGNL', 'LEFTCORCH', 'RIGHTCORCH',
+    'CTESTRING', 'COMMA', 'AND', 'OR', 'PRINT', 'IF', 'ELSE', 'INT', 'FLOAT', 'BOOL', 'VOID', 'WHILE'
+]
 
 
 # Expresiones Regulares de Operadores
@@ -65,7 +67,6 @@ t_ignore = " \t"
 def t_ID(t):
     r'[A-za-z]([A-za-z]|[0-9])*'
     t.type = keywords.get(t.value, 'ID')
-
     return t
 
 # Strings

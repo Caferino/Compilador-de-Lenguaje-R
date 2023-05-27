@@ -11,12 +11,12 @@
 
 from Semantics import Rules
 
-scope = 'g'
+rules = Rules()
 
 def p_program(p):
     '''program : block'''
     p[0] = "COMPILED"
-    Rules.p_end_program()
+    rules.p_end_program()
 
 
 def p_block(p):
@@ -25,39 +25,46 @@ def p_block(p):
                 | empty'''
 
 
-def p_id(p):
-    '''id : ID'''
-    Rules.p_id(p)
-
-
 # Si se llega a pedir matrices cúbicas o más, 
 # tal vez pueda ciclarlo aquí y ver cómo sería al guardar en memoria.
 # Por ahora solo me interesan las de una o dos dimensiones.
 def p_vars(p):
-    '''vars : type id vars_equals SEMICOLON
-            | type id LEFTBRACKET CTEI RIGHTBRACKET vars_equals SEMICOLON
-            | type id LEFTBRACKET CTEI RIGHTBRACKET LEFTBRACKET CTEI RIGHTBRACKET vars_equals SEMICOLON'''
-
+    '''vars : type ID vars_equals SEMICOLON
+            | type ID LEFTBRACKET CTEI RIGHTBRACKET vars_equals SEMICOLON
+            | type ID LEFTBRACKET CTEI RIGHTBRACKET LEFTBRACKET CTEI RIGHTBRACKET vars_equals SEMICOLON'''
+    rules.p_insertID(p, False)
+    """ print("Mi p: ", p)
+    print("Mi p[0]: ", p.slice[0])
+    print("Mi p[1]: ", p.slice[1])
+    print("Mi p[2]: ", p[2])
+    print("Mi p[3]: ", p.slice[3])
+    print("Mi p[4]: ", p[4]) """
 
 def p_type(p):
     '''type : INT
             | FLOAT
             | BOOL
             | VOID'''
-    Rules.p_types(p)
+    rules.p_insertType(p)
     
 
 def p_vars_equals(p):
-    '''vars_equals : assignment LEFTCORCH expression array_vars RIGHTCORCH extra_vars
-                | assignment LEFTCORCH empty RIGHTCORCH extra_vars
+    '''vars_equals : assignment vars_equals_array extra_vars
                 | assignment expression extra_vars
                 | extra_vars
                 | empty'''
 
 
+def p_vars_equals_array(p):
+    '''vars_equals_array : LEFTCORCH expression array_vars RIGHTCORCH
+                | LEFTCORCH empty RIGHTCORCH'''
+    rules.p_insertValue(p)
+
+
 def p_extra_vars(p):
-    '''extra_vars : COMMA id vars_equals
+    '''extra_vars : COMMA ID vars_equals
                 | empty'''
+    rules.p_insertID(p, False)
 
 
 def p_array_vars(p):
@@ -69,12 +76,14 @@ def p_sign(p):
     '''sign : PLUS
             | MINUS
             | empty'''
+    # if len(p) == 2 : rules.p_insertValue(p)
 
 
 def p_var_cte(p):
     '''var_cte : ID
                | CTEI
                | CTEF'''
+    rules.p_insertValue(p)
 
 
 def p_statement(p):
@@ -89,26 +98,14 @@ def p_statement(p):
 
 
 def p_function(p):
-    '''function : type id LEFTPAREN function_parameters RIGHTPAREN LEFTCORCH block RIGHTCORCH
+    '''function : type ID LEFTPAREN function_parameters RIGHTPAREN LEFTCORCH block RIGHTCORCH
                 | empty'''
-
-    """ print(" ===== FUNCTION ===== ")
-    print(p[1])
-    print(p[2])
-    print(p[3])
-    print(p[4])
-    print(p[5])
-    print(p[6])
-    print(p[7])
-    print(p[8])
-    print(len(p))
-    print(" === END OF FUNCTION === ") """
-
-
+    rules.p_insertID(p, True)
 
 
 def p_function_parameters(p):
-    '''function_parameters : type id function_extra_parameters'''
+    '''function_parameters : type ID function_extra_parameters'''
+    rules.p_insertID(p, False)
 
 
 def p_function_extra_parameters(p):
@@ -117,7 +114,7 @@ def p_function_extra_parameters(p):
 
 
 def p_assignment_block(p):
-    '''assignment_block : id assignment expression SEMICOLON'''
+    '''assignment_block : ID assignment expression SEMICOLON'''
 
 
 def p_assignment(p):
@@ -126,7 +123,7 @@ def p_assignment(p):
 
 
 def p_function_call(p):
-    '''function_call : id LEFTPAREN expression function_call_expressions RIGHTPAREN'''
+    '''function_call : ID LEFTPAREN expression function_call_expressions RIGHTPAREN'''
 
 
 def p_function_call_expressions(p):
