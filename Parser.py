@@ -40,6 +40,7 @@ def p_vars(p):
     print("Mi p[3]: ", p.slice[3])
     print("Mi p[4]: ", p[4]) """
 
+
 def p_type(p):
     '''type : INT
             | FLOAT
@@ -61,8 +62,13 @@ def p_vars_equals_array(p):
     rules.p_insertValue(p)
 
 
+def p_extra_vars_comma(p):
+    '''extra_vars_comma : COMMA'''
+    rules.p_insertComma(p)
+
+
 def p_extra_vars(p):
-    '''extra_vars : COMMA ID vars_equals
+    '''extra_vars : extra_vars_comma ID vars_equals
                 | empty'''
     rules.p_insertID(p, False)
 
@@ -76,7 +82,7 @@ def p_sign(p):
     '''sign : PLUS
             | MINUS
             | empty'''
-    # if len(p) == 2 : rules.p_insertValue(p)
+    rules.p_insertSign(p)
 
 
 def p_var_cte(p):

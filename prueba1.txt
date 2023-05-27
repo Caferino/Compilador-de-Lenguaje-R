@@ -1,7 +1,7 @@
-int a, baka = 69, caca, x[4] = {8};
+int a = 3, baka = 69, caca, x[4] = {0, 8, 9, -10};
 int listaI1, listaI2[5] <- {1,2,3,4,5};
 // Una matriz de 3 filas y 3 columnas
-float listota[9] <- {1.5, 1.3, 2.3, 5.6, 5.0, 5.0, 5.4, 4.4, 2};
+float listota[9] <- {1.5, 1.3, 2.3, -5.6, 5.0, 5.0, 5.4, -4.4, 2};
 int x <- 50;
 int y[6][6] = {1,1,1,1,1,1,1,1,1};
 float z[1][2][3][4] = {};
@@ -23,5 +23,7 @@ else{
 void dos(float y, bool z){
     print("Me hice caca en el pantalón II.");
 }
+
+int ultimaVar, Cassius = 49, Draegan <- 33, Daniel[5][5] = {1,2,3}, Cacoide;
 
 print(x);

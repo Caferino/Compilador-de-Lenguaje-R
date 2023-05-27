@@ -42,10 +42,12 @@ class Rules:
         self.varName = ''
         self.scope = 'global'
         self.isFunction = False
-        self.value = []
+        self.values = []
+        self.variableValues = []
 
         # Auxiliares
         self.openList = False
+
 
     # ------ TYPES ------ #
     def p_insertType(self, p):
@@ -71,59 +73,73 @@ class Rules:
                     indices = re.findall(r'\[(.*?)\]', row)
                     indices = [int(index) for index in indices]
 
-                self.varName = varName              
+                self.varName = varName          
 
+                # Descubrí que para meter los values tendré que crear una pila que los separe por las comas
+                # Ya que estoy leyendo esto de derecha a izquierda, arigato ozymndas
+                
+                # Separamos las variables en self.values con sus respectivas variables
+                if self.values : topValue = self.values.pop()
+                else : topValue = ','
+                while topValue != ',' and topValue != '}':
+                    # Si es un signo de menos, juntarlo con el siguiente valor
+                    if topValue == '-' : topValue = float(self.variableValues.pop()) * -1
+
+                    self.variableValues.append(topValue)
+                    if self.values : topValue = self.values.pop()
+                    else : break
+                
                 # Antes de meter los values, conviene transformar sus elementos al type apropiado
                 if self.type == 'int':
-                    self.value = [int(num) for num in self.value]
+                    self.variableValues = [int(num) for num in self.variableValues]
                 # Como ya llegan como floats... ignoramos ese caso
+                # Con bools puede ser, x > 0 = True, x == 0 or x == -1 = False tal vez, gusto propio...
+
+                # Por leerse de derecha a izquierda, ocupamos girarlos...
+                self.variableValues.reverse()
 
                 # Insertamos la data en forma de TUPLA a la Symbol Table
-                memory.insertRow( (self.type, self.varName, self.scope, isFunction, self.value) )
-                self.value = []
+                memory.insertRow( (self.type, self.varName, self.scope, isFunction, self.variableValues) )
+                
+                # Reseteamos auxiliares
+                self.variableValues = [] # Vaciamos los valores de esta variable para prestársela a la siguiente
                 self.isFunction = False
+                topValue = None
 
-                # Al ya tener el ID, ignoramos lo que siga
+                # Al ya tener el ID/Valores, ignoramos lo que siga de la production rule
                 break
 
 
+
     # ------ VALUES ------ #
+    # Comas para separar los valores/listas de valores de cada variables
+    def p_insertComma(self, p):
+        self.values.append(p[1])
+
+
+    # Si es un signo primero
+    def p_insertSign(self, p):
+        if p[1] == '-':
+            self.values.append(p[1])
+
+
+    # Si es un valor numérico o lista de
     def p_insertValue(self, p):
-
-        print('Value problem: ', p[1])
-        if len(p) == 3: print('Valueee 1: ', p[2])
-        if len(p) == 4: print('Valueee 2: ', p[3])
-        if len(p) == 5: print('Valueee 3: ', p[4])
-
-        # Si estamos en una lista, guardar elemento temporalmente
-        ## Por legibilidad puse "== True"
+        # Si estamos en una lista, guardar cada elemento temporalmente
         if '{' not in str(p[1]) and '}' not in str(p[1]):
-            print(p[1])
-            self.value.append(p[1])
+            self.values.append(p[1])
 
         # Si ya se va a cerrar la lista, cerramos este loop
-        if '}' in str(p[1]):
-            print('Entramos al }')
-            self.openList = False
-            # break  ## ¿Funcionará?
+        if len(p) > 2:
+            if '}' in str(p[3]):
+                self.values.append(p[3])
+                
+            elif '}' in str(p[4]): # Respecto a las production rules
+                self.openList = False
 
         # Si no es valor de una lista/matriz, lo agregamos directamente
         if '{' in str(p[1]):
-            print('Entramos')
             self.openList = True  # Si el value viene dentro de "{}", será una lista de uno o más
-            
-        
-        
-        """ print("insertValue: ", p[1])
-        # Si es un signo primero
-        if p[1] == '-' or p[1] == "+":
-            self.value = p[1]
-
-        elif p[1] != None:
-            # IF ES UNA VARIABLE ANTERIORMENTE DECLARADA
-
-            # Si no, debe ser un valor numérico. Verificar types y actualizar
-            self.value = self.value + str(p[1]) """
 
 
 
