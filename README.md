@@ -88,4 +88,9 @@
 >
 > Eso me llevó tiempo, sin embargo, de paso terminé de extraer y ordenar los valores también, lo cual se puso algo difícil porque esto se lee de derecha a izquierda, tuve que crear una pila que separe los elementos de cada variable declarada según las comas. Está feo, muy duct tape en mi opinión, pero funciona. Solo me falta separar las variables por sus funciones y separarlas de locales a globales, después de ello checar los tipos, que sean compatibles, finalmente meterme con los cuádruplos y completar lo que me falte. Siento me falta mucho, se siente muy pesado, pero seguiré a ver qué me sale.
 
+**27 Mayo 2023**
+
+> Planeé cómo diferenciar las variables de globales y locales y también insertar las dimensiones de las variables que lo tengan (variables de un solo valor la tienen vacía, pero mientras escribo esto, creo conviene hacerlas None, por si declaran una lista vacía, no se confunda con una variable de un valor tal vez. Pensé dejarlas adaptables, dinámicas, tipo python o R creo, donde casi todo es un array), y lo logré esta mañana. Fue sencillo y corto.
+>
+
 ~Óscar Antonio Hinojosa Salum A00821930

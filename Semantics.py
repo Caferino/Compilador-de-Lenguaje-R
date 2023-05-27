@@ -40,10 +40,11 @@ class Rules:
     def __init__(self):
         self.type = ''
         self.varName = ''
+        self.varDimensions = []
         self.scope = 'global'
         self.isFunction = False
         self.values = []
-        self.variableValues = []
+        self.varValues = []
 
         # Auxiliares
         self.openList = False
@@ -52,6 +53,11 @@ class Rules:
     # ------ TYPES ------ #
     def p_insertType(self, p):
         self.type = p[1]
+
+
+    # ------ SCOPE ------ #
+    def p_insertScope(self, scope):
+        self.scope = scope
 
 
     # ------ VARIABLES / IDs ------ #
@@ -72,6 +78,7 @@ class Rules:
                     # Guardamos las dimensiones
                     indices = re.findall(r'\[(.*?)\]', row)
                     indices = [int(index) for index in indices]
+                    self.varDimensions = indices
 
                 self.varName = varName          
 
@@ -83,27 +90,28 @@ class Rules:
                 else : topValue = ','
                 while topValue != ',' and topValue != '}':
                     # Si es un signo de menos, juntarlo con el siguiente valor
-                    if topValue == '-' : topValue = float(self.variableValues.pop()) * -1
+                    if topValue == '-' : topValue = float(self.varValues.pop()) * -1
 
-                    self.variableValues.append(topValue)
+                    self.varValues.append(topValue)
                     if self.values : topValue = self.values.pop()
                     else : break
                 
                 # Antes de meter los values, conviene transformar sus elementos al type apropiado
                 if self.type == 'int':
-                    self.variableValues = [int(num) for num in self.variableValues]
+                    self.varValues = [int(num) for num in self.varValues]
                 # Como ya llegan como floats... ignoramos ese caso
                 # Con bools puede ser, x > 0 = True, x == 0 or x == -1 = False tal vez, gusto propio...
 
                 # Por leerse de derecha a izquierda, ocupamos girarlos...
-                self.variableValues.reverse()
+                self.varValues.reverse()
 
                 # Insertamos la data en forma de TUPLA a la Symbol Table
-                memory.insertRow( (self.type, self.varName, self.scope, isFunction, self.variableValues) )
+                memory.insertRow( (self.type, self.varName, self.varDimensions, self.scope, isFunction, self.varValues) )
                 
                 # Reseteamos auxiliares
-                self.variableValues = [] # Vaciamos los valores de esta variable para prestársela a la siguiente
+                self.varValues = [] # Vaciamos los valores de esta variable para prestársela a la siguiente
                 self.isFunction = False
+                self.varDimensions = []
                 topValue = None
 
                 # Al ya tener el ID/Valores, ignoramos lo que siga de la production rule

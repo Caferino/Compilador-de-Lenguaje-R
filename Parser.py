@@ -106,11 +106,13 @@ def p_statement(p):
 def p_function(p):
     '''function : type ID LEFTPAREN function_parameters RIGHTPAREN LEFTCORCH block RIGHTCORCH
                 | empty'''
+    rules.p_insertScope('global')
     rules.p_insertID(p, True)
 
 
 def p_function_parameters(p):
     '''function_parameters : type ID function_extra_parameters'''
+    rules.p_insertScope('local')
     rules.p_insertID(p, False)
 
 
