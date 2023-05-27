@@ -90,7 +90,7 @@
 
 **27 Mayo 2023**
 
-> Planeé cómo diferenciar las variables de globales y locales y también insertar las dimensiones de las variables que lo tengan (variables de un solo valor la tienen vacía, pero mientras escribo esto, creo conviene hacerlas None, por si declaran una lista vacía, no se confunda con una variable de un valor tal vez. Pensé dejarlas adaptables, dinámicas, tipo python o R creo, donde casi todo es un array), y lo logré esta mañana. Fue sencillo y corto.
+> Planeé cómo diferenciar las variables de globales y locales y también insertar las dimensiones de las variables que lo tengan (variables de un solo valor la tienen vacía, pero mientras escribo esto, creo conviene hacerlas None, por si declaran una lista vacía, no se confunda con una variable de un valor tal vez. Pensé dejarlas adaptables, dinámicas, tipo python o R creo, donde casi todo es un array... O confirmar si tiene dimensiones primero, eso es mejor, me guarda tiempo y espacio), y lo logré esta mañana. Fue sencillo y corto.
 >
 
 ~Óscar Antonio Hinojosa Salum A00821930
