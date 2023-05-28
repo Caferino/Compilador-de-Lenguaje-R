@@ -6,9 +6,30 @@ int valor <- 50;
 int matriz[6][6] = {1,1,1,1,1,1,1,1,1};
 float cubote[1][2][3][4] = {};
 
+// ES IMPORTANTE DECLARAR LAS VARIABLES Y FUNCIONES PRIMERO, DESPUÉS LAS EXPRESIONES 
+// LO MISMO ADENTRO LAS FUNCIONES MISMAS, ESA LÓGICA DINÁMICA SE ME FUE DE LA MANO
+// OCUPABA REESCRIBIR TODO UNA TERCERA VEZ, CON UNA PILA GIGANTE QUE GUARDARA CADA
+// TOKEN DEL PROGRAMA DESDE EL PRINCIPIO HUBIERA PODIDO TAL VEZ
+
 void uno(int p, int y, int z){
+    int varAdentroDeUno1 = 5;
+    float varAdentroDeUno2 = 10;
+    bool varAdentroDeUno3 = -5;
+
+    // varAdentroDeUno1 = varAdentroDeUno1 + a;
+
     print("Me hice caca en el pantalón.");
 }
+
+void dos(float pastor, bool salsa){
+    print("Me hice caca en el pantalón II.");
+}
+
+void tres() {
+    // Caca
+}
+
+int ultimaVar, Cassius = 49, Draegan <- 33, Daniel[5][5] = {1,2,3}, Cacoide;
 
 while(x + y > z - 4){
     x = x - 1;
@@ -19,11 +40,5 @@ if (x > 6 %% 2) {
 else{
     x = x + 1;
 }
-
-void dos(float y, bool z){
-    print("Me hice caca en el pantalón II.");
-}
-
-int ultimaVar, Cassius = 49, Draegan <- 33, Daniel[5][5] = {1,2,3}, Cacoide;
 
 print(x);

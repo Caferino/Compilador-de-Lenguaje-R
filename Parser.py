@@ -10,13 +10,16 @@
 # ======================== Sintáxis ======================== #
 
 from Semantics import Rules
+from Quadruples import Quadruples
 
 rules = Rules()
+quadsConstructor = Quadruples()
 
 def p_program(p):
     '''program : block'''
     p[0] = "COMPILED"
     rules.p_end_program()
+    quadsConstructor.debugger()
 
 
 def p_block(p):
@@ -32,13 +35,8 @@ def p_vars(p):
     '''vars : type ID vars_equals SEMICOLON
             | type ID LEFTBRACKET CTEI RIGHTBRACKET vars_equals SEMICOLON
             | type ID LEFTBRACKET CTEI RIGHTBRACKET LEFTBRACKET CTEI RIGHTBRACKET vars_equals SEMICOLON'''
+    # Semántica
     rules.p_insertID(p, False)
-    """ print("Mi p: ", p)
-    print("Mi p[0]: ", p.slice[0])
-    print("Mi p[1]: ", p.slice[1])
-    print("Mi p[2]: ", p[2])
-    print("Mi p[3]: ", p.slice[3])
-    print("Mi p[4]: ", p[4]) """
 
 
 def p_type(p):
@@ -59,12 +57,12 @@ def p_vars_equals(p):
 def p_vars_equals_array(p):
     '''vars_equals_array : LEFTCORCH expression array_vars RIGHTCORCH
                 | LEFTCORCH empty RIGHTCORCH'''
-    rules.p_insertValue(p)
+    rules.p_saveValue(p)
 
 
 def p_extra_vars_comma(p):
     '''extra_vars_comma : COMMA'''
-    rules.p_insertComma(p)
+    rules.p_saveComma(p)
 
 
 def p_extra_vars(p):
@@ -82,14 +80,20 @@ def p_sign(p):
     '''sign : PLUS
             | MINUS
             | empty'''
-    rules.p_insertSign(p)
+    rules.p_saveSign(p)
 
 
 def p_var_cte(p):
     '''var_cte : ID
                | CTEI
                | CTEF'''
-    rules.p_insertValue(p)
+    # PROBLEMA CON SALSA
+    # Semántica
+    rules.p_saveValue(p)
+    rules.p_saveToOpStack(p)
+
+    # Cuádruplos
+    quadsConstructor.insertTypeAndID(p[1])
 
 
 def p_statement(p):
@@ -101,18 +105,22 @@ def p_statement(p):
                  | condition
                  | writing
                  | empty'''
+    rules.p_saveToOpStack(p)
 
 
 def p_function(p):
     '''function : type ID LEFTPAREN function_parameters RIGHTPAREN LEFTCORCH block RIGHTCORCH
                 | empty'''
     rules.p_insertScope('global')
+    rules.p_registerLocalVariables(p)
     rules.p_insertID(p, True)
 
 
 def p_function_parameters(p):
-    '''function_parameters : type ID function_extra_parameters'''
+    '''function_parameters : type ID function_extra_parameters
+                | empty'''
     rules.p_insertScope('local')
+    rules.p_saveLocalVariable(p)
     rules.p_insertID(p, False)
 
 

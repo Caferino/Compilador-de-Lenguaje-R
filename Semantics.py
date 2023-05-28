@@ -45,19 +45,76 @@ class Rules:
         self.isFunction = False
         self.values = []
         self.varValues = []
+        self.parentFunction = None
 
         # Auxiliares
         self.openList = False
+        self.currentFunctionParams = []
+        self.tuplesToModify = []
+        self.allTypes = []
+        self.inFunction = False
+        self.opStack = []
 
 
     # ------ TYPES ------ #
     def p_insertType(self, p):
         self.type = p[1]
+        self.allTypes.append(p[1])
 
 
     # ------ SCOPE ------ #
     def p_insertScope(self, scope):
         self.scope = scope
+
+
+    # ------ FUNCTION PARAMETER ------ #
+    # Esta función mete la variable parámetro en una pila para después
+    # asociarlas con el nombre de la función, la cual llega al final
+    def p_saveLocalVariable(self, p):
+        if len(p) > 2 : self.currentFunctionParams.append(p[2])
+
+
+    # ------ REGISTER FUNCTION PARAMETER ------ #
+    # Esta función vaciará la pila con todas las variables locales de la
+    # función a la vez que las registra como tal
+    def p_registerLocalVariables(self, p):
+        if len(p) > 2:
+            functionName = p[2] ## functionParent
+            # Empezamos el escaneo de la Symbol Table desde las variables
+            # más recientes porque esas serán las de la función, así me guardo
+            # procesamiento, creo que de lo mejor, O(1), creo. 
+            stackLength = len(self.currentFunctionParams) - 1
+            memoryLength = len(memory.symbolTable) - 1
+
+            while stackLength > -1:
+                print("Objetos del symbol table: ", memory.symbolTable[memoryLength][5])
+                # Sacamos la fila del symbol table con una variable local por actualizar
+                currentRow = memory.symbolTable[memoryLength]
+                # Actualizamos la columna "functionParent"
+                index_to_change = 5
+                currentRow = currentRow[:index_to_change] + (functionName,) + currentRow[index_to_change + 1:]
+                # Ponemos la nueva fila de vuelta
+                memory.symbolTable[memoryLength] = currentRow
+
+                # De una vez actualizo sus types también
+                """ index_to_change = 0
+                currentRow = (self.allTypes.pop(),) + currentRow[index_to_change + 1:]
+                memory.symbolTable[memoryLength] = currentRow """
+                
+                
+                memoryLength -= 1
+                stackLength -= 1
+
+            # Vaciamos la pila
+            self.currentFunctionParams = []
+            
+            
+            
+            """ print("Function Name: ", functionName)
+            print('Current parameters: ', self.currentFunctionParams) """
+
+
+
 
 
     # ------ VARIABLES / IDs ------ #
@@ -80,7 +137,11 @@ class Rules:
                     indices = [int(index) for index in indices]
                     self.varDimensions = indices
 
-                self.varName = varName          
+                self.varName = varName
+
+                # Si es una variable local, la anexamos con su función para facilitarme la vida después
+                if self.scope == 'local' and varName not in self.currentFunctionParams: 
+                    self.currentFunctionParams.append(varName)
 
                 # Descubrí que para meter los values tendré que crear una pila que los separe por las comas
                 # Ya que estoy leyendo esto de derecha a izquierda, arigato ozymndas
@@ -105,13 +166,21 @@ class Rules:
                 # Por leerse de derecha a izquierda, ocupamos girarlos...
                 self.varValues.reverse()
 
+                print("Current Values: ", self.varValues) # DEBUG
+
+                # Sacamos el type más actual, por si llegasen a ser parámetros
+                # Al declarar multiples variables (e.g. int a, b, c ...) solo
+                # se guarda un type a la vez, por ello esta pila allTypes
+                if len(self.allTypes) > 0 : self.type = self.allTypes.pop()
+
                 # Insertamos la data en forma de TUPLA a la Symbol Table
-                memory.insertRow( (self.type, self.varName, self.varDimensions, self.scope, isFunction, self.varValues) )
+                memory.insertRow( (self.type, self.varName, self.varDimensions, self.scope, isFunction, self.parentFunction, self.varValues) )
                 
                 # Reseteamos auxiliares
                 self.varValues = [] # Vaciamos los valores de esta variable para prestársela a la siguiente
                 self.isFunction = False
                 self.varDimensions = []
+                self.parentFunction = None
                 topValue = None
 
                 # Al ya tener el ID/Valores, ignoramos lo que siga de la production rule
@@ -121,18 +190,25 @@ class Rules:
 
     # ------ VALUES ------ #
     # Comas para separar los valores/listas de valores de cada variables
-    def p_insertComma(self, p):
+    def p_saveComma(self, p):
         self.values.append(p[1])
 
 
     # Si es un signo primero
-    def p_insertSign(self, p):
+    def p_saveSign(self, p):
         if p[1] == '-':
             self.values.append(p[1])
 
 
+    # La super pila Operadores que guardará todos los tokens necesarios del programa
+    # para las operaciones de los cuádruplos
+    def p_saveToOpStack(self, p):
+        if p[1] != None : self.opStack.append(p[1])
+        else : self.opStack.append(';')
+
+
     # Si es un valor numérico o lista de
-    def p_insertValue(self, p):
+    def p_saveValue(self, p):
         # Si estamos en una lista, guardar cada elemento temporalmente
         if '{' not in str(p[1]) and '}' not in str(p[1]):
             self.values.append(p[1])

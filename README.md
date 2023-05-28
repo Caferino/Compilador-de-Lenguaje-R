@@ -92,5 +92,11 @@
 
 > Planeé cómo diferenciar las variables de globales y locales y también insertar las dimensiones de las variables que lo tengan (variables de un solo valor la tienen vacía, pero mientras escribo esto, creo conviene hacerlas None, por si declaran una lista vacía, no se confunda con una variable de un valor tal vez. Pensé dejarlas adaptables, dinámicas, tipo python o R creo, donde casi todo es un array... O confirmar si tiene dimensiones primero, eso es mejor, me guarda tiempo y espacio), y lo logré esta mañana. Fue sencillo y corto.
 >
+> Más tarde arreglé la asignación de tipos y tuve que crear una regla "imaginaria", "general" del programa similar al LittleDuck donde primero se deben declarar las variables y desués ejecutar expresiones, igualmente dentro de una función. Sé que pone limitaciones en el lenguaje, pero ya me quiero enfocar en aprender a construirlo, me la compliqué demasiado al intentar diseñar un parser que fuera dinámico, casi como un lenguaje real y completo. Soy un imbécil, ya lo sé, quise lucirme, pero con esta regla, ya tengo todo lo que necesito para empezar los cuádruplos.
+
+**28 Mayo 2023**
+
+> Empecé el diseño y construcción de los métodos que construirán los cuádruplos. Medité la presentación en la mañana como un monje tibetiano. Intentaré hacer las expresiones primero, después funciones y returns, lo que falte. He tenido demasiadas complicaciones con PLY, creo que su manera de trabajo es toda una lógica distinta, porque me llega todo al revés, de derecha a izquierda, bottom-up parsing. Por ende me forza a vivir de pilas y contadores y de ponerme la trusa afuera, pero intentaré. Dios me bendiga.
+>
 
 ~Óscar Antonio Hinojosa Salum A00821930
