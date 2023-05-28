@@ -8,10 +8,6 @@
 """
 
 import re # Librería para expresiones regulares RegEX
-from Memory import MemoryMap
-import pprint # Para imprimir el Symbol Table de manera bonita
-
-memory = MemoryMap()
 
 class Quadruples:
     def __init__(self):
@@ -31,11 +27,23 @@ class Quadruples:
         self.right_Type = None
 
 
-
-
     # ------ 1. Inserting Type and ID ------ #
-    def insertTypeAndID(self, p):
-        self.placeHolder = None
+    def insertTypeAndID(self, token):
+        print("Token: ", token) # DEBUG
+        if token.__class__.__name__ == 'string':
+            print("Es un ID!") # DEBUG
+
+        else:
+            if token.__class__.__name__ == 'float':
+                print("Un float!") # DEBUG
+
+            elif token.__class__.__name__ == 'int':
+                print("Un integer!") # DEBUG
+
+            elif token.__class__.__name__ == 'bool':
+                print("Un bool!") # DEBUG
+
+            
 
 
     # ------ 1. Inserting Type and ID ------ #
@@ -50,3 +58,5 @@ class Quadruples:
         # print("PTypes: ", self.PTypes)
         # print("POper: ", self.POper)
         print("Quadruples: ", self.quadruples)
+
+quadsConstructor = Quadruples()

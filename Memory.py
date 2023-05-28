@@ -6,6 +6,7 @@
 """
 
 import re # Librería para expresiones regulares RegEX
+from Quadruples import quadsConstructor
 
 # ============ Métodos globales ============
 
@@ -24,7 +25,7 @@ def validateSize(self, address):
 class MemoryMap:
     def __init__(self):
         # self.memory = [None] * size
-
+        self.quadruples = []
         self.symbolTable = []
         
 

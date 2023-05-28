@@ -10,16 +10,15 @@
 # ======================== Sintáxis ======================== #
 
 from Semantics import Rules
-from Quadruples import Quadruples
+from Quadruples import quadsConstructor
 
 rules = Rules()
-quadsConstructor = Quadruples()
 
 def p_program(p):
     '''program : block'''
     p[0] = "COMPILED"
-    rules.p_end_program()
     quadsConstructor.debugger()
+    rules.p_end_program()
 
 
 def p_block(p):
@@ -74,26 +73,6 @@ def p_extra_vars(p):
 def p_array_vars(p):
     '''array_vars : COMMA expression array_vars
                 | empty'''
-
-
-def p_sign(p):
-    '''sign : PLUS
-            | MINUS
-            | empty'''
-    rules.p_saveSign(p)
-
-
-def p_var_cte(p):
-    '''var_cte : ID
-               | CTEI
-               | CTEF'''
-    # PROBLEMA CON SALSA
-    # Semántica
-    rules.p_saveValue(p)
-    rules.p_saveToOpStack(p)
-
-    # Cuádruplos
-    quadsConstructor.insertTypeAndID(p[1])
 
 
 def p_statement(p):
@@ -173,6 +152,26 @@ def p_print_val(p):
 def p_print_exp(p):
     '''print_exp : COMMA  print_val
                  | empty'''
+
+
+def p_sign(p):
+    '''sign : PLUS
+            | MINUS
+            | empty'''
+    rules.p_saveSign(p)
+
+
+def p_var_cte(p):
+    '''var_cte : CTEI
+               | CTEF
+               | ID'''
+    # PROBLEMA CON SALSA
+    # Cuádruplos
+    # quadsConstructor.insertTypeAndID(p[1])
+
+    # Semántica
+    rules.p_saveValue(p)
+    rules.p_saveToOpStack(p)
 
 
 def p_expression(p):

@@ -7,6 +7,7 @@
 """
 
 import ply.lex as lex
+from Quadruples import quadsConstructor
 
 # Palabras Clave
 
@@ -76,8 +77,9 @@ def t_CTESTRING(t):
 
 # Número Flotante (float)
 def t_CTEF(t):
-    r'[0-9]*\.[0-9]+|[0-9]+'
+    r'[0-9]*\.[0-9]+'
     t.value = float(t.value)
+    quadsConstructor.insertTypeAndID(t)
     return t
 
 
@@ -85,6 +87,7 @@ def t_CTEF(t):
 def t_CTEI(t):
     r'\d+'
     t.value = int(t.value)
+    quadsConstructor.insertTypeAndID(t)
     return t
 
 

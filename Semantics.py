@@ -10,9 +10,11 @@
 # ======================== Semántica ======================== #
 
 import re # Librería para expresiones regulares RegEX
-from Memory import MemoryMap
 import pprint # Para imprimir el Symbol Table de manera bonita
 
+from Quadruples import quadsConstructor
+
+from Memory import MemoryMap
 memory = MemoryMap()
 
 typeMatchTable = [

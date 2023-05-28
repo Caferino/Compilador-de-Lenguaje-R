@@ -98,5 +98,6 @@
 
 > Empecé el diseño y construcción de los métodos que construirán los cuádruplos. Medité la presentación en la mañana como un monje tibetiano. Intentaré hacer las expresiones primero, después funciones y returns, lo que falte. He tenido demasiadas complicaciones con PLY, creo que su manera de trabajo es toda una lógica distinta, porque me llega todo al revés, de derecha a izquierda, bottom-up parsing. Por ende me forza a vivir de pilas y contadores y de ponerme la trusa afuera, pero intentaré. Dios me bendiga.
 >
+> Bug fix que pudo haber cambiado mi vida desde el inicio: mi regex para números floats aceptaba integers tambien (r'[0-9]\.[0-9]+|[0-9]+'). Tuve que cambiarlo a que solo lea floats (r'[0-9]\.[0-9]+').
 
 ~Óscar Antonio Hinojosa Salum A00821930
