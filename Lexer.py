@@ -79,7 +79,7 @@ def t_CTESTRING(t):
 def t_CTEF(t):
     r'[0-9]*\.[0-9]+'
     t.value = float(t.value)
-    quadsConstructor.insertTypeAndID(t)
+    quadsConstructor.insertTypeAndID(t.value)
     return t
 
 
@@ -87,7 +87,7 @@ def t_CTEF(t):
 def t_CTEI(t):
     r'\d+'
     t.value = int(t.value)
-    quadsConstructor.insertTypeAndID(t)
+    quadsConstructor.insertTypeAndID(t.value)
     return t
 
 
