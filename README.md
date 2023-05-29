@@ -104,4 +104,10 @@
 >
 > Terminé de construir/copiar la lógica de los cuádruplos de expresiones, solo me falta descifrar qué hacer con "AVAIL.next()" y "If any operand were a temporal space, return it to AVAIL" ... Igualmente, acabé el cubo semántico, ya checa los tipos y envía error que rompe el programa y te dice la expresión problemática; sin embargo, me falta hacer que los IDs entren con sus valores apropiados (ya los tengo declarados en la symbolTable) en vez como strings/chars. Tendré que asegurarme que sea local/global, índice de lista (después), etc.
 
+**29 Mayo 2023**
+
+> Saliendo de clase copié y adapté la lógica de las presentaciones para las expresiones, condicionales y ciclos while; me falta descifrar qué hacer con AVAIL y FILL.
+>
+> Estoy viendo que mi lógica de funciones se va a complicar demasiado, por no haber sabido cómo ejecutar acciones antes o durante, solo al final, todo lo hice como una especie de vector polaco masivo, leyendo de derecha a izquierda todo, sosteniéndome de las comas para saber dónde parar, dónde seguir, etcétera... No tengo ya la cabeza para reescribir algo así de grande otra vez, siento que me estoy arriesgando, así que primero me enfocaré en que la VM pueda ya leer y resolver operaciones, returns, prints, al menos para las expresiones primero, después subiré con las funciones y/o recursión.
+
 ~Óscar Antonio Hinojosa Salum A00821930

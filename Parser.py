@@ -127,17 +127,40 @@ def p_function_call_expressions(p):
 
 
 def p_loop(p):
-    '''loop : WHILE LEFTPAREN expression RIGHTPAREN LEFTCORCH block RIGHTCORCH
+    '''loop : nodowhile LEFTPAREN expression nodowhile2 LEFTCORCH block RIGHTCORCH
                  | empty'''
+    # ! quadsConstructor.nodoWhileTres()
+
+
+def p_nodowhile(p):
+    '''nodowhile : WHILE'''
+    # ! quadsConstructor.nodoWhileUno()
+
+
+def p_nodowhile2(p):
+    '''nodowhile2 : RIGHTPAREN'''
+    # ! quadsConstructor.nodoWhileDos()
 
 
 def p_condition(p):
-    '''condition : IF LEFTPAREN expression RIGHTPAREN LEFTCORCH block RIGHTCORCH else_condition'''
+    '''condition : IF LEFTPAREN expression nodocond LEFTCORCH block RIGHTCORCH else_condition'''
+    # ! quadsConstructor.nodoCondicionalDos()
+    # TODO: Completar lógica "self.cont"
+
+def p_nodocond(p):
+    '''nodocond : RIGHTPAREN'''
+    # ! quadsConstructor.nodoCondicionalUno()
+    # TODO: Completar lógica
 
 
 def p_else_condition(p):
-    '''else_condition : ELSE LEFTCORCH block RIGHTCORCH
+    '''else_condition : nodoelse LEFTCORCH block RIGHTCORCH
                       | empty'''
+
+def p_nodoelse(p):
+    '''nodoelse : ELSE'''
+    # ! quadsConstructor.nodoCondicionalTres()
+    # TODO: Completar lógica
 
 
 def p_writing(p):
@@ -223,6 +246,7 @@ def p_fact(p):
 # # ======================== Reglas de Errores ======================== #
 
 def p_error(p):
+    # raise TypeError("Syntax error in input! - {} ".format(p)) # Para detener la compilación
     print("Syntax error in input! - {} ".format(p))
 
 

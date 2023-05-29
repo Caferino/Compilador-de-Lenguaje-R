@@ -21,7 +21,15 @@ class Quadruples:
         self.PTypes = []
         self.POper = []
 
+        # Para los estatutos que requieren saltos
+        self.PJumps = []
+        self.cont = 1  ## Los cuádruplos empiezan desde 1.
 
+
+
+
+
+    # ------------------ EXPRESIONES LINEALES ------------------ #
     # ------ 1. Insertando Type y ID ------ #
     def insertTypeAndID(self, token):
         self.PilaO.append(token)
@@ -39,7 +47,7 @@ class Quadruples:
 
     # ------ 4. Verificando Sumas o Restas ------ #
     def verifySignPlusOrMinus(self):
-        # print("Current POper: ", self.POper)
+        # print("Current POper: ", self.POper) # ! DEBUG
         if self.POper:
             if self.POper[-1] == '+' or self.POper[-1] == '-':
                 # Asignamos operandos y operador a validar y ejecutar
@@ -54,19 +62,19 @@ class Quadruples:
                 result_Type = SemanticCube.Semantics(left_Type, right_Type, operator)
 
                 if(result_Type != 'ERROR'):
-                    result = 'AVAIL.next()'
+                    result = 'AVAIL.next()'  # TODO Lógica de AVAIL
                     self.generateQuadruple(operator, left_operand, right_operand, result)
                     self.PilaO.append(result)
                     self.PTypes.append(result_Type)
-                    # "If any operand were a temporal space, return it to AVAIL"
+                    # TODO: "If any operand were a temporal space, return it to AVAIL"
 
                 else:
-                    raise TypeError("Type mismatch in: ", left_operand, " ", operator, " ", right_operand)
+                    print("Type mismatch in: ", left_operand, operator, right_operand)
 
 
     # ------ 5. Verificando Multiplicaciones o Divisiones ------ #
     def verifySignTimesOrDivide(self):
-        # print("Current POper: ", self.POper)
+        # print("Current POper: ", self.POper) # ! DEBUG
         if self.POper:
             if self.POper[-1] == '*' or self.POper[-1] == '/':
                 # Asignamos operandos y operador a validar y ejecutar
@@ -81,20 +89,80 @@ class Quadruples:
                 result_Type = SemanticCube.Semantics(left_Type, right_Type, operator)
 
                 if(result_Type != 'ERROR'):
-                    result = 'AVAIL.next()'
+                    result = 'AVAIL.next()'  # TODO Lógica de AVAIL
                     self.generateQuadruple(operator, left_operand, right_operand, result)
                     self.PilaO.append(result)
                     self.PTypes.append(result_Type)
-                    # "If any operand were a temporal space, return it to AVAIL"
+                    # TODO: "If any operand were a temporal space, return it to AVAIL"
 
                 else:
-                    raise TypeError("Type mismatch in: ", left_operand, " ", operator, " ", right_operand)
+                    print("Type mismatch in: ", left_operand, operator, right_operand)
 
 
-    # ------ Generador de Cuádruplo ------ #
+
+
+
+    # ------------------ CONDICIONALES ------------------ #
+    # ------ 1. Primer nodo de un IF/ELSE statement ------ #
+    def nodoCondicionalUno(self):
+        exp_type = self.PTypes.pop()
+        if(exp_type != 'bool') : print("Type Mismatch in a Conditional!", exp_type, "in", self.quadruples)
+        else:
+            result = self.PilaO.pop()
+            self.generateQuadruple('GotoF', result, '', 'linePlaceHolder')
+            self.PJumps.append(self.cont - 1)
+
+
+    # ------ 2. Segundo nodo de IF/ELSE  ------ #
+    def nodoCondicionalDos(self):
+        end = self.PJumps.pop()
+        # TODO: FILL(end, self.cont)
+
+
+    # ------ 3. Tercer nodo de IF/ELSE  ------ #
+    def nodoCondicionalTres(self):
+        false = self.PJumps.pop()
+        self.PJumps.push(self.cont - 1)
+        # TODO: FILL(false, self.cont)
+
+
+
+
+
+    # ------------------ CICLOS WHILE ------------------ #
+    # ------ 1. Primer nodo de un WHILE statement ------ #
+    def nodoWhileUno(self):
+        self.PJumps.append(self.cont)
+
+
+    # ------ 2. Segundo nodo de WHILE ------ #
+    def nodoWhileDos(self):
+        exp_type = self.PTypes.pop()
+        if(exp_type != 'bool') : print("Type Mismatch in a While Loop!", exp_type, "in", self.quadruples)
+        else:
+            result = self.PilaO.pop()
+            self.generateQuadruple('GotoF', result, '', 'linePlaceHolder')
+            self.PJumps.push(self.cont - 1)
+
+
+    # ------ 3. Tercer nodo de WHILE ------ #
+    def nodoWhileTres(self):
+        end = self.PJumps.pop()
+        varReturn = self.PJumps.pop()
+        self.generateQuadruple('GOTO', varReturn, '', '')
+        # TODO: FILL(end, self.cont)
+
+
+
+
+
+    # ------------------ MÉTODOS AUXILIARES ------------------ #
+    # ------ Generador de Cuádruplos ------ #
     def generateQuadruple(self, operator, left_operand, right_operand, result):
         
-        # Generar quad
+        # TODO Generar cuádruplo tipo quad = (operator, left_operand, right_operand, result)
+        # quad = (operator, left_operand, right_operand, result)
+        # print("QUAD ACTUAL: ", quad) # ! DEBUG
 
         # Empujamos el nuevo cuádruple a nuestra lista o memoria
         self.quadruples.append('quad')
