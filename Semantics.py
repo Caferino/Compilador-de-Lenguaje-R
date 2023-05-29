@@ -89,7 +89,7 @@ class Rules:
             memoryLength = len(memory.symbolTable) - 1
 
             while stackLength > -1:
-                print("Objetos del symbol table: ", memory.symbolTable[memoryLength][5])
+                # print("Objetos del symbol table: ", memory.symbolTable[memoryLength][5]) # DEBUG
                 # Sacamos la fila del symbol table con una variable local por actualizar
                 currentRow = memory.symbolTable[memoryLength]
                 # Actualizamos la columna "functionParent"
@@ -168,7 +168,7 @@ class Rules:
                 # Por leerse de derecha a izquierda, ocupamos girarlos...
                 self.varValues.reverse()
 
-                print("Current Values: ", self.varValues) # DEBUG
+                # print("Current Values: ", self.varValues) # DEBUG
 
                 # Sacamos el type más actual, por si llegasen a ser parámetros
                 # Al declarar multiples variables (e.g. int a, b, c ...) solo

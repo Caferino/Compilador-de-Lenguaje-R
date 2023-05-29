@@ -154,11 +154,11 @@ def p_print_exp(p):
                  | empty'''
 
 
-def p_sign(p):
+""" def p_sign(p):
     '''sign : PLUS
             | MINUS
             | empty'''
-    rules.p_saveSign(p)
+    rules.p_saveSign(p) """
 
 
 def p_var_cte(p):
@@ -166,8 +166,7 @@ def p_var_cte(p):
                | CTEF
                | ID'''
     # PROBLEMA CON SALSA
-    # Cuádruplos
-    # quadsConstructor.insertTypeAndID(p[1])
+    if p.slice[1].type == 'ID' : quadsConstructor.insertTypeAndID(p[1]) # Nuestro lexer lidia con números
 
     # Semántica
     rules.p_saveValue(p)
@@ -180,6 +179,7 @@ def p_expression(p):
 
 def p_exp(p):
     '''exp : term operator'''
+    quadsConstructor.verifySignPlusOrMinus() # If POper.top == '+' or '-' ...
 
 
 def p_comparation(p):
@@ -190,28 +190,32 @@ def p_comparation(p):
                  | NOTEQUAL exp
                  | NOTEQUALNUM exp
                  | empty'''
+    if p[1] != None : quadsConstructor.insertSign(p[1])
 
 
 def p_term(p):
-    '''term : factor term_operator'''
+    '''term : fact term_operator'''
+    quadsConstructor.verifySignTimesOrDivide()
 
 
 def p_operator(p):
     '''operator : PLUS term operator
                 | MINUS term operator
                 | empty'''
+    if p[1] != None : quadsConstructor.insertSign(p[1])
 
 
 def p_term_operator(p):
-    '''term_operator : TIMES factor term_operator
-                     | DIVIDE factor term_operator
-                     | MODULUS factor term_operator
+    '''term_operator : TIMES fact term_operator
+                     | DIVIDE fact term_operator
+                     | MODULUS fact term_operator
                      | empty'''
+    if p[1] != None : quadsConstructor.insertSign(p[1])
 
 
-def p_factor(p):
-    '''factor : LEFTPAREN expression RIGHTPAREN
-              | sign var_cte'''
+def p_fact(p):
+    '''fact : LEFTPAREN expression RIGHTPAREN
+              | var_cte'''
 
 
 

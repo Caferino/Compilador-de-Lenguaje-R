@@ -29,7 +29,7 @@ keywords = {
 tokens = [
     'SEMICOLON', 'LEFTBRACKET', 'RIGHTBRACKET', 'GREATER', 'LESS', 'NOTEQUAL', 'NOTEQUALNUM', 'PLUS', 'MINUS', 'TIMES',
     'DIVIDE', 'MODULUS', 'LEFTPAREN', 'RIGHTPAREN', 'ID', 'CTEI', 'CTEF', 'EQUALS', 'ASSIGNL', 'LEFTCORCH', 'RIGHTCORCH',
-    'CTESTRING', 'COMMA', 'AND', 'OR', 'PRINT', 'IF', 'ELSE', 'INT', 'FLOAT', 'BOOL', 'VOID', 'WHILE'
+    'CTESTRING', 'COMMA', 'AND', 'OR', 'PRINT', 'IF', 'ELSE', 'INT', 'FLOAT', 'BOOL', 'VOID', 'WHILE',
 ]
 
 
@@ -77,7 +77,7 @@ def t_CTESTRING(t):
 
 # Número Flotante (float)
 def t_CTEF(t):
-    r'[0-9]*\.[0-9]+'
+    r'-?[0-9]*\.[0-9]+'
     t.value = float(t.value)
     quadsConstructor.insertTypeAndID(t.value)
     return t
@@ -85,7 +85,7 @@ def t_CTEF(t):
 
 # Número Entero (int)
 def t_CTEI(t):
-    r'\d+'
+    r'-?\d+'
     t.value = int(t.value)
     quadsConstructor.insertTypeAndID(t.value)
     return t
