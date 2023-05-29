@@ -101,5 +101,7 @@
 > Bug fix que pudo haber cambiado mi vida desde el inicio: mi regex para números floats aceptaba integers tambien (r'[0-9]\.[0-9]+|[0-9]+'). Tuve que cambiarlo a que solo lea floats (r'[0-9]\.[0-9]+').
 >
 > Igualmente acabo descubrir cómo ejecutar acciones antes y durante la lectura del parser con PLY... Doy asco, me gustaría reescribir todo, pero ya no puedo.
+>
+> Terminé de construir/copiar la lógica de los cuádruplos de expresiones, solo me falta descifrar qué hacer con "AVAIL.next()" y "If any operand were a temporal space, return it to AVAIL" ... Igualmente, acabé el cubo semántico, ya checa los tipos y envía error que rompe el programa y te dice la expresión problemática; sin embargo, me falta hacer que los IDs entren con sus valores apropiados (ya los tengo declarados en la symbolTable) en vez como strings/chars. Tendré que asegurarme que sea local/global, índice de lista (después), etc.
 
 ~Óscar Antonio Hinojosa Salum A00821930

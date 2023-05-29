@@ -26,6 +26,8 @@ class Quadruples:
     def insertTypeAndID(self, token):
         self.PilaO.append(token)
         self.PTypes.append(token.__class__.__name__)
+        # ! TODO: Si es un ID, que saque su tipo real, valor también tal vez, etc.
+        # ! Espérate al error del Semantic Cube
 
 
     # ------ 2 y 3. Insertando Signos (+, -, *, /, <, >, <>, =, ...) ------ #
