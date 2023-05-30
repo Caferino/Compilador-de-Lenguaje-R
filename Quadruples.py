@@ -10,6 +10,37 @@
 import re # Librería para expresiones regulares RegEX
 import SemanticCube
 
+# Pool de variables temporales, espacios temporales, t1, t2, ...
+class Avail:
+    temporales = []
+    next_temp = 1
+
+    # Estático para no tener que declarar un objeto tipo Avail
+    @staticmethod
+    def next():
+        if Avail.temporales:
+            return Avail.temporales.pop()
+        else:
+            # "The letter "f" at the beginning of the string "t{Avail.next_temp}" 
+            # denotes that it is a formatted string literal. Introduced in Python 3.6."
+            # En este caso, para crear 't1', 't2', 't3', ...
+            temp = f"t{Avail.next_temp}"
+            Avail.next_temp += 1
+            return temp
+
+    # Si algún operando (Izq. o Der.) en el cuádruplo actual
+    # es una variable temporal, se debe(n) regresar al Avail
+    @staticmethod
+    def release(space):
+        # Para evitar errores de "out of index", checamos que mida al menos 2, 't1', 't125' ...
+        if len(space) >= 2:
+            # Si empieza con 't', seguido de numeros, es un espacio temporal.
+            # Me pregunto si puedo romperlo si declaro variable con nombres 't1', 't2', ...
+            if space.startswith('t') and space[1:].isdigit():
+                Avail.temporales.append(space)
+
+
+
 class Quadruples:
     def __init__(self):
         # Mom
@@ -51,7 +82,7 @@ class Quadruples:
         if self.POper:
             if self.POper[-1] == '+' or self.POper[-1] == '-':
                 # Asignamos operandos y operador a validar y ejecutar
-                # ! IMPORTANTE: El orden de los .pop() importan!
+                ## ! IMPORTANTE: El orden de los .pop() importan!
                 right_operand = self.PilaO.pop()
                 left_operand = self.PilaO.pop()
 
@@ -66,7 +97,11 @@ class Quadruples:
                     self.generateQuadruple(operator, left_operand, right_operand, result)
                     self.PilaO.append(result)
                     self.PTypes.append(result_Type)
-                    # TODO: "If any operand were a temporal space, return it to AVAIL"
+
+                    # "If any operand were a temporal space, return it to AVAIL"
+                    # Se checará que sea un espacio temporal antes de meterlo de vuelta a Avail
+                    Avail.release(left_operand)
+                    Avail.release(right_operand)
 
                 else:
                     print("Type mismatch in: ", left_operand, operator, right_operand)
@@ -93,7 +128,11 @@ class Quadruples:
                     self.generateQuadruple(operator, left_operand, right_operand, result)
                     self.PilaO.append(result)
                     self.PTypes.append(result_Type)
-                    # TODO: "If any operand were a temporal space, return it to AVAIL"
+
+                    # "If any operand were a temporal space, return it to AVAIL"
+                    # Se checará que sea un espacio temporal antes de meterlo de vuelta a Avail
+                    Avail.release(left_operand)
+                    Avail.release(right_operand)
 
                 else:
                     print("Type mismatch in: ", left_operand, operator, right_operand)

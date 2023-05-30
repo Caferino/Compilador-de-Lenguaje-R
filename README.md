@@ -109,5 +109,7 @@
 > Saliendo de clase copié y adapté la lógica de las presentaciones para las expresiones, condicionales y ciclos while; me falta descifrar qué hacer con AVAIL y FILL.
 >
 > Estoy viendo que mi lógica de funciones se va a complicar demasiado, por no haber sabido cómo ejecutar acciones antes o durante, solo al final, todo lo hice como una especie de vector polaco masivo, leyendo de derecha a izquierda todo, sosteniéndome de las comas para saber dónde parar, dónde seguir, etcétera... No tengo ya la cabeza para reescribir algo así de grande otra vez, siento que me estoy arriesgando, así que primero me enfocaré en que la VM pueda ya leer y resolver operaciones, returns, prints, al menos para las expresiones primero, después subiré con las funciones y/o recursión.
+>
+> Después de jugar Tears of the Kingdom en el TEC un rato, desenredé mi cerebro, diseñé y construí el set de espacios temporales AVAIL. Con ayuda de ChatGPT recordé el uso de métodos estáticos y también el comando 'f' de Python 3.6, para crear strings, útil al momento de generar 't1, t2, t3 ...'.
 
 ~Óscar Antonio Hinojosa Salum A00821930
