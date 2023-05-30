@@ -93,7 +93,7 @@ class Quadruples:
                 result_Type = SemanticCube.Semantics(left_Type, right_Type, operator)
 
                 if(result_Type != 'ERROR'):
-                    result = 'AVAIL.next()'  # TODO Lógica de AVAIL
+                    result = Avail.next()
                     self.generateQuadruple(operator, left_operand, right_operand, result)
                     self.PilaO.append(result)
                     self.PTypes.append(result_Type)
@@ -124,7 +124,7 @@ class Quadruples:
                 result_Type = SemanticCube.Semantics(left_Type, right_Type, operator)
 
                 if(result_Type != 'ERROR'):
-                    result = 'AVAIL.next()'  # TODO Lógica de AVAIL
+                    result = Avail.next()
                     self.generateQuadruple(operator, left_operand, right_operand, result)
                     self.PilaO.append(result)
                     self.PTypes.append(result_Type)
