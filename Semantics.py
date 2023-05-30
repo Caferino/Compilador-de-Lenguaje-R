@@ -177,7 +177,8 @@ class Rules:
 
                 # Insertamos la data en forma de TUPLA a la Symbol Table
                 memory.insertRow( (self.type, self.varName, self.varDimensions, self.scope, isFunction, self.parentFunction, self.varValues) )
-                
+                quadsConstructor.updateSymbolTable(memory.symbolTable)
+
                 # Reseteamos auxiliares
                 self.varValues = [] # Vaciamos los valores de esta variable para prestársela a la siguiente
                 self.isFunction = False

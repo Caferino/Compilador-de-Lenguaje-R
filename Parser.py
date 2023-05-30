@@ -145,12 +145,10 @@ def p_nodowhile2(p):
 def p_condition(p):
     '''condition : IF LEFTPAREN expression nodocond LEFTCORCH block RIGHTCORCH else_condition'''
     # ! quadsConstructor.nodoCondicionalDos()
-    # TODO: Completar lógica "self.cont"
 
 def p_nodocond(p):
     '''nodocond : RIGHTPAREN'''
     # ! quadsConstructor.nodoCondicionalUno()
-    # TODO: Completar lógica
 
 
 def p_else_condition(p):
@@ -160,7 +158,6 @@ def p_else_condition(p):
 def p_nodoelse(p):
     '''nodoelse : ELSE'''
     # ! quadsConstructor.nodoCondicionalTres()
-    # TODO: Completar lógica
 
 
 def p_writing(p):

@@ -1,3 +1,8 @@
+**Comando y archivo utilizado para debugging:**
+
+> python3 Parser.py prueba1.txt
+
+
 **Avances:**
 
 **16 Abril 2023**
@@ -111,5 +116,15 @@
 > Estoy viendo que mi lógica de funciones se va a complicar demasiado, por no haber sabido cómo ejecutar acciones antes o durante, solo al final, todo lo hice como una especie de vector polaco masivo, leyendo de derecha a izquierda todo, sosteniéndome de las comas para saber dónde parar, dónde seguir, etcétera... No tengo ya la cabeza para reescribir algo así de grande otra vez, siento que me estoy arriesgando, así que primero me enfocaré en que la VM pueda ya leer y resolver operaciones, returns, prints, al menos para las expresiones primero, después subiré con las funciones y/o recursión.
 >
 > Después de jugar Tears of the Kingdom en el TEC un rato, desenredé mi cerebro, diseñé y construí el set de espacios temporales AVAIL. Con ayuda de ChatGPT recordé el uso de métodos estáticos y también el comando 'f' de Python 3.6, para crear strings, útil al momento de generar 't1, t2, t3 ...'.
+>
+> Durante la noche avancé a otro proyecto final, tengo dos: editar un script que escribí anteriormente en clase de Guinismo, y diseñar una caja para Diseño Gráfico. Me siento agobiado, tal vez terminaré sacrificando algo. No me quedó tiempo hoy para construir el FILL().
+
+**30 Mayo 2023**
+
+> Ya reentendí que FILL() lo usamos para asignar la línea a cuál saltar en un GOTOF ("ir a cierta línea si la variable es False") o GOTOV ("ir a cierta línea si la variable es True") ...
+>
+> Lo logré. Construí el método "FILL(líneaACuálSaltar, dóndeEnLosCuádruplos)", arreglé varios errores y finalmente los cuádruplos para expresiones lineales se construyen sin problema. Tuve que igual crear un método que busque el nombre del ID en la symbolTable para ver si existe, sacar su tipo y valor. Ese método sé que sufrirá muchos cambios, pues faltará checar si es global o local, si es una lista o matriz, en dónde, etc. Por ahora, ya funciona hacer expresiones lineales, al menos lo primero, aún faltan los returns y los prints. El órden de los cuádruplos se ve bien, regresa error si son de tipos incorrectos o si la variable aún no ha sido declarada...
+>
+> Por ahora necesito mirar mi techo una hora para reflexionar qué es mi vida.
 
 ~Óscar Antonio Hinojosa Salum A00821930

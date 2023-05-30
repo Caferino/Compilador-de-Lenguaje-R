@@ -6,7 +6,6 @@
 """
 
 import re # Librería para expresiones regulares RegEX
-from Quadruples import quadsConstructor
 
 # ============ Métodos globales ============
 

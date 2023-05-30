@@ -9,6 +9,9 @@
 
 import re # Librería para expresiones regulares RegEX
 import SemanticCube
+import SymbolTable
+import pprint
+import sys
 
 # Pool de variables temporales, espacios temporales, t1, t2, ...
 class Avail:
@@ -33,11 +36,8 @@ class Avail:
     @staticmethod
     def release(space):
         # Para evitar errores de "out of index", checamos que mida al menos 2, 't1', 't125' ...
-        if len(space) >= 2:
-            # Si empieza con 't', seguido de numeros, es un espacio temporal.
-            # Me pregunto si puedo romperlo si declaro variable con nombres 't1', 't2', ...
-            if space.startswith('t') and space[1:].isdigit():
-                Avail.temporales.append(space)
+        if isinstance(space, str) and space.startswith('t') and space[1:].isdigit():
+            Avail.temporales.append(space)
 
 
 
@@ -45,7 +45,7 @@ class Quadruples:
     def __init__(self):
         # Mom
         self.quadruples = []
-        self.quad_count = 0
+        self.symbolTable = []
 
         # Pilas para construir cuádruplos
         self.PilaO = []
@@ -63,8 +63,30 @@ class Quadruples:
     # ------------------ EXPRESIONES LINEALES ------------------ #
     # ------ 1. Insertando Type y ID ------ #
     def insertTypeAndID(self, token):
-        self.PilaO.append(token)
-        self.PTypes.append(token.__class__.__name__)
+        if token.__class__.__name__ == 'int' or token.__class__.__name__ == 'float':
+            # Si el token es un número, hacemos lo usual
+            self.PilaO.append(token)
+            self.PTypes.append(token.__class__.__name__)
+
+        else:
+            # Si no, es un ID que debemos buscar
+            print("Es un ID!",  token)
+            i = 0   # I missed you, baby
+            for tuple in self.symbolTable:
+                if token == tuple[1]:   ## Posición del ID en la symbolTable
+                    self.PilaO.append(tuple[6][0]) # Posición del primer valor en su lista de valores
+                    self.PTypes.append(tuple[0]) # Posición del tipo
+                    break
+
+                # Si llegamos a la última tupla y aún no existe la variable...
+                if token != tuple[1] and i == len(self.symbolTable) - 1:
+                    raise TypeError('Variable ', token, ' not declared!')
+                
+                i += 1
+
+
+            
+        
         # ! TODO: Si es un ID, que saque su tipo real, valor también tal vez, etc.
         # ! Espérate al error del Semantic Cube
 
@@ -155,14 +177,16 @@ class Quadruples:
     # ------ 2. Segundo nodo de IF/ELSE  ------ #
     def nodoCondicionalDos(self):
         end = self.PJumps.pop()
-        # TODO: FILL(end, self.cont)
+        # Mandamos a insertar la línea a cuál saltar
+        self.fill(end, self.cont)
 
 
     # ------ 3. Tercer nodo de IF/ELSE  ------ #
     def nodoCondicionalTres(self):
         false = self.PJumps.pop()
         self.PJumps.push(self.cont - 1)
-        # TODO: FILL(false, self.cont)
+        # Mandamos a insertar la línea a cuál saltar
+        self.fill(false, self.cont)
 
 
 
@@ -189,7 +213,7 @@ class Quadruples:
         end = self.PJumps.pop()
         varReturn = self.PJumps.pop()
         self.generateQuadruple('GOTO', varReturn, '', '')
-        # TODO: FILL(end, self.cont)
+        self.fill(end, self.cont)
 
 
 
@@ -198,19 +222,31 @@ class Quadruples:
     # ------------------ MÉTODOS AUXILIARES ------------------ #
     # ------ Generador de Cuádruplos ------ #
     def generateQuadruple(self, operator, left_operand, right_operand, result):
-        
-        # TODO Generar cuádruplo tipo quad = (operator, left_operand, right_operand, result)
-        # quad = (operator, left_operand, right_operand, result)
-        # print("QUAD ACTUAL: ", quad) # ! DEBUG
-
         # Empujamos el nuevo cuádruple a nuestra lista o memoria
-        self.quadruples.append('quad')
+        self.quadruples.append( (operator, left_operand, right_operand, result) )
+        self.cont += 1                             ### ! TAL VEZ ME ESTOY EQUIVOCANDO CON ESTO? 
 
-    
+
+    # ------ Llenado de líneas de salto para GOTOF y GOTOV ------ #
+    ## ! Mi "QUAD_POINTER", quad_cont, counter, cont APUNTA siempre hacia el SIGUIENTE
+    # Para facilitarme la lectura de las presentaciones, usé los mismos nombres
+    # TODO Un nombre más apropiado sería: insertQuadJump() o fillQuadJump() ...
+    def fill(self, line, cont):
+        print("Muy bien, estamos en el FILL()")
+        self.quadruples[cont][3] = line
+
+
+    # ------ Actualizar symbolTable aquí. Fue por error propio ------ #
+    def updateSymbolTable(self, newSymbolTable):
+        self.symbolTable = newSymbolTable
+
+
+    # ------ Debugger ------ #
     def debugger(self):
         # print("PilaO: ", self.PilaO)
         # print("PTypes: ", self.PTypes)
         # print("POper: ", self.POper)
-        print("Quadruples: ", self.quadruples)
+        print("Quadruples:")
+        pprint.pprint(self.quadruples, stream=sys.stdout)
 
 quadsConstructor = Quadruples()
