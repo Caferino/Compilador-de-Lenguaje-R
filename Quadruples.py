@@ -68,6 +68,10 @@ class Quadruples:
             self.PilaO.append(token)
             self.PTypes.append(token.__class__.__name__)
 
+        elif token == 'True' or token == 'False':
+            self.PilaO.append(token)
+            self.PTypes.append('bool')
+
         else:
             # Si no, es un ID que debemos buscar
             print("Es un ID!",  token)
@@ -78,6 +82,9 @@ class Quadruples:
                     self.PTypes.append(tuple[0]) # Posición del tipo
                     break
 
+                # TODO Si es 'True' o 'False' ...
+
+    
                 # Si llegamos a la última tupla y aún no existe la variable...
                 if token != tuple[1] and i == len(self.symbolTable) - 1:
                     raise TypeError('Variable ', token, ' not declared!')
@@ -93,7 +100,6 @@ class Quadruples:
 
     # ------ 2 y 3. Insertando Signos (+, -, *, /, <, >, <>, =, ...) ------ #
     def insertSign(self, token):
-        
         self.POper.append(token)
         print("Entramos a insertSign alright: ", self.POper[-1])
     
@@ -136,6 +142,36 @@ class Quadruples:
             if self.POper[-1] == '*' or self.POper[-1] == '/':
                 # Asignamos operandos y operador a validar y ejecutar
                 # ! IMPORTANTE: El orden de los .pop() importan!
+                right_operand = self.PilaO.pop()
+                left_operand = self.PilaO.pop()
+
+                right_Type = self.PTypes.pop()
+                left_Type = self.PTypes.pop()
+
+                operator = self.POper.pop()
+                result_Type = SemanticCube.Semantics(left_Type, right_Type, operator)
+
+                if(result_Type != 'ERROR'):
+                    result = Avail.next()
+                    self.generateQuadruple(operator, left_operand, right_operand, result)
+                    self.PilaO.append(result)
+                    self.PTypes.append(result_Type)
+
+                    # "If any operand were a temporal space, return it to AVAIL"
+                    # Se checará que sea un espacio temporal antes de meterlo de vuelta a Avail
+                    Avail.release(left_operand)
+                    Avail.release(right_operand)
+
+                else:
+                    print("Type mismatch in: ", left_operand, operator, right_operand)
+
+    # ------ 6. Verificando Condicionales ------ #
+    def verifyConditionals(self):
+        # print("Current POper: ", self.POper) # ! DEBUG
+        if self.POper:
+            if self.POper[-1] == '>' or self.POper[-1] == '<' or self.POper[-1] == '<>' or self.POper[-1] == '!=':
+                # Asignamos operandos y operador a validar y ejecutar
+                ## ! IMPORTANTE: El orden de los .pop() importan!
                 right_operand = self.PilaO.pop()
                 left_operand = self.PilaO.pop()
 

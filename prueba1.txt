@@ -7,6 +7,7 @@ int matriz[6][6] = {1,1,1,1,1,1,1,1,1};
 float cubote[1][2][3][4] = {};
 int w = 3;
 int x = 5, y = 3, z = 8;
+bool booleanoT = True, booleanoF = False;
 
 // ES IMPORTANTE DECLARAR LAS VARIABLES Y FUNCIONES PRIMERO, DESPUÉS LAS EXPRESIONES 
 // LO MISMO ADENTRO LAS FUNCIONES MISMAS, ESA LÓGICA DINÁMICA SE ME FUE DE LA MANO

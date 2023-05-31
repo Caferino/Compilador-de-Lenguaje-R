@@ -103,6 +103,7 @@ def t_comment(t):
     pass
 
 
+# Errores léxicos
 def t_error(t):
     print("Error léxico ' {0} ' en la línea ' {1} ' ".format(t.value[0], t.lineno))
     t.lexer.skip(1)

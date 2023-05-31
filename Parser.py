@@ -174,13 +174,6 @@ def p_print_exp(p):
                  | empty'''
 
 
-""" def p_sign(p):
-    '''sign : PLUS
-            | MINUS
-            | empty'''
-    rules.p_saveSign(p) """
-
-
 def p_var_cte(p):
     '''var_cte : CTEI
                | CTEF
@@ -195,6 +188,7 @@ def p_var_cte(p):
 
 def p_expression(p):
     '''expression : exp comparation'''
+    quadsConstructor.verifyConditionals() # If POper.top == '<' or '>' ...
 
 
 def p_exp(p):
