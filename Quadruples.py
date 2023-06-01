@@ -7,11 +7,12 @@
     Constructor de Cuádruplos
 """
 
-import re # Librería para expresiones regulares RegEX
+from VirtualMachine import VirtualMachine
 import SemanticCube
-import SymbolTable
 import pprint
 import sys
+
+virtualMachine = VirtualMachine()
 
 # Pool de variables temporales, espacios temporales, t1, t2, ...
 class Avail:
@@ -284,5 +285,11 @@ class Quadruples:
         # print("POper: ", self.POper)
         print("Quadruples:")
         pprint.pprint(self.quadruples, stream=sys.stdout)
+
+
+    # ------ Virtual Machine ------ #
+    def startCompiler(self):
+        virtualMachine.start(self.quadruples)
+
 
 quadsConstructor = Quadruples()

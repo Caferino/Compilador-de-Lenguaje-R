@@ -2,7 +2,6 @@
 
 > python3 Parser.py prueba1.txt
 
-
 **Avances:**
 
 **16 Abril 2023**
@@ -126,5 +125,9 @@
 > Lo logré. Construí el método "FILL(líneaACuálSaltar, dóndeEnLosCuádruplos)", arreglé varios errores y finalmente los cuádruplos para expresiones lineales se construyen sin problema. Tuve que igual crear un método que busque el nombre del ID en la symbolTable para ver si existe, sacar su tipo y valor. Ese método sé que sufrirá muchos cambios, pues faltará checar si es global o local, si es una lista o matriz, en dónde, etc. Por ahora, ya funciona hacer expresiones lineales, al menos lo primero, aún faltan los returns y los prints. El órden de los cuádruplos se ve bien, regresa error si son de tipos incorrectos o si la variable aún no ha sido declarada...
 >
 > Por ahora necesito mirar mi techo una hora para reflexionar qué es mi vida.
+
+**31 Mayo 2023**
+
+> Pasé la mayor parte del día terminando mis otros dos proyectos finales (diría que están al 90%, ya no deberían molestarme para nada otra vez), y también desarrollé la lógica inicial de la Virtual Machine. Aún no la testeo porque me falta introducir los tokens de PRINTS, solo que no estoy seguro si así como es se mete (un string "PRINT") y ya solo se mete eso al switch enorme, imprimir el register apropiado... Quiero esperarme a mañana en la mañana porque tengo algo de miedo con volver a tener que editar la Semántica/Parser por ahora, se me hizo tarde.
 
 ~Óscar Antonio Hinojosa Salum A00821930

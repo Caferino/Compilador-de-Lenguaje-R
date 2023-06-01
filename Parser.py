@@ -19,6 +19,7 @@ def p_program(p):
     p[0] = "COMPILED"
     quadsConstructor.debugger()
     rules.p_end_program()
+    quadsConstructor.startCompiler()
 
 
 def p_block(p):
@@ -162,6 +163,7 @@ def p_nodoelse(p):
 
 def p_writing(p):
     '''writing : PRINT LEFTPAREN print_val RIGHTPAREN SEMICOLON'''
+    # TODO - Lógica de meter el token PRINT a los quads, o qué?
 
 
 def p_print_val(p):
