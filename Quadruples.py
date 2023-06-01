@@ -256,12 +256,50 @@ class Quadruples:
 
 
 
+    # ------------------ CICLOS WHILE ------------------ #
+    # ------ 1. Prints ------ #
+    def insertPrint(self, token):
+        print(token) # ! DEBUG
+        self.POper.append(token)
+
+
+    def verifyPrint(self):
+        if self.POper:
+            if self.POper[-1] == 'print':
+                # Asignamos operandos y operador a validar y ejecutar
+                ## ! IMPORTANTE: El orden de los .pop() importan!
+                right_operand = '_'
+                left_operand = self.PilaO.pop()
+
+                right_Type = '_'
+                left_Type = self.PTypes.pop()
+
+                operator = self.POper.pop()
+                result_Type = SemanticCube.Semantics(left_Type, right_Type, operator)
+
+                if(result_Type != 'ERROR'):
+                    result = '_'
+                    self.generateQuadruple(operator, left_operand, right_operand, result)
+
+                    # "If any operand were a temporal space, return it to AVAIL"
+                    # Se checará que sea un espacio temporal antes de meterlo de vuelta a Avail
+                    Avail.release(left_operand)
+
+                else:
+                    print("Type mismatch in: ", left_operand, operator, right_operand)
+
+
+    # ------ 2. Returns ------ #
+
+
+
+
     # ------------------ MÉTODOS AUXILIARES ------------------ #
     # ------ Generador de Cuádruplos ------ #
     def generateQuadruple(self, operator, left_operand, right_operand, result):
         # Empujamos el nuevo cuádruple a nuestra lista o memoria
         self.quadruples.append( (operator, left_operand, right_operand, result) )
-        self.cont += 1                             ### ! TAL VEZ ME ESTOY EQUIVOCANDO CON ESTO? 
+        self.cont += 1
 
 
     # ------ Llenado de líneas de salto para GOTOF y GOTOV ------ #

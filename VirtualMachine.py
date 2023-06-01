@@ -16,10 +16,9 @@ import sys
 
 class VirtualMachine:
     def __init__(self):
-        self.registers = [0] * 10  # Example: 10 registers (R0-R9)
+        self.registers = {}
         self.stack = []
         self.program_counter = 0
-        # TODO - Vaciar pila self.quadruples, la llené con un ejemplo de prueba
         self.quadruples = []
 
     def start(self, quadruples):
@@ -32,25 +31,44 @@ class VirtualMachine:
 
 
         while self.program_counter < len(self.quadruples):
+            print("Entramos al while...")
             quadruple = self.quadruples[self.program_counter]
             operator, operand1, operand2, target = quadruple
 
+            if target.__class__.__name__ == 'str' and target != '_' : target = int(target[1:])
+            """ if operand1.__class__.__name__ == 'str' : operand1 = int(operand1[1:])
+            if operand2.__class__.__name__ == 'str' : operand2 = int(operand2[1:]) """
+
+            print("operator = ", operator)
+            print("target = ", target)
+            print("operand1 = ", operand1)
+            print("operand2 = ", operand2)
             # Dios mío bendito. Los famosos registers de Windows que rompen todo
-            """ if operator == '+':
-                self.registers[target] = self.registers[operand1] + self.registers[operand2]
+            if operator == '+':
+                self.registers[target] = operand1 + operand2
             elif operator == '-':
-                self.registers[target] = self.registers[operand1] - self.registers[operand2]
+                self.registers[target] = operand1 - operand2
             elif operator == '*':
-                self.registers[target] = self.registers[operand1] * self.registers[operand2]
+                self.registers[target] = operand1 * operand2
             elif operator == '/':
-                self.registers[target] = self.registers[operand1] / self.registers[operand2]
+                self.registers[target] = operand1 / operand2
             elif operator == '>':
-                self.registers[target] = int(self.registers[operand1] > self.registers[operand2])
+                self.registers[target] = int(operand1 > operand2)
             elif operator == '<':
-                self.registers[target] = int(self.registers[operand1] < self.registers[operand2])
-            elif operator == '=':
-                self.registers[target] = self.registers[operand1]
-            elif operator == '=':
-                self.registers[target] = self.registers[operand1] """
+                self.registers[target] = int(operand1 < operand2)
+            elif operator == '=' or operator == '<-':
+                self.registers[target] = operand1
+            elif operator.lower() == 'goto':
+                self.program_counter = target
+                continue
+            elif operator.lower() == 'print':
+                print("Print = ", operand1)
+            elif operator.lower() == 'return':
+                return_value = self.registers[operand1]
+                self.program_counter = self.stack.pop()
+                self.registers[target] = return_value
+                continue
 
             self.program_counter += 1
+
+        print(self.registers)

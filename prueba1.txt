@@ -6,7 +6,6 @@ int valor <- 50;
 int matriz[6][6] = {1,1,1,1,1,1,1,1,1};
 float cubote[1][2][3][4] = {};
 int w = 3;
-int x = 5, y = 3, z = 8;
 bool booleanoT = True, booleanoF = False;
 
 // ES IMPORTANTE DECLARAR LAS VARIABLES Y FUNCIONES PRIMERO, DESPUÉS LAS EXPRESIONES 
@@ -21,11 +20,11 @@ void uno(int p, int q, int m){
 
     // varAdentroDeUno1 = varAdentroDeUno1 + a;
 
-    print("Me hice caca en el pantalón.");
+    // print("Me hice caca en el pantalón.");
 }
 
 void dos(float pastor, bool salsa){
-    print("Me hice caca en el pantalón II.");
+    // print("Me hice caca en el pantalón II.");
 }
 
 void tres() {
@@ -34,6 +33,7 @@ void tres() {
 
 int ultimaVar, Cassius = 49, Draegan <- 33, Daniel[5][5] = {1,2,3}, Cacoide;
 
+int x = 5, y = 3, z = 8;
 while(x + y > z - 4){
     x = x - 1;
 }
@@ -46,4 +46,6 @@ else{
     y = y / 1;
 }
 
+print(x);
+x = x + 420;
 print(x);

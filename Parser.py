@@ -162,8 +162,14 @@ def p_nodoelse(p):
 
 
 def p_writing(p):
-    '''writing : PRINT LEFTPAREN print_val RIGHTPAREN SEMICOLON'''
+    '''writing : writingprint LEFTPAREN print_val RIGHTPAREN SEMICOLON'''
     # TODO - Lógica de meter el token PRINT a los quads, o qué?
+    quadsConstructor.verifyPrint()
+
+
+def p_writingprint(p):
+    '''writingprint : PRINT'''
+    quadsConstructor.insertPrint(p[1])
 
 
 def p_print_val(p):
