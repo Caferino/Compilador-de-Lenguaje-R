@@ -17,7 +17,7 @@ rules = Rules()
 def p_program(p):
     '''program : block'''
     p[0] = "COMPILED"
-    quadsConstructor.debugger()
+    # quadsConstructor.debugger() # ! BASURA
     rules.p_end_program()
     quadsConstructor.startCompiler()
 
@@ -183,7 +183,7 @@ def p_print_val(p):
 
 
 def p_print_exp(p):
-    '''print_exp : COMMA  print_val
+    '''print_exp : COMMA print_val
                  | empty'''
 
 

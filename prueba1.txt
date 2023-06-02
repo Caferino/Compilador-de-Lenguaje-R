@@ -17,6 +17,7 @@ void uno(int p, int q, int m){
     int varAdentroDeUno1 = 5;
     float varAdentroDeUno2 = 10;
     bool varAdentroDeUno3 = -5;
+    int a = 1;
 
     // varAdentroDeUno1 = varAdentroDeUno1 + a;
 

@@ -134,4 +134,11 @@
 
 > Ya no me están naciendo las ganas de seguir esforzándome. Más del 70% de las mujeres en México (y hombres) abortan a gente como mi hermano, 100% en Europa. ¿Para qué hago esto? Solo me recuerda todo el tiempo y dinero que he perdido para nada, ya nada me hace feliz, ni el dinero ni nadie; saldré de aquí virgen de labios y sexo, nadie nunca se me acercó primero, nadie nunca me amó, nadie nunca me habló o me preguntó cómo estaba, y a la vez me echan toda la culpa de ello, como si de mi todo dependiera todo; me juzgaron por feo, me trataron literalmente como tratan a mi hermano con síndrome de down: me ignoran, me miran mal, con asco o disgusto, o me utilizan. Ya no me nace esforzarme por un mundo así, todos esos 4 de cada 5 equipos al semestre que me dejaron todo el peso de los proyectos encima ya me drenaron todo, ya no puedo seguir. Me duele la cabeza intentar.
 
+**2 Junio 2023**
+
+> Logré desarrollar la asignación y el print para expresiones lineales básicas (por lo tanto, debe funcionar para lo demás con facilidad, actualiza el valor de las variables sin problema). Al final me preocuparé por cambiarlo de una búsqueda O(n) a O(1) con las tablas de direcciones virtuales (3001, 3002...) si es que logro lo que me falta. Por ahora me importa más alcanzar las matrices, funciones, recursión y returns... Para ello ocupo volver a meterme a la semántica (Díos me bendiga) y meter la cantidad de parámetros o variables que cada función va utilizar. Por mi mal diseño inicial, esto va a doler.
+>
+> Para probar expresiones lineales básicas, probar con prueba2.txt
+>
+
 ~Óscar Antonio Hinojosa Salum A00821930

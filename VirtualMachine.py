@@ -36,15 +36,14 @@ class VirtualMachine:
 
 
         while self.program_counter < len(self.quadruples):
-            print("Entramos al while...")
             quadruple = self.quadruples[self.program_counter]
             operator, operand1, operand2, target = quadruple
 
-            print("BEFORE operator = ", operator)
+            """ print("BEFORE operator = ", operator)
             print("BEFORE target = ", target)
             print("BEFORE operand1 = ", operand1)
             print("BEFORE operand2 = ", operand2)
-            # print("Registers size = ", len(self.registers), "+ 1") # ! DEBUG
+            # print("Registers size = ", len(self.registers), "+ 1") # ! DEBUG """
 
             # Qué asco ya sé, una búsqueda lineal O(n) por cada operando que sea una variable...
             # Si nuestro resultado será un espacio temporal, lo "hacemos" índice (t1 = 1, t82 = 82, ...)
@@ -56,32 +55,41 @@ class VirtualMachine:
             # Si nuestro operando izquierdo es un espacio temporal ...
             if isinstance(operand1, str) and re.match(r"^t\d+$", operand1) : 
                 operand1 = self.registers[int(operand1[1:])]
-                print("Operand1 value = ", operand1)
-            # Si no, debe ser un ID cuyo valor debemo sacar de la SymbolTable
+                # print("Operand1 value = ", operand1) # ! DEBUG
+            # Si no, debe ser un ID cuyo valor debemos sacar de la SymbolTable
             elif isinstance(operand1, str):
                 for tuple in self.symbolTable :
-                    if operand1 in tuple[1] :
-                        operand1 = tuple[6][0]
+                    # print("tuple1 = ", tuple) # ! DEBUG
+                    if operand1 == tuple[1] :
+                        # print("tuple1[6] = ", tuple[6]) # ! DEBUG
+                        # Si es una lista de un elemento, sacarlo
+                        if isinstance(tuple[6], list) : operand1 = tuple[6][0]
+                        # Si sufrió alguna actualización antes de aquí, lo más seguro es
+                        # que ya no es una lista de un elemento, sino número o string ...
+                        else : operand1 = tuple[6]
                         break
 
             # Si nuestro operando derecho es un espacio temporal ...
             if isinstance(operand2, str) and re.match(r"^t\d+$", operand2) : 
                 operand2 = self.registers[int(operand2[1:])]
-                print("Operand1 value = ", operand2)
+                # print("Operand2 value = ", operand2) # ! DEBUG
             # Si no, debe ser un ID cuyo valor debemo sacar de la SymbolTable
             elif isinstance(operand2, str):
                 for tuple in self.symbolTable :
-                    print("QUE SUCEDE = ", operand2)
-                    if operand2 in tuple[1] :
-                        operand2 = tuple[6][0]
+                    # print("tuple2 = ", tuple) # ! DEBUG
+                    if operand2 == tuple[1] :
+                        # print("tuple2[6] = ", tuple[6]) # ! DEBUG
+                        # Si es una lista de un elemento, sacarlo
+                        if isinstance(tuple[6], list) : operand2 = tuple[6][0]
+                        else : operand2 = tuple[6]
                         break
 
-            # ! DEBUG
-            print("AFTER operator = ", operator)
+
+            """ print("AFTER operator = ", operator)
             print("AFTER target = ", target)
             print("AFTER operand1 = ", operand1)
             print("AFTER operand2 = ", operand2)
-
+            # print("Registers size = ", len(self.registers), "+ 1") # ! DEBUG """
 
             # Dios mío bendito. Los famosos registers de Windows que rompen todo
             if operator == '+' :
@@ -99,16 +107,19 @@ class VirtualMachine:
             elif operator == '=' or operator == '<-' :
                 # Si es un string, es porque a fuerza es un ID ...
                 if target.__class__.__name__ == 'str' :
-                    print("Actualizar el valor de ", target) # ! DEBUG
+                    # print("Actualizar el valor de ", target) # ! DEBUG
                     for i, tuple_item in enumerate(self.symbolTable):
                         if target in tuple_item[1]:
                             
                             currentRow = self.symbolTable[i]
-                            # Actualizamos la columna "functionParent"
+                            # Actualizamos la columna "value"
                             index_to_change = 6
                             currentRow = currentRow[:index_to_change] + (operand1,)
                             self.symbolTable[i] = currentRow
-                            print("TUPLA NUEVA ", self.symbolTable[i]) # ! DEBUG
+                            # En caso de haberse transformado de INT a FLOAT, actualizar TYPE
+                            if currentRow[0] != operand1.__class__.__name__ :
+                                currentRow = (operand1.__class__.__name__,) + currentRow[1:]
+                                self.symbolTable[i] = currentRow
 
                 # Si no, es el index de un espacio temporal
                 else:
@@ -126,4 +137,4 @@ class VirtualMachine:
 
             self.program_counter += 1
 
-        print(self.registers)
+        print("Hack me, baby = ", self.registers)
