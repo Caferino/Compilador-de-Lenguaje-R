@@ -47,5 +47,5 @@ else{
 }
 
 print(x);
-x = x + 420;
+x = x + (440 - 20);
 print(x);

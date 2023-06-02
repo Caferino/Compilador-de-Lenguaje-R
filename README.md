@@ -130,4 +130,8 @@
 
 > Pasé la mayor parte del día terminando mis otros dos proyectos finales (diría que están al 90%, ya no deberían molestarme para nada otra vez), y también desarrollé la lógica inicial de la Virtual Machine. Aún no la testeo porque me falta introducir los tokens de PRINTS, solo que no estoy seguro si así como es se mete (un string "PRINT") y ya solo se mete eso al switch enorme, imprimir el register apropiado... Quiero esperarme a mañana en la mañana porque tengo algo de miedo con volver a tener que editar la Semántica/Parser por ahora, se me hizo tarde.
 
+**1 Junio 2023**
+
+> Ya no me están naciendo las ganas de seguir esforzándome. Más del 70% de las mujeres en México (y hombres) abortan a gente como mi hermano, 100% en Europa. ¿Para qué hago esto? Solo me recuerda todo el tiempo y dinero que he perdido para nada, ya nada me hace feliz, ni el dinero ni nadie; saldré de aquí virgen de labios y sexo, nadie nunca se me acercó primero, nadie nunca me amó, nadie nunca me habló o me preguntó cómo estaba, y a la vez me echan toda la culpa de ello, como si de mi todo dependiera todo; me juzgaron por feo, me trataron literalmente como tratan a mi hermano con síndrome de down: me ignoran, me miran mal, con asco o disgusto, o me utilizan. Ya no me nace esforzarme por un mundo así, todos esos 4 de cada 5 equipos al semestre que me dejaron todo el peso de los proyectos encima ya me drenaron todo, ya no puedo seguir. Me duele la cabeza intentar.
+
 ~Óscar Antonio Hinojosa Salum A00821930

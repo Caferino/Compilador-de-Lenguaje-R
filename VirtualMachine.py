@@ -13,6 +13,7 @@
 
 import pprint
 import sys
+import re
 
 class VirtualMachine:
     def __init__(self):
@@ -35,14 +36,15 @@ class VirtualMachine:
             quadruple = self.quadruples[self.program_counter]
             operator, operand1, operand2, target = quadruple
 
-            if target.__class__.__name__ == 'str' and target != '_' : target = int(target[1:])
-            """ if operand1.__class__.__name__ == 'str' : operand1 = int(operand1[1:])
-            if operand2.__class__.__name__ == 'str' : operand2 = int(operand2[1:]) """
-
             print("operator = ", operator)
             print("target = ", target)
             print("operand1 = ", operand1)
             print("operand2 = ", operand2)
+
+            if re.match(r"^t\d+$", target) : target = int(target[1:])
+            """ if operand1.__class__.__name__ == 'str' : operand1 = int(operand1[1:])
+            if operand2.__class__.__name__ == 'str' : operand2 = int(operand2[1:]) """
+
             # Dios mío bendito. Los famosos registers de Windows que rompen todo
             if operator == '+':
                 self.registers[target] = operand1 + operand2

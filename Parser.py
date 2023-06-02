@@ -110,12 +110,17 @@ def p_function_extra_parameters(p):
 
 
 def p_assignment_block(p):
-    '''assignment_block : ID assignment expression SEMICOLON'''
+    '''assignment_block : ID ASSIGNL expression SEMICOLON
+                | ID EQUALS expression SEMICOLON'''
+    quadsConstructor.insertAssignmentID(p[1])
+    quadsConstructor.insertAssignmentSign(p[2])
+    quadsConstructor.verifyAssignment()
 
 
 def p_assignment(p):
     '''assignment : ASSIGNL
                  | EQUALS'''
+    
 
 
 def p_function_call(p):

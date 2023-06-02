@@ -56,6 +56,7 @@ class Quadruples:
         # Para los estatutos que requieren saltos
         self.PJumps = []
         self.cont = 1  ## Los cuádruplos empiezan desde 1.
+        self.assignTemp = 'target'
 
 
 
@@ -82,8 +83,6 @@ class Quadruples:
                     self.PilaO.append(tuple[6][0]) # Posición del primer valor en su lista de valores
                     self.PTypes.append(tuple[0]) # Posición del tipo
                     break
-
-                # TODO Si es 'True' o 'False' ...
 
     
                 # Si llegamos a la última tupla y aún no existe la variable...
@@ -256,7 +255,7 @@ class Quadruples:
 
 
 
-    # ------------------ CICLOS WHILE ------------------ #
+    # ------------------ PRINT, RETURN, ASSIGN ------------------ #
     # ------ 1. Prints ------ #
     def insertPrint(self, token):
         print(token) # ! DEBUG
@@ -289,7 +288,45 @@ class Quadruples:
                     print("Type mismatch in: ", left_operand, operator, right_operand)
 
 
-    # ------ 2. Returns ------ #
+    # ------ 2. Assignments ------ #
+    def insertAssignmentSign(self, token):
+        print("Insertando assignment: ", token)
+        self.POper.append(token)
+
+
+    def insertAssignmentID(self, token):
+        print("Insertando ID: ", token)
+        self.assignTemp = token
+
+
+    def verifyAssignment(self):
+        # print("Current POper: ", self.POper) # ! DEBUG
+        if self.POper:
+            if self.POper[-1] == '=' or self.POper[-1] == '<-':
+                # Asignamos operandos y operador a validar y ejecutar
+                ## ! IMPORTANTE: El orden de los .pop() importan!
+                right_operand = '_'
+                left_operand = self.PilaO.pop()
+
+                right_Type = '_'
+                left_Type = self.PTypes.pop()
+
+                operator = self.POper.pop()
+                result_Type = SemanticCube.Semantics(left_Type, right_Type, operator)
+
+                if(result_Type != 'ERROR'):
+                    result = self.assignTemp
+                    self.generateQuadruple(operator, left_operand, right_operand, result)
+                    self.PilaO.append(result)
+                    self.PTypes.append(result_Type)
+
+                    # "If any operand were a temporal space, return it to AVAIL"
+                    # Se checará que sea un espacio temporal antes de meterlo de vuelta a Avail
+                    # Avail.release(left_operand)
+
+                else:
+                    print("Type mismatch in: ", left_operand, operator, right_operand)
+
 
 
 
