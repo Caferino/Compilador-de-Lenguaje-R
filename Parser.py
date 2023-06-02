@@ -17,7 +17,6 @@ rules = Rules()
 def p_program(p):
     '''program : block'''
     p[0] = "COMPILED"
-    # quadsConstructor.debugger() # ! BASURA
     rules.p_end_program()
     quadsConstructor.startCompiler()
 

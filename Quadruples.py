@@ -83,7 +83,6 @@ class Quadruples:
                     self.PilaO.append(token) # Mis cuádruplos se benefician con su nombre
                     self.PTypes.append(tuple[0]) # Posición del tipo
                     break
-
     
                 # Si llegamos a la última tupla y aún no existe la variable...
                 if token != tuple[1] and i == len(self.symbolTable) - 1:
@@ -351,15 +350,6 @@ class Quadruples:
     # ------ Actualizar symbolTable aquí. Fue por error propio ------ #
     def updateSymbolTable(self, newSymbolTable):
         self.symbolTable = newSymbolTable
-
-
-    # ------ Debugger ------ #
-    def debugger(self):
-        # print("PilaO: ", self.PilaO)
-        # print("PTypes: ", self.PTypes)
-        # print("POper: ", self.POper)
-        print("Quadruples:")
-        pprint.pprint(self.quadruples, stream=sys.stdout)
 
 
     # ------ Virtual Machine ------ #

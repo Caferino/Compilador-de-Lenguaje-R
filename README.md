@@ -140,5 +140,7 @@
 >
 > Para probar expresiones lineales básicas, probar con prueba2.txt
 >
+> Llevan ya desde las 11 hasta 3PM martillando la pared afuera de mi casa, toda esta semana. Parece como si los vecinos hubiesen escogido este tiempo con malicia para empezar una construcción inútil. Este tipo de cosas siempre me suceden.
+>
 
 ~Óscar Antonio Hinojosa Salum A00821930

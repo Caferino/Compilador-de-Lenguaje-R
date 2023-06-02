@@ -11,7 +11,6 @@
     Output: Resultados del programa.
 """
 
-import Memory
 import pprint
 import sys
 import re
@@ -109,7 +108,7 @@ class VirtualMachine:
                 if target.__class__.__name__ == 'str' :
                     # print("Actualizar el valor de ", target) # ! DEBUG
                     for i, tuple_item in enumerate(self.symbolTable):
-                        if target in tuple_item[1]:
+                        if target == tuple_item[1]:
                             
                             currentRow = self.symbolTable[i]
                             # Actualizamos la columna "value"

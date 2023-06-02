@@ -50,7 +50,6 @@ class Rules:
         self.parentFunction = None
 
         # Auxiliares
-        self.openList = False
         self.currentFunctionParams = []
         self.tuplesToModify = []
         self.allTypes = []
@@ -141,6 +140,12 @@ class Rules:
 
                 self.varName = varName
 
+
+                ## ! IMPORTANTE :
+                ## TODO - SI YA EXISTE varName EN LA SYMBOLTABLE, QUEBRAR PROGRAMA? # Easiest
+                ## TODO - O ACTUALIZAR VALOR SOLO SI SCOPE ES IGUAL, FUNCTIONPARENT? # Hardest
+
+
                 # Si es una variable local, la anexamos con su función para facilitarme la vida después
                 if self.scope == 'local' and varName not in self.currentFunctionParams: 
                     self.currentFunctionParams.append(varName)
@@ -177,7 +182,40 @@ class Rules:
 
                 # Insertamos la data en forma de TUPLA a la Symbol Table
                 memory.insertRow( (self.type, self.varName, self.varDimensions, self.scope, isFunction, self.parentFunction, self.varValues) )
-                quadsConstructor.updateSymbolTable(memory.symbolTable)
+                quadsConstructor.updateSymbolTable(memory.symbolTable) ## ! IMPORTANTE, permite dinamismo
+
+
+                # Si llegamos a insertar una función, podemos de una vez contar sus variables
+                if isFunction :
+                    print(self.varName, "is a function.")
+                    counter = len(memory.symbolTable) - 2  # Sabemos que estarán mero arriba, O(1)
+                    iCount = 0   # ints adentro de la función (incluyo parámetros)
+                    fCount = 0   # floats
+                    bCount = 0   # bools
+                    sCount = 0   # strings
+
+                    while counter >= 0 :
+                        # Solo es cuestión de contarlos ...
+                        if memory.symbolTable[counter][5] == self.varName :
+                            print(memory.symbolTable[counter], "pertenece a ", self.varName)
+                            if memory.symbolTable[counter][0] == 'int' : iCount += 1
+                            if memory.symbolTable[counter][0] == 'float' : fCount += 1
+                            if memory.symbolTable[counter][0] == 'bool' : bCount += 1
+                            if memory.symbolTable[counter][0] == 'str' : sCount += 1
+                        
+                        # Si ya no sigue un local, significa que ya concluyó la función
+                        else:
+                            iCount = str(iCount) + "i"
+                            fCount = str(fCount) + "f"
+                            bCount = str(bCount) + "b"
+                            sCount = str(sCount) + "s"
+                            # TODO ACTUALIZA SYMBOLTABLE ROW ACTUAL
+                            currentRow = memory.symbolTable.pop()
+                            currentRow = currentRow + (tuple([iCount, fCount, bCount, sCount]),)
+                            memory.insertRow(currentRow)
+                            break
+
+                        counter -= 1
 
                 # Reseteamos auxiliares
                 self.varValues = [] # Vaciamos los valores de esta variable para prestársela a la siguiente
@@ -220,14 +258,6 @@ class Rules:
         if len(p) > 2:
             if '}' in str(p[3]):
                 self.values.append(p[3])
-                
-            elif '}' in str(p[4]): # Respecto a las production rules
-                self.openList = False
-
-        # Si no es valor de una lista/matriz, lo agregamos directamente
-        if '{' in str(p[1]):
-            self.openList = True  # Si el value viene dentro de "{}", será una lista de uno o más
-
 
 
     # ------ FUNCTION ------ #
