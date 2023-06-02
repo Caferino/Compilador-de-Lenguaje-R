@@ -142,5 +142,7 @@
 >
 > Llevan ya desde las 11 hasta 3PM martillando la pared afuera de mi casa, toda esta semana. Parece como si los vecinos hubiesen escogido este tiempo con malicia para empezar una construcción inútil. Este tipo de cosas siempre me suceden.
 >
+> Logré insertar la cantidad de variables (incluyendo parámetros) que requiere el ERA para cargar la memoria de una function call. Tipo: [5i, 3f, 2b, 8s] ...
+> Por legibilidad en la terminal vienen así, con el char pegado; ya después los separo o reemplazo. Pienso en modo que ahorita quiero sacar la carne del proyecto, la más que pueda, y la fase de mantenimiento (fuera del proyecto) sería donde pulo mi código. No digo que lo escribí mal, comento todo lo importante y pienso en hacerlo lo más cercano a O(1) posible, pero a veces me hago bolas, bolas que aprendo a desenredar después.
 
 ~Óscar Antonio Hinojosa Salum A00821930
