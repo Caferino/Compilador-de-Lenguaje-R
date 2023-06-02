@@ -321,6 +321,7 @@ class Rules:
 
 
     def p_end_program(self):
+        quadsConstructor.updateSymbolTable(memory.symbolTable)
         print("Final Symbol Table: ")
         pprint.pprint(memory.symbolTable)
         """ pprint.pprint(memory.symbolTable, indent=4)

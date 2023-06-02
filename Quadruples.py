@@ -75,12 +75,12 @@ class Quadruples:
             self.PTypes.append('bool')
 
         else:
-            # Si no, es un ID que debemos buscar
+            # Si no, es un ID cuyo tipo debemos buscar
             print("Es un ID!",  token)
             i = 0   # I missed you, baby
             for tuple in self.symbolTable:
                 if token == tuple[1]:   ## Posición del ID en la symbolTable
-                    self.PilaO.append(tuple[6][0]) # Posición del primer valor en su lista de valores
+                    self.PilaO.append(token) # Mis cuádruplos se benefician con su nombre
                     self.PTypes.append(tuple[0]) # Posición del tipo
                     break
 
@@ -267,17 +267,17 @@ class Quadruples:
             if self.POper[-1] == 'print':
                 # Asignamos operandos y operador a validar y ejecutar
                 ## ! IMPORTANTE: El orden de los .pop() importan!
-                right_operand = '_'
+                right_operand = None
                 left_operand = self.PilaO.pop()
 
-                right_Type = '_'
+                right_Type = None
                 left_Type = self.PTypes.pop()
 
                 operator = self.POper.pop()
                 result_Type = SemanticCube.Semantics(left_Type, right_Type, operator)
 
                 if(result_Type != 'ERROR'):
-                    result = '_'
+                    result = None
                     self.generateQuadruple(operator, left_operand, right_operand, result)
 
                     # "If any operand were a temporal space, return it to AVAIL"
@@ -305,10 +305,10 @@ class Quadruples:
             if self.POper[-1] == '=' or self.POper[-1] == '<-':
                 # Asignamos operandos y operador a validar y ejecutar
                 ## ! IMPORTANTE: El orden de los .pop() importan!
-                right_operand = '_'
+                right_operand = None
                 left_operand = self.PilaO.pop()
 
-                right_Type = '_'
+                right_Type = None
                 left_Type = self.PTypes.pop()
 
                 operator = self.POper.pop()
@@ -364,7 +364,7 @@ class Quadruples:
 
     # ------ Virtual Machine ------ #
     def startCompiler(self):
-        virtualMachine.start(self.quadruples)
+        virtualMachine.start(self.quadruples, self.symbolTable)
 
 
 quadsConstructor = Quadruples()
