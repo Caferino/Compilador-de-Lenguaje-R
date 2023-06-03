@@ -167,5 +167,7 @@
 > Después de probar con prueba3.txt, considero mis while terminados. Descubrí que me falta lógica para el operando de "==", pero ok, god damn it en VM son fáciles, pero me da miedo romper al meterlos... Siguiente feature.
 >
 > Espero que esto de sacrificar features sea parte de la experiencia...
+>
+> No me importó y me avente el clavado de todos modos. Logré acabar de desarrollar las condicionales !=, ==, ||, &&, ... y funcionan bien siempre y cuando no sean más de tres comparaciones seguidas, creo, aún no sé por qué, creo que ese error lo dejaré así ahora sí.
 
 ~Óscar Antonio Hinojosa Salum A00821930

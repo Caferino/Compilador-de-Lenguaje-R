@@ -70,6 +70,13 @@ class VirtualMachine:
                         else : operand1 = tuple[6]
                         break
 
+            # Para lidiar con condicionales, el problema de bool() es que si es una string
+            # con valor de 'False' la convierte a un booleano True porque lo que checa es que
+            # la string está vacía o no. El que nos interesa es eval(), pero solo funciona con
+            # strings; no importa si usamos bool() para valores numéricos
+            if operand1 == 'True' or operand1 == "False" :
+                operand1 = eval(operand1)
+
             # Si nuestro operando derecho es un espacio temporal ...
             if isinstance(operand2, str) and re.match(r"^t\d+$", operand2) : 
                 operand2 = self.registers[int(operand2[1:])]
@@ -84,6 +91,9 @@ class VirtualMachine:
                         if isinstance(tuple[6], list) : operand2 = tuple[6][0]
                         else : operand2 = tuple[6]
                         break
+
+            if operand2 == 'True' or operand2 == "False" :
+                operand2 = eval(operand2)
 
 
             """ print("AFTER operator = ", operator)
@@ -107,13 +117,17 @@ class VirtualMachine:
             elif operator == '<' :
                 self.registers[target] = int(operand1 < operand2)
             elif operator == '==':
-                self.registers[target] = int(operand1 == operand2)
+                self.registers[target] = bool(operand1) == bool(operand2)
             elif operator == '!=' or operator == '<>':
-                self.registers[target] = int(operand1 != operand2)
+                self.registers[target] = bool(operand1) != bool(operand2)
             if operator == '&&':
-                self.registers[target] = int(operand1 and operand2)
+                self.registers[target] = bool(operand1) and bool(operand2)
+                """ print("OPERAND1 =", operand1, "OPERAND2 =", operand2)
+                print("OPERAND1 BOOL =", eval('50.0'), "OPERAND2 BOOL =", eval('5'))
+                print("OPERAND1 TYPE =", operand1.__class__.__name__, "OPERAND2 TYPE =", operand2.__class__.__name__)
+                print("RESULTADO =", bool(bool(operand1) and bool(operand2))) """
             if operator == '||':
-                self.registers[target] = int(operand1 or operand2)
+                self.registers[target] = bool(operand1) or bool(operand2)
             elif operator == '=' or operator == '<-' :
                 # Si es un string, es porque a fuerza es un ID ...
                 if target.__class__.__name__ == 'str' :

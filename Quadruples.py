@@ -98,7 +98,7 @@ class Quadruples:
         # ! Espérate al error del Semantic Cube
 
 
-    # ------ 2 y 3. Insertando Signos (+, -, *, /, <, >, <>, =, ...) ------ #
+    # ------ 2 y 3. Insertando Signos (+, -, *, /, <, >, <>, =, ||, &&, !=, ...) ------ #
     def insertSign(self, token):
         self.POper.append(token)
         print("Entramos a insertSign alright: ", self.POper[-1])
@@ -169,7 +169,7 @@ class Quadruples:
     def verifyConditionals(self):
         # print("Current POper: ", self.POper) # ! DEBUG
         if self.POper:
-            if self.POper[-1] == '>' or self.POper[-1] == '<' or self.POper[-1] == '<>' or self.POper[-1] == '!=':
+            if self.POper[-1] == '>' or self.POper[-1] == '<' or self.POper[-1] == '<>' or self.POper[-1] == '!=' or self.POper[-1] == '==' or self.POper[-1] == '||' or self.POper[-1] == '&&' :
                 # Asignamos operandos y operador a validar y ejecutar
                 ## ! IMPORTANTE: El orden de los .pop() importan!
                 right_operand = self.PilaO.pop()
