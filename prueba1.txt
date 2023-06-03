@@ -40,7 +40,7 @@ int x = 5, y = 3, z = 8;
 while(x + y > z - 4){
     x = x - 1;
 }
-if (x > 6 %% 2) {
+if (x > 6 / 2) {
     x = x - -2;
 }
 else{
