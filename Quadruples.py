@@ -55,7 +55,8 @@ class Quadruples:
 
         # Para los estatutos que requieren saltos
         self.PJumps = []
-        self.cont = 1  ## Los cuádruplos empiezan desde 1.
+        # self.cont = 1  ## ! Los cuádruplos empiezan desde 1.
+        self.cont = 0
         self.assignTemp = 'target'
 
 
@@ -218,8 +219,9 @@ class Quadruples:
 
     # ------ 3. Tercer nodo de IF/ELSE  ------ #
     def nodoCondicionalTres(self):
+        self.generateQuadruple('GOTO', '', '', 'linePlaceholder')
         false = self.PJumps.pop()
-        self.PJumps.push(self.cont - 1)
+        self.PJumps.append(self.cont - 1)
         # Mandamos a insertar la línea a cuál saltar
         self.fill(false, self.cont)
 
@@ -240,14 +242,14 @@ class Quadruples:
         else:
             result = self.PilaO.pop()
             self.generateQuadruple('GotoF', result, '', 'linePlaceHolder')
-            self.PJumps.push(self.cont - 1)
+            self.PJumps.append(self.cont)
 
 
     # ------ 3. Tercer nodo de WHILE ------ #
     def nodoWhileTres(self):
         end = self.PJumps.pop()
         varReturn = self.PJumps.pop()
-        self.generateQuadruple('GOTO', varReturn, '', '')
+        self.generateQuadruple('GOTO', '', '', varReturn)
         self.fill(end, self.cont)
 
 
@@ -285,6 +287,11 @@ class Quadruples:
 
                 else:
                     print("Type mismatch in: ", left_operand, operator, right_operand)
+
+
+    def insertPrintString(self, string):
+        print(string)
+        pprint.pprint(self.quadruples)
 
 
     # ------ 2. Assignments ------ #
@@ -339,12 +346,21 @@ class Quadruples:
 
 
     # ------ Llenado de líneas de salto para GOTOF y GOTOV ------ #
-    ## ! Mi "QUAD_POINTER", quad_cont, counter, cont APUNTA siempre hacia el SIGUIENTE
+    ## ! Mi "QUAD_POINTER" / quad_cont / counter / cont APUNTA siempre hacia el SIGUIENTE
     # Para facilitarme la lectura de las presentaciones, usé los mismos nombres
-    # TODO Un nombre más apropiado sería: insertQuadJump() o fillQuadJump() ...
-    def fill(self, line, cont):
-        print("Muy bien, estamos en el FILL()")
-        self.quadruples[cont][3] = line
+    def fill(self, cont, line):
+        print("Muy bien, estamos en el FILL(), CONT = ", cont, line)
+        pprint.pprint(self.quadruples)
+        print("SELF.QUADRUPLES[cont - 1] = ", self.quadruples[cont - 1])
+        # ! self.quadruples[cont - 1][3] = line # OG
+
+        self.quadruples[cont] = (self.quadruples[cont][:3] + (line,))
+
+        print("SELF.QUADRUPLES[cont - 1] = ", self.quadruples[cont - 1])
+
+        # self.quadruples[cont-2][3] = line
+
+        # self.quadruples[cont - 2] = self.quadruples[cont-2][:3] + (line,) # ! Cuelga el programa
 
 
     # ------ Actualizar symbolTable aquí. Fue por error propio ------ #

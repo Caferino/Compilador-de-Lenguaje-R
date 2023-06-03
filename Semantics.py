@@ -301,55 +301,6 @@ class Rules:
         '''
 
 
-
-    # ------ IF / ELSE ------ #
-    def p_elif(p):
-        '''
-        1.- exp_type = PTypes.Pop()
-        if (exp_type != bool) ERROR(Type-mismatch)
-        else
-        result = PilaO.Pop()
-        Generate quad: GotoF, result , , ___
-        PJumps.Push (cont-1)
-        Our Quad_Pointer is always pointing to the
-        next quadruple to be generated
-        
-        2.- end=PJumps.Pop()
-        FILL (end, cont)
-        
-        3.- Generate quad: GOTO ___
-        false= PJumps.Pop()
-        PJumps.Push(cont-1)
-        FILL (false, cont)
-        '''
-
-
-
-    # ------ WHILE LOOP ------ #
-    def p_while_step1(p):
-        '''
-        1.- PJumps.Push (cont)
-        '''
-
-    def p_while_step2(p):
-        '''
-        2.- exp_type = PTypes.Pop()
-        if (exp_type != bool) ERROR(Type-mismatch)
-        else
-        result = PilaO.Pop()
-        Generate quad: GotoF, result , , ___
-        PJumps.Push (cont-1)
-        '''
-
-    def p_while_step3(p):
-        '''
-        3.- end=PJumps.Pop()
-        return=PJumps.Pop()
-        Generate quad: GOTO return
-        FILL (end, cont)
-        '''
-
-
     def p_end_program(self):
         quadsConstructor.updateSymbolTable(memory.symbolTable)
         print("Final Symbol Table: ")

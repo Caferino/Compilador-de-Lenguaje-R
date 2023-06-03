@@ -144,5 +144,7 @@
 >
 > Logré insertar la cantidad de variables (incluyendo parámetros) que requiere el ERA para cargar la memoria de una function call. Tipo: [5i, 3f, 2b, 8s] ...
 > Por legibilidad en la terminal vienen así, con el char pegado; ya después los separo o reemplazo. Pienso en modo que ahorita quiero sacar la carne del proyecto, la más que pueda, y la fase de mantenimiento (fuera del proyecto) sería donde pulo mi código. No digo que lo escribí mal, comento todo lo importante y pienso en hacerlo lo más cercano a O(1) posible, pero a veces me hago bolas, bolas que aprendo a desenredar después.
+>
+> Pasé la noche arreglando mi IF/ELSE. Ya funcionan, pero solo aritméticamente, por alguna razón no lee strings aún. Me saltaré eso por ahora, desde un principio del proyecto creo que mencioné la opción de ignorarlos al igual que los chars, no recuerdo, porque no los tengo añadidos en mi regla TYPE o var_cte, solamente en una personalizada que se me ocurrió a mí, pero no me sirvió para conectarlo, los strings me aparecen como "False". Fuera de eso, funcionan; pueden haber varios if/else seguidos (prueba4.txt).
 
 ~Óscar Antonio Hinojosa Salum A00821930

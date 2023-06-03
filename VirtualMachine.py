@@ -38,10 +38,10 @@ class VirtualMachine:
             quadruple = self.quadruples[self.program_counter]
             operator, operand1, operand2, target = quadruple
 
-            """ print("BEFORE operator = ", operator)
-            print("BEFORE target = ", target)
+            print("BEFORE operator = ", operator)
             print("BEFORE operand1 = ", operand1)
             print("BEFORE operand2 = ", operand2)
+            print("BEFORE target = ", target)
             # print("Registers size = ", len(self.registers), "+ 1") # ! DEBUG """
 
             # Qué asco ya sé, una búsqueda lineal O(n) por cada operando que sea una variable...
@@ -53,6 +53,8 @@ class VirtualMachine:
 
             # Si nuestro operando izquierdo es un espacio temporal ...
             if isinstance(operand1, str) and re.match(r"^t\d+$", operand1) : 
+                print("OPERAND1 AQUI = ", operand1)
+                print(self.registers)
                 operand1 = self.registers[int(operand1[1:])]
                 # print("Operand1 value = ", operand1) # ! DEBUG
             # Si no, debe ser un ID cuyo valor debemos sacar de la SymbolTable
@@ -84,14 +86,16 @@ class VirtualMachine:
                         break
 
 
-            """ print("AFTER operator = ", operator)
-            print("AFTER target = ", target)
+            print("AFTER operator = ", operator)
             print("AFTER operand1 = ", operand1)
             print("AFTER operand2 = ", operand2)
+            print("AFTER target = ", target)
+            pprint.pprint(self.quadruples)
             # print("Registers size = ", len(self.registers), "+ 1") # ! DEBUG """
 
             # Dios mío bendito. Los famosos registers de Windows que rompen todo
             if operator == '+' :
+                print("TARGET = ", target)
                 self.registers[target] = operand1 + operand2
             elif operator == '-' :
                 self.registers[target] = operand1 - operand2
@@ -126,6 +130,14 @@ class VirtualMachine:
             elif operator.lower() == 'goto':
                 self.program_counter = target
                 continue
+            elif operator.lower() == 'gotof':
+                if operand1 == 'False' : self.program_counter = target
+                else : self.program_counter += 1
+                continue
+            elif operator.lower() == 'gotov':
+                if operand1 == 'True' : self.program_counter = target
+                else : self.program_counter += 1
+                continue
             elif operator.lower() == 'print':
                 print("Print = ", operand1)
             elif operator.lower() == 'return':
@@ -136,4 +148,5 @@ class VirtualMachine:
 
             self.program_counter += 1
 
+            
         print("Hack me, baby = ", self.registers)
