@@ -147,4 +147,9 @@
 >
 > Pasé la noche arreglando mi IF/ELSE. Ya funcionan, pero solo aritméticamente, por alguna razón no lee strings aún. Me saltaré eso por ahora, desde un principio del proyecto creo que mencioné la opción de ignorarlos al igual que los chars, no recuerdo, porque no los tengo añadidos en mi regla TYPE o var_cte, solamente en una personalizada que se me ocurrió a mí, pero no me sirvió para conectarlo, los strings me aparecen como "False". Fuera de eso, funcionan; pueden haber varios if/else seguidos (prueba4.txt).
 
+**3 Junio 2023**
+
+> Otra vez fui levantado con 5 horas de sueño por los sonidos de unos martillazos/construcción a lado de mi depa. Siempre hubo algo que me arruinó el sueño durante mi carrera: gemidos de la vecina arriba, construcciones, música ranchera naca y alta tarde y temprano, eventos del tec, las campanadas a las 12 de la iglesia san juan bosco (a 5 pasos de mí), gente naca que pone música en alto a la 1 de la mañana (por ahora no hay de esos gracias a Dios), tengo a un baterista a lado desde hace 2 años, al principio no respetaba, pero después lo tuve que aplacar golpeando una pesa de 10lb contra la pared, el estrés afectando mi intestino, despertándome cada mañana para ir al baño a pasar una hora sufriendo allí, igual por la mala dieta que tenía, de comer muy tarde por el mismo estrés que también me causa insomio, he llegado al punto de reportar a un vecino con la policia por lo descarado que llegó a ser su ruido, el cual me aguanté por literal más de medio año seguido, no sé cómo. Siempre hubo algo que me arruinó el sueño durante las semanas de finales, proyectos, las más importantes. Todo esto es ridículo, ya me quiero ir muy lejos de aquí.
+>
+
 ~Óscar Antonio Hinojosa Salum A00821930
