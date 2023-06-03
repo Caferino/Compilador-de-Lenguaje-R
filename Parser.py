@@ -94,6 +94,8 @@ def p_function(p):
     rules.p_registerLocalVariables(p)
     rules.p_insertID(p, True)
 
+    # ! Insert into DirFunc the current quadruple counter (CONT), **to establish where the function start
+
 
 def p_function_parameters(p):
     '''function_parameters : type ID function_extra_parameters
@@ -124,11 +126,13 @@ def p_assignment(p):
 
 def p_function_call(p):
     '''function_call : ID LEFTPAREN expression function_call_expressions RIGHTPAREN'''
+    # ! NODOS
 
 
 def p_function_call_expressions(p):
     '''function_call_expressions : COMMA function_call_expressions
                  | empty'''
+    # ! NODOS
 
 
 def p_loop(p):

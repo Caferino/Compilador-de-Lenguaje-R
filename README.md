@@ -169,5 +169,7 @@
 > Espero que esto de sacrificar features sea parte de la experiencia...
 >
 > No me importó y me avente el clavado de todos modos. Logré acabar de desarrollar las condicionales !=, ==, ||, &&, ... y funcionan bien siempre y cuando no sean más de tres comparaciones seguidas, creo, aún no sé por qué, creo que ese error lo dejaré así ahora sí. Creo que el error se debe a que los verifico en el mismo nodo neuronal donde verifico '<', '>', ... cuando el AND y OR tienen otra prioridad un nivel arriba, por ello tienen un tamaño de hasta dos comparaciones, la misma de un IF ELSE. Puedo arreglarlo, pero prefiero invertir el tiempo en sacar las funciones por ahora, se me hace más crucial. Lo bueno es que ya lo dectecté y registré...
+>
+> Tengo un examen final para cuál estudiar el Lunes, y un guión para entregar (ya lo tengo al 99%). Mañana domingo tendré que limpiar el código y documentar lo que me falta, no creo poder realizar las tres cosas que me faltan, sola una o dos hasta la revisión: 1. Funciones, function calls, returns, recursión, Fibonnacci; 2. Multiplicación y manipulación completa de matrices, las tengo registradas y solo es de llenarlas y el sort sería hacerlo sobre su value, pero igual veo los problemas que se vienen con la linearización...; 3. Memorias Virtuales, reparar condicionales, detalles pequeños, extra... Considero el 1. y 2. más importantes, pero el 1. más que nada... Intentaré.
 
 ~Óscar Antonio Hinojosa Salum A00821930
