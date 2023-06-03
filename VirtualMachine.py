@@ -106,6 +106,14 @@ class VirtualMachine:
                 self.registers[target] = int(operand1 > operand2)
             elif operator == '<' :
                 self.registers[target] = int(operand1 < operand2)
+            elif operator == '==':
+                self.registers[target] = int(operand1 == operand2)
+            elif operator == '!=' or operator == '<>':
+                self.registers[target] = int(operand1 != operand2)
+            if operator == '&&':
+                self.registers[target] = int(operand1 and operand2)
+            if operator == '||':
+                self.registers[target] = int(operand1 or operand2)
             elif operator == '=' or operator == '<-' :
                 # Si es un string, es porque a fuerza es un ID ...
                 if target.__class__.__name__ == 'str' :
