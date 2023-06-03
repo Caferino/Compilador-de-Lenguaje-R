@@ -165,5 +165,7 @@
 > Solía creer que en C++, solamente el 0 y el 1 podían compararse como booleanos, nada más, pero creo que cambió o me creí algo erróneo por mucho tiempo, no sé si lo actualizaron o algo, lo de considerar números negativos o mayores a 0 es True, no sé, pero ya tengo la misma feature.
 >
 > Después de probar con prueba3.txt, considero mis while terminados. Descubrí que me falta lógica para el operando de "==", pero ok, god damn it. Siguiente feature.
+>
+> Espero que esto de sacrificar features sea parte de la experiencia...
 
 ~Óscar Antonio Hinojosa Salum A00821930
