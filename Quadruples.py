@@ -242,7 +242,7 @@ class Quadruples:
         else:
             result = self.PilaO.pop()
             self.generateQuadruple('GotoF', result, '', 'linePlaceHolder')
-            self.PJumps.append(self.cont)
+            self.PJumps.append(self.cont - 1)
 
 
     # ------ 3. Tercer nodo de WHILE ------ #
@@ -290,18 +290,18 @@ class Quadruples:
 
 
     def insertPrintString(self, string):
-        print(string)
+        # print(string) # ! DEBUG
         pprint.pprint(self.quadruples)
 
 
     # ------ 2. Assignments ------ #
     def insertAssignmentSign(self, token):
-        print("Insertando assignment: ", token)
+        # print("Insertando assignment: ", token) # ! DEBUG
         self.POper.append(token)
 
 
     def insertAssignmentID(self, token):
-        print("Insertando ID: ", token)
+        # print("Insertando ID: ", token) # ! DEBUG
         self.assignTemp = token
 
 

@@ -151,5 +151,19 @@
 
 > Otra vez fui levantado con 5 horas de sueño por los sonidos de unos martillazos/construcción a lado de mi depa. Tengo que volver a grabarlos para la policía porque esto ya se me hace descarado, Siempre hubo algo que me arruinó el sueño durante toda mi carrera: gemidos de vecinos, construcciones, música ranchera naca y alta tarde y temprano, eventos tardes del tec, las campanadas a las 12 de la iglesia san juan bosco (a 5 pasos de mí), gente naca que pone música en alto a la 1 de la mañana (por ahora no hay de esos gracias a Dios), tengo a un baterista a lado desde hace 2 años, al principio no respetaba, pero después lo tuve que aplacar golpeando una pesa de 10lb contra la pared; el estrés afectando mi intestino, despertándome cada mañana para ir al baño a pasar una hora desperdiciada sufriendo allí, igual por la mala dieta que tenía, de comer muy tarde por el mismo estrés que también me causa insomio; he llegado al punto de reportar a un vecino con la policía por lo descarado que llegó a ser su ruido, el cual me aguanté por literal más de medio año seguido, no sé cómo. Siempre hubo algo que me arruinó el sueño durante las semanas de finales, proyectos, las más importantes. Todo esto es ridículo, ya me quiero ir muy lejos de aquí. Siento que estos 7 años de daño me han acortado la vida en verdad unos 10 años aparte, ya no me importa si apruebo o no, haré lo que pueda, iré por mi feedback e intentaré ya trabajar con o sin título, no debo seguir aquí.
 >
+> Bueno, después de surrar 2 kilogramos de pura ira y calmarme... logré arreglar mis cuádruplos para el while. Ya funciona mi while; lo había meditado toda la noche y llegué a ver que mis cuádruplos booleanos podían llegar como 0 o 1 además del True o False que solamente tenía contemplado. Simplemente les añadí la posibilidad de checar valores integers (0 = False, positivos = True, Negativos = gusto propio, puedo hacerlos False si quiero):
+>
+> GOTOF:
+> if operand1 == 'False' or operand1 == 0 :
+>
+> Por ahora lo dejaré sencillo, para no romper nada más, pero con añadir rangos para negativos y positivos puedo hacer el lenguaje más dinámico, abierto. Pensaba desde un principio usar lo que Python usara para validar sus bools, el cual dice que todo valor que NO sea 0, es True, incluyendo negativos. Si es así, me conviene poner el if así, y la feature debería ya estar implementada ahora sí. Esto sería exclusivo del GOTOV, no GOTOF:
+>
+> GOTOV:
+> En vez de lo que tenía: if operand1 == 'True' or operand1 == 1 :
+> Que sea diferente a cero significa es True sí o sí, no solo el 1 como en C++, quiero todo el pastel: if operand1 == 'True' or operand1 **!= 0** :
+>
+> Solía creer que en C++, solamente el 0 y el 1 podían compararse como booleanos, nada más, pero creo que cambió o me creí algo erróneo por mucho tiempo, no sé si lo actualizaron o algo, lo de considerar números negativos o mayores a 0 es True, no sé, pero ya tengo la misma feature.
+>
+> Después de probar con prueba3.txt, considero mis while terminados. Descubrí que me falta lógica para el operando de "==", pero ok, god damn it. Siguiente feature.
 
 ~Óscar Antonio Hinojosa Salum A00821930

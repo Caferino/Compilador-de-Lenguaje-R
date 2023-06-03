@@ -134,17 +134,17 @@ def p_function_call_expressions(p):
 def p_loop(p):
     '''loop : nodowhile LEFTPAREN expression nodowhile2 LEFTCORCH block RIGHTCORCH
                  | empty'''
-    # ! quadsConstructor.nodoWhileTres()
+    quadsConstructor.nodoWhileTres()
 
 
 def p_nodowhile(p):
     '''nodowhile : WHILE'''
-    # ! quadsConstructor.nodoWhileUno()
+    quadsConstructor.nodoWhileUno()
 
 
 def p_nodowhile2(p):
     '''nodowhile2 : RIGHTPAREN'''
-    # ! quadsConstructor.nodoWhileDos()
+    quadsConstructor.nodoWhileDos()
 
 
 def p_condition(p):
