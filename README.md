@@ -3,9 +3,13 @@
 Dentro de: ~/.../Compilaor de Lenguaje R A00821930
 
 > python3 Parser.py prueba1.txt
+>
 > python3 Parser.py prueba2.txt
+>
 > python3 Parser.py prueba3.txt
+>
 > python3 Parser.py prueba4.txt
+>
 > python3 Parser.py prueba5.txt
 
 **=== Avances ===**
