@@ -55,9 +55,11 @@ class Quadruples:
 
         # Para los estatutos que requieren saltos
         self.PJumps = []
+        self.dirFunc = []
         # self.cont = 1  ## ! Los cuádruplos empiezan desde 1.
         self.cont = 0
         self.assignTemp = 'target'
+        self.k = 1
 
 
 
@@ -253,6 +255,71 @@ class Quadruples:
         self.fill(end, self.cont)
 
 
+
+
+    # ------------------ FUNCTION ------------------ #
+    # ------ 1. Nodo para insertar el contador de cuádruplos ------ #
+    def nodoFunctionUno(self, funcID):
+        print("NODO FUNCTION UNO") # ! DEBUG
+        for i, tuple_item in enumerate(self.symbolTable):
+            if funcID == tuple_item[1]:
+                currentRow = self.symbolTable[i]
+                # Añadimos una nueva columna con su posición en los cuádruplos
+                currentRow = currentRow + (self.cont,)
+                self.symbolTable[i] = currentRow
+
+    def nodoFunctionDos(self):
+        print("NODO FUNCTION DOS") # ! DEBUG
+        self.generateQuadruple('ENDFUNC', '', '', '')
+
+
+
+
+    # ------------------ FUNCTION CALL ------------------ #
+    # ------ 1. Primer nodo de un FUNCTION CALL ------ #
+    # ------ Verificar que existe la función, sino error ------ #
+    def nodoFunctionCallUno(self, ID):
+        exists = False
+        for tuple in self.symbolTable :
+            if ID == tuple[1] :
+                exists = True
+                break
+
+        if not exists : raise TypeError("Function", ID, "not declared.")
+
+
+    def nodoFunctionCallDos(self, ID):
+        print("FUNCTION CALL 2")
+        self.generateQuadruple('ERA', '', '', ID) # (Activation Record expansion –NEW—size)
+        self.k = 1
+
+        # TODO - Add a pointer to the first parameter type in the ParameterTable. """
+
+
+    def nodoFunctionCallTres(self):
+        print("FUNCTION CALL 3")
+        argument = self.PilaO.pop()
+        argumentType = self.PTypes.pop()
+        # TODO - Verify ArgumentType against current Parameter (#k) in ParameterTable.
+        self.generateQuadruple('PARAM', argument, '', self.k) # Generate action PARAMETER, Argument, Argument#k """
+
+
+    def nodoFunctionCallCuatro(self):
+        print("FUNCTION CALL 4")
+        self.k = self.k + 1 
+        # TODO - Move to next parameter.
+
+
+    def nodoFunctionCallCinco(self):
+        print("FUNCTION CALL 5")
+        # TODO - Verify that the last parameter points to null (coherence in number of parameters).
+
+
+    def nodoFunctionCallSeis(self):
+        print("FUNCTION CALL 6")
+        # 6.- Generate action GOSUB, procedure-self.name, , initial-address
+        # TODO - Puedo sacar procedureName de un parentFunction en cualquier parámetro
+        # ! self.generateQuadruple('GOSUB', prdocedureName, '', initialAddress)
 
 
 

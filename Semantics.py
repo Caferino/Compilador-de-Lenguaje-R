@@ -55,6 +55,7 @@ class Rules:
         self.allTypes = []
         self.inFunction = False
         self.opStack = []
+        self.openList = False
 
 
     # ------ TYPES ------ #
@@ -154,6 +155,7 @@ class Rules:
                 # Ya que estoy leyendo esto de derecha a izquierda, arigato ozymndas
                 
                 # Separamos las variables en self.values con sus respectivas variables
+                # print("VALUES =", self.values) # ! DEBUG
                 if self.values : topValue = self.values.pop()
                 else : topValue = ','
                 while topValue != ',' and topValue != '}':
@@ -166,6 +168,7 @@ class Rules:
                 
                 # Antes de meter los values, conviene transformar sus elementos al type apropiado
                 if self.type == 'int':
+                    # print("WTF =", self.varValues) # ! DEBUG
                     self.varValues = [int(num) for num in self.varValues]
                 # Como ya llegan como floats... ignoramos ese caso
                 # Con bools puede ser, x > 0 = True, x == 0 or x == -1 = False tal vez, gusto propio...
@@ -259,54 +262,15 @@ class Rules:
             if '}' in str(p[3]):
                 self.values.append(p[3])
 
+        """ elif '}' in str(p[4]): # Respecto a las production rules
+                self.openList = False
 
-    # ------ FUNCTION ------ #
-    def p_function(p):
-        '''
-        1.- Insert Procedure self.name into the DirFunc table, verify semantics.
-
-        2.- Insert every parameter into the current (local) VarTable.
-        3.- Insert the type to every parameter uploaded into the VarTable. At the same time into the ParameterTable
-        (to create the Function’s signature)..
-
-        4.- Insert into DirFunc the number of parameters defined. **to calculate the workspace required for execution
-
-        5.- Insert into DirFunc the number of local variables defined. **to calculate the workspace required for execution
-        6.- Insert into DirFunc the current quadruple counter (CONT), **to establish where the procedure starts
-
-        7.- Release the current VarTable (local).
-        Generate an action to end the procedure (ENDFUNC).
-        Insert into DirFunc the number of temporal vars used. **to calculate the workspace required for execution
-        '''
-
-
-    # ------ FUNCATION CALL ------ #
-    def p_functionCall(p):
-        '''
-        1.- Verify that the procedure exists into the DirFunc.
-        
-        2.- Generate action ERA size (Activation Record expansion –NEW—size).
-        Start the parameter counter (k) in 1.
-        Add a pointer to the first parameter type in the ParameterTable.
-
-        3.- Argument= PilaO.Pop() ArgumentType= PTypes.Pop().
-        Verify ArgumentType against current Parameter (#k) in ParameterTable.
-        Generate action PARAMETER, Argument, Argument#k
-
-        4.- K = K + 1, move to next parameter.
-
-        5.- Verify that the last parameter points to null (coherence in number of parameters).
-
-        6.- Generate action GOSUB, procedure-self.name, , initial-address
-        '''
+        # Si no es valor de una lista/matriz, lo agregamos directamente
+        if '{' in str(p[1]):
+            self.openList = True  """ # Si el value viene dentro de "{}", será una lista de uno o más
 
 
     def p_end_program(self):
         quadsConstructor.updateSymbolTable(memory.symbolTable)
         print("Final Symbol Table: ")
         pprint.pprint(memory.symbolTable)
-        """ pprint.pprint(memory.symbolTable, indent=4)
-        print("O O O O O O")
-        print(memory.pTypes)
-        print(memory.pNames)
-        memory.printSymbolTable() """

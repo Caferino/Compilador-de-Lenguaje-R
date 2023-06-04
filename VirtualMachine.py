@@ -168,6 +168,15 @@ class VirtualMachine:
                 self.program_counter = self.stack.pop()
                 self.registers[target] = return_value
                 continue
+            elif operator.lower() == 'era':
+                print("ERA logic here")
+            elif operator.lower() == 'gosub':
+                print("GOSUB logic here")
+            elif operator.lower() == 'param':
+                print("PARAM logic here")
+            elif operator.lower() == 'endfunc':
+                print("ENDFUNC logic here")
+                
 
             self.program_counter += 1
 

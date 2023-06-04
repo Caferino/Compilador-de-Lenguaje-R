@@ -94,8 +94,7 @@ def p_function(p):
     rules.p_registerLocalVariables(p)
     rules.p_insertID(p, True)
 
-    # ! Insert into DirFunc the current quadruple counter (CONT), **to establish where the function start
-
+    # ! quadsConstructor.nodoFunctionDos()
 
 def p_function_parameters(p):
     '''function_parameters : type ID function_extra_parameters
@@ -108,6 +107,8 @@ def p_function_parameters(p):
 def p_function_extra_parameters(p):
     '''function_extra_parameters : COMMA function_parameters
                 | empty'''
+
+    # ! if(len(p) < 2) : quadsConstructor.nodoFunctionUno()
 
 
 def p_assignment_block(p):
@@ -123,14 +124,19 @@ def p_assignment(p):
                  | EQUALS'''
     
 
-
 def p_function_call(p):
-    '''function_call : ID LEFTPAREN expression function_call_expressions RIGHTPAREN'''
+    '''function_call : function_call_id expression function_call_expressions RIGHTPAREN'''
     # ! NODOS
 
 
+def p_function_call_id(p):
+    '''function_call_id : ID LEFTPAREN'''
+    # ! quadsConstructor.nodoFunctionCallUno(p[1])
+    # ! quadsConstructor.nodoFunctionCallDos(p[1])
+
+
 def p_function_call_expressions(p):
-    '''function_call_expressions : COMMA function_call_expressions
+    '''function_call_expressions : COMMA expression function_call_expressions
                  | empty'''
     # ! NODOS
 

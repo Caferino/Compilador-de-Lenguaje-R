@@ -172,4 +172,10 @@
 >
 > Tengo un examen final para cuál estudiar el Lunes, y un guión para entregar (ya lo tengo al 99%). Mañana domingo tendré que limpiar el código y documentar lo que me falta, no creo poder realizar las tres cosas que me faltan, sola una o dos hasta la revisión: 1. Funciones, function calls, returns, recursión, Fibonnacci; 2. Multiplicación y manipulación completa de matrices, las tengo registradas y solo es de llenarlas y el sort sería hacerlo sobre su value, pero igual veo los problemas que se vienen con la linearización...; 3. Memorias Virtuales, reparar condicionales, detalles pequeños, extra... Considero el 1. y 2. más importantes, pero el 1. más que nada... Intentaré.
 
+**4 Junio 2023**
+
+> Avancé a la lógica de las funciones, pero adaptarlo a mi horror que fue la semántica se tornó mal. Por ahora subiré lo que tengo, e intentaré solucionarlo sin el estrés de la entrega final, sobre una branch distina.
+>
+> A partir de aquí, en la documentación y demás usaré ya un lenguaje aburrido, técnico y directo. El humor que utilicé a lo largo del desarrollo fue un mecanismo de defensa que me ayudó a desestresarme y desenredar varios problemas más fácil.
+
 ~Óscar Antonio Hinojosa Salum A00821930

@@ -21,7 +21,10 @@ void uno(int p, int q, int m){
     bool varAdentroDeUno3 = -5;
     int varAdentroDeUno4 = 1;
 
-    // varAdentroDeUno1 = varAdentroDeUno1 + a;
+    // varAdentroDeUno1 = varAdentroDeUno1 + p;
+    // print(varAdentroDeUno2);
+    // varAdentroDeUno3 = 0;
+    // varAdentroDeUno4 = varAdentroDeUno1 + varAdentroDeUno2;
 
     // print("Me hice caca en el pantalón.");
 }
@@ -48,6 +51,9 @@ else{
     y = y * 1;
     y = y / 1;
 }
+
+tres();
+// cuatro(); // Para romperlo llamando una function que no existe
 
 print(x);
 x = x + (440 - 20);
