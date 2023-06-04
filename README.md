@@ -8,7 +8,7 @@ Dentro de: ~/.../Compilaor de Lenguaje R A00821930
 > python3 Parser.py prueba4.txt
 > python3 Parser.py prueba5.txt
 
-**=== Avances ===**
+**`<center>`=== Avances ===`</center>`**
 
 **16 Abril 2023**
 
