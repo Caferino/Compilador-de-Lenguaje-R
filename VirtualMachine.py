@@ -4,7 +4,7 @@
     Mayo 28 2023
     Compilador para lenguaje al estilo R/C++.
 
-    --- VM / Virtual Machine ---
+    --- VM / Virtual Machine / Máquina Virtual ---
 """
 
 # ======================== Virtual Machine ======================== #
