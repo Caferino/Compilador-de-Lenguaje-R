@@ -59,7 +59,7 @@
 
 > Me recomendaron utilizar los diccionarios de Python para la memoria, y tenían razón. Es una chulada de estructura de datos. Diseñé lo que creo sería uno de los primeros nodos neuronales de la semántica, uno en el que se guardaría los operandos, como prueba por ahora, en lo que veo cómo lee y escribe los valores del Ply y Yacc (es una variable llama "p" que según yo contiene el elemento leído más reciente...).
 
-![1684256071125](image/README/1684256071125.png)
+![Alt Text](https://th.bing.com/th/id/R.45570256035ad49459bc0fa0e3a55e25?rik=mF4nRhVgzzVwIQ&pid=ImgRaw&r=0)
 
 **17 Mayo 2023 - Irreversible**
 
