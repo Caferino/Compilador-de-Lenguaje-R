@@ -2,24 +2,12 @@
     Proyecto Final
     Autor: Óscar Antonio Hinojosa Salum A00821930
     Abril 15 2023
-    Compilador para lenguaje al estilo R.
+    Compilador para lenguaje al estilo R/C++.
+
+    --- Memoria para la Symbol Table ---
 """
 
-import re # Librería para expresiones regulares RegEX
-
-# ============ Métodos globales ============
-
-def validateSize(self, address):
-    # Si la memoria son bytes negativos o más de lo que se asignó, que quiebre
-    if address < 0 or address >= len(self.memory):
-        raise Exception("Memory Overflow")
-    
-    # Si no, todo está bien, regresar TRUE
-    return True
-
-
-
-# ============ Main - Clase de Memoria ============
+# ======================== Memoria ======================== #
 
 class MemoryMap:
     def __init__(self):

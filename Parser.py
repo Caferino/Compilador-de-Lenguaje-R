@@ -4,7 +4,7 @@
     Abril 15 2023
     Compilador para lenguaje al estilo R/C++.
 
-    CR++, El Cristiano Ronaldo de los Lenguajes de Programación.
+    --- Parser / Sintáxis ---
 """
 
 # ======================== Sintáxis ======================== #
@@ -257,7 +257,7 @@ def p_fact(p):
 
 
 
-# # ======================== Reglas de Errores ======================== #
+# # ======================== Reglas de Errores ======================== # #
 
 def p_error(p):
     # raise TypeError("Syntax error in input! - {} ".format(p)) # Para detener la compilación
@@ -271,7 +271,7 @@ def p_empty(p):
 
 
 
-# = = = = = = = = = = = = = Main - Lector de Archivos = = = = = = = = = = = = = #
+# # # = = = = = = = = = = = = = Main - Lector de Archivos = = = = = = = = = = = = = # # #
 
 import sys
 import ply.yacc as yacc

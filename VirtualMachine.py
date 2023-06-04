@@ -1,18 +1,15 @@
 """
     Proyecto Final
     Autor: Óscar Antonio Hinojosa Salum A00821930
-    Abril 15 2023
-    Compilador para lenguaje al estilo R.
+    Mayo 28 2023
+    Compilador para lenguaje al estilo R/C++.
 
-    VM / Virtual Machine
-    Input: Cuádruplos en forma de tuplas tipo
-    [operador, operandoIzquierdo, operandoDerecho, dondeInsertarResultado]
-
-    Output: Resultados del programa.
+    --- VM / Virtual Machine ---
 """
 
+# ======================== Virtual Machine ======================== #
+
 import pprint
-import sys
 import re
 
 class VirtualMachine:
@@ -24,25 +21,35 @@ class VirtualMachine:
         self.quadruples = []
         self.symbolTable = []
 
+
     def start(self, quadruples, newSymbolTable):
         self.quadruples = quadruples
         self.symbolTable = newSymbolTable
         self.run()
 
+
     def run(self):
-        print("It's showtime: ") # ! DEBUG
-        pprint.pprint(self.quadruples, stream=sys.stdout) # ! DEBUG
+        # print("It's showtime: ") # ! DEBUGGER
+        # pprint.pprint(self.quadruples, stream=sys.stdout) # ! DEBUGGER
 
 
+        '''
+        Input: Cuádruplos en forma de tuplas tipo:
+            [operador, operandoIzquierdo, operandoDerecho, dondeInsertarResultado]
+
+        Output: Resultados del programa.
+        '''
         while self.program_counter < len(self.quadruples):
             quadruple = self.quadruples[self.program_counter]
             operator, operand1, operand2, target = quadruple
+
 
             """ print("BEFORE operator = ", operator)
             print("BEFORE operand1 = ", operand1)
             print("BEFORE operand2 = ", operand2)
             print("BEFORE target = ", target)
             # print("Registers size = ", len(self.registers), "+ 1") # ! DEBUG """
+
 
             # Qué asco ya sé, una búsqueda lineal O(n) por cada operando que sea una variable...
             # Si nuestro resultado será un espacio temporal, lo "hacemos" índice (t1 = 1, t82 = 82, ...)
@@ -103,6 +110,7 @@ class VirtualMachine:
             pprint.pprint(self.quadruples)
             # print("Registers size = ", len(self.registers), "+ 1") # ! DEBUG """
 
+
             # Dios mío bendito. Los famosos registers de Windows que rompen todo
             if operator == '+' :
                 self.registers[target] = operand1 + operand2
@@ -122,16 +130,11 @@ class VirtualMachine:
                 self.registers[target] = bool(operand1) != bool(operand2)
             if operator == '&&':
                 self.registers[target] = bool(operand1) and bool(operand2)
-                """ print("OPERAND1 =", operand1, "OPERAND2 =", operand2)
-                print("OPERAND1 BOOL =", eval('50.0'), "OPERAND2 BOOL =", eval('5'))
-                print("OPERAND1 TYPE =", operand1.__class__.__name__, "OPERAND2 TYPE =", operand2.__class__.__name__)
-                print("RESULTADO =", bool(bool(operand1) and bool(operand2))) """
             if operator == '||':
                 self.registers[target] = bool(operand1) or bool(operand2)
             elif operator == '=' or operator == '<-' :
                 # Si es un string, es porque a fuerza es un ID ...
                 if target.__class__.__name__ == 'str' :
-                    # print("Actualizar el valor de ", target) # ! DEBUG
                     for i, tuple_item in enumerate(self.symbolTable):
                         if target == tuple_item[1]:
                             
@@ -162,7 +165,7 @@ class VirtualMachine:
                 else : self.program_counter += 1
                 continue
             elif operator.lower() == 'print':
-                print("Print = ", operand1)
+                print(operand1)
             elif operator.lower() == 'return':
                 return_value = self.registers[operand1]
                 self.program_counter = self.stack.pop()
@@ -179,6 +182,3 @@ class VirtualMachine:
                 
 
             self.program_counter += 1
-
-            
-        # print("Hack me, baby = ", self.registers) # ! DEBUG

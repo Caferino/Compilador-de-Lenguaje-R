@@ -177,5 +177,9 @@
 > Avancé a la lógica de las funciones, pero adaptarlo a mi horror que fue la semántica se tornó mal. Por ahora subiré lo que tengo, e intentaré solucionarlo sin el estrés de la entrega final, sobre una branch distina.
 >
 > A partir de aquí, en la documentación y demás usaré ya un lenguaje aburrido, técnico y directo. El humor que utilicé a lo largo del desarrollo fue un mecanismo de defensa que me ayudó a desestresarme y desenredar varios problemas más fácil.
+>
+> Goodbye, 
+>
+> https://www.youtube.com/watch?v=kaQ7TKipsWI
 
 ~Óscar Antonio Hinojosa Salum A00821930

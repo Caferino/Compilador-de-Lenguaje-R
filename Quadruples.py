@@ -2,10 +2,12 @@
     Proyecto Final
     Autor: Óscar Antonio Hinojosa Salum A00821930
     Mayo 28 2023
-    Compilador para lenguaje al estilo R.
+    Compilador para lenguaje al estilo R/C++.
 
-    Constructor de Cuádruplos
+    --- Constructor de Cuádruplos ---
 """
+
+# ======================== Código Intermedio ======================== #
 
 from VirtualMachine import VirtualMachine
 import SemanticCube
@@ -43,6 +45,8 @@ class Avail:
 
 
 class Quadruples:
+
+    # ------------------ INIT ------------------ #
     def __init__(self):
         # Mom
         self.quadruples = []
@@ -62,9 +66,6 @@ class Quadruples:
         self.k = 1
 
 
-
-
-
     # ------------------ EXPRESIONES LINEALES ------------------ #
     # ------ 1. Insertando Type y ID ------ #
     def insertTypeAndID(self, token):
@@ -79,7 +80,6 @@ class Quadruples:
 
         else:
             # Si no, es un ID cuyo tipo debemos buscar
-            print("Es un ID!",  token)
             i = 0   # I missed you, baby
             for tuple in self.symbolTable:
                 if token == tuple[1]:   ## Posición del ID en la symbolTable
@@ -103,7 +103,6 @@ class Quadruples:
     # ------ 2 y 3. Insertando Signos (+, -, *, /, <, >, <>, =, ||, &&, !=, ...) ------ #
     def insertSign(self, token):
         self.POper.append(token)
-        print("Entramos a insertSign alright: ", self.POper[-1])
     
 
     # ------ 4. Verificando Sumas o Restas ------ #
@@ -134,7 +133,7 @@ class Quadruples:
                     Avail.release(right_operand)
 
                 else:
-                    print("Type mismatch in: ", left_operand, operator, right_operand)
+                    raise TypeError("Type mismatch in: ", left_operand, operator, right_operand)
 
 
     # ------ 5. Verificando Multiplicaciones o Divisiones ------ #
@@ -165,7 +164,7 @@ class Quadruples:
                     Avail.release(right_operand)
 
                 else:
-                    print("Type mismatch in: ", left_operand, operator, right_operand)
+                    raise TypeError("Type mismatch in: ", left_operand, operator, right_operand)
 
     # ------ 6. Verificando Condicionales ------ #
     def verifyConditionals(self):
@@ -195,8 +194,7 @@ class Quadruples:
                     Avail.release(right_operand)
 
                 else:
-                    print("Type mismatch in: ", left_operand, operator, right_operand)
-
+                    raise TypeError("Type mismatch in: ", left_operand, operator, right_operand)
 
 
 
@@ -226,7 +224,6 @@ class Quadruples:
         self.PJumps.append(self.cont - 1)
         # Mandamos a insertar la línea a cuál saltar
         self.fill(false, self.cont)
-
 
 
 
@@ -268,6 +265,7 @@ class Quadruples:
                 currentRow = currentRow + (self.cont,)
                 self.symbolTable[i] = currentRow
 
+
     def nodoFunctionDos(self):
         print("NODO FUNCTION DOS") # ! DEBUG
         self.generateQuadruple('ENDFUNC', '', '', '')
@@ -289,15 +287,14 @@ class Quadruples:
 
 
     def nodoFunctionCallDos(self, ID):
-        print("FUNCTION CALL 2")
+        print("FUNCTION CALL 2") # ! DEBUG
         self.generateQuadruple('ERA', '', '', ID) # (Activation Record expansion –NEW—size)
         self.k = 1
-
         # TODO - Add a pointer to the first parameter type in the ParameterTable. """
 
 
     def nodoFunctionCallTres(self):
-        print("FUNCTION CALL 3")
+        print("FUNCTION CALL 3") # ! DEBUG
         argument = self.PilaO.pop()
         argumentType = self.PTypes.pop()
         # TODO - Verify ArgumentType against current Parameter (#k) in ParameterTable.
@@ -305,28 +302,28 @@ class Quadruples:
 
 
     def nodoFunctionCallCuatro(self):
-        print("FUNCTION CALL 4")
+        print("FUNCTION CALL 4") # ! DEBUG
         self.k = self.k + 1 
         # TODO - Move to next parameter.
 
 
     def nodoFunctionCallCinco(self):
-        print("FUNCTION CALL 5")
+        print("FUNCTION CALL 5") # ! DEBUG
         # TODO - Verify that the last parameter points to null (coherence in number of parameters).
 
 
     def nodoFunctionCallSeis(self):
-        print("FUNCTION CALL 6")
+        print("FUNCTION CALL 6") # ! DEBUG
         # 6.- Generate action GOSUB, procedure-self.name, , initial-address
         # TODO - Puedo sacar procedureName de un parentFunction en cualquier parámetro
         # ! self.generateQuadruple('GOSUB', prdocedureName, '', initialAddress)
 
 
 
+
     # ------------------ PRINT, RETURN, ASSIGN ------------------ #
     # ------ 1. Prints ------ #
     def insertPrint(self, token):
-        print(token) # ! DEBUG
         self.POper.append(token)
 
 
@@ -353,27 +350,23 @@ class Quadruples:
                     Avail.release(left_operand)
 
                 else:
-                    print("Type mismatch in: ", left_operand, operator, right_operand)
+                    raise TypeError("Type mismatch in: ", left_operand, operator, right_operand)
 
 
     def insertPrintString(self, string):
-        # print(string) # ! DEBUG
-        pprint.pprint(self.quadruples)
+        pprint.pprint(self.quadruples) # ! DEBUG
 
 
     # ------ 2. Assignments ------ #
     def insertAssignmentSign(self, token):
-        # print("Insertando assignment: ", token) # ! DEBUG
         self.POper.append(token)
 
 
     def insertAssignmentID(self, token):
-        # print("Insertando ID: ", token) # ! DEBUG
         self.assignTemp = token
 
 
     def verifyAssignment(self):
-        # print("Current POper: ", self.POper) # ! DEBUG
         if self.POper:
             if self.POper[-1] == '=' or self.POper[-1] == '<-':
                 # Asignamos operandos y operador a validar y ejecutar
@@ -393,13 +386,8 @@ class Quadruples:
                     self.PilaO.append(result)
                     self.PTypes.append(result_Type)
 
-                    # "If any operand were a temporal space, return it to AVAIL"
-                    # Se checará que sea un espacio temporal antes de meterlo de vuelta a Avail
-                    # Avail.release(left_operand)
-
                 else:
                     print("Type mismatch in: ", left_operand, operator, right_operand)
-
 
 
 
@@ -413,21 +401,9 @@ class Quadruples:
 
 
     # ------ Llenado de líneas de salto para GOTOF y GOTOV ------ #
-    ## ! Mi "QUAD_POINTER" / quad_cont / counter / cont APUNTA siempre hacia el SIGUIENTE
-    # Para facilitarme la lectura de las presentaciones, usé los mismos nombres
+    # Mi "QUAD_POINTER" / quad_cont / counter / cont APUNTA siempre hacia el SIGUIENTE
     def fill(self, cont, line):
-        print("Muy bien, estamos en el FILL(), CONT = ", cont, line)
-        pprint.pprint(self.quadruples)
-        print("SELF.QUADRUPLES[cont - 1] = ", self.quadruples[cont - 1])
-        # ! self.quadruples[cont - 1][3] = line # OG
-
         self.quadruples[cont] = (self.quadruples[cont][:3] + (line,))
-
-        print("SELF.QUADRUPLES[cont - 1] = ", self.quadruples[cont - 1])
-
-        # self.quadruples[cont-2][3] = line
-
-        # self.quadruples[cont - 2] = self.quadruples[cont-2][:3] + (line,) # ! Cuelga el programa
 
 
     # ------ Actualizar symbolTable aquí. Fue por error propio ------ #

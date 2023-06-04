@@ -2,9 +2,9 @@
     Proyecto Final
     Autor: Óscar Antonio Hinojosa Salum A00821930
     Abril 15 2023
-    Compilador para lenguaje al estilo R.
+    Compilador para lenguaje al estilo R/C++.
 
-    Reglas de Semántica
+    --- Reglas de Semántica ---
 """
 
 # ======================== Semántica ======================== #
@@ -19,6 +19,7 @@ memory = MemoryMap()
 
 class Rules:
     def __init__(self):
+        # Temporales
         self.type = ''
         self.varName = ''
         self.varDimensions = []
@@ -43,9 +44,11 @@ class Rules:
         self.allTypes.append(p[1])
 
 
+
     # ------ SCOPE ------ #
     def p_insertScope(self, scope):
         self.scope = scope
+
 
 
     # ------ FUNCTION PARAMETER ------ #
@@ -53,6 +56,7 @@ class Rules:
     # asociarlas con el nombre de la función, la cual llega al final
     def p_saveLocalVariable(self, p):
         if len(p) > 2 : self.currentFunctionParams.append(p[2])
+
 
 
     # ------ REGISTER FUNCTION PARAMETER ------ #
@@ -68,33 +72,19 @@ class Rules:
             memoryLength = len(memory.symbolTable) - 1
 
             while stackLength > -1:
-                # print("Objetos del symbol table: ", memory.symbolTable[memoryLength][5]) # ! DEBUG
                 # Sacamos la fila del symbol table con una variable local por actualizar
                 currentRow = memory.symbolTable[memoryLength]
                 # Actualizamos la columna "functionParent"
                 index_to_change = 5
                 currentRow = currentRow[:index_to_change] + (functionName,) + currentRow[index_to_change + 1:]
                 # Ponemos la nueva fila de vuelta
-                memory.symbolTable[memoryLength] = currentRow
-
-                # De una vez actualizo sus types también
-                """ index_to_change = 0
-                currentRow = (self.allTypes.pop(),) + currentRow[index_to_change + 1:]
-                memory.symbolTable[memoryLength] = currentRow """
-                
+                memory.symbolTable[memoryLength] = currentRow          
                 
                 memoryLength -= 1
                 stackLength -= 1
 
             # Vaciamos la pila
             self.currentFunctionParams = []
-            
-            
-            
-            """ print("Function Name: ", functionName)
-            print('Current parameters: ', self.currentFunctionParams) """
-
-
 
 
 
@@ -134,7 +124,6 @@ class Rules:
                 # Ya que estoy leyendo esto de derecha a izquierda, arigato ozymndas
                 
                 # Separamos las variables en self.values con sus respectivas variables
-                # print("VALUES =", self.values) # ! DEBUG
                 if self.values : topValue = self.values.pop()
                 else : topValue = ','
                 while topValue != ',' and topValue != '}':
@@ -169,7 +158,6 @@ class Rules:
 
                 # Si llegamos a insertar una función, podemos de una vez contar sus variables
                 if isFunction :
-                    print(self.varName, "is a function.")
                     counter = len(memory.symbolTable) - 2  # Sabemos que estarán mero arriba, O(1)
                     iCount = 0   # ints adentro de la función (incluyo parámetros)
                     fCount = 0   # floats
@@ -179,7 +167,6 @@ class Rules:
                     while counter >= 0 :
                         # Solo es cuestión de contarlos ...
                         if memory.symbolTable[counter][5] == self.varName :
-                            print(memory.symbolTable[counter], "pertenece a ", self.varName)
                             if memory.symbolTable[counter][0] == 'int' : iCount += 1
                             if memory.symbolTable[counter][0] == 'float' : fCount += 1
                             if memory.symbolTable[counter][0] == 'bool' : bCount += 1
@@ -191,7 +178,7 @@ class Rules:
                             fCount = str(fCount) + "f"
                             bCount = str(bCount) + "b"
                             sCount = str(sCount) + "s"
-                            # TODO ACTUALIZA SYMBOLTABLE ROW ACTUAL
+                            # Actualizamos la row actual de la symbolTable
                             currentRow = memory.symbolTable.pop()
                             currentRow = currentRow + (tuple([iCount, fCount, bCount, sCount]),)
                             memory.insertRow(currentRow)
@@ -249,7 +236,11 @@ class Rules:
             self.openList = True  """ # Si el value viene dentro de "{}", será una lista de uno o más
 
 
+    # ------ END PROGRAM ------ #
     def p_end_program(self):
+        # Creo que con esta actualización nos aseguramos de tener las
+        # asignaciones que le hayan cambiado el valor a una variable
         quadsConstructor.updateSymbolTable(memory.symbolTable)
-        print("Final Symbol Table: ")
-        pprint.pprint(memory.symbolTable)
+        
+        # print("Final Symbol Table: ") # ! DEBUGGER
+        # pprint.pprint(memory.symbolTable) # ! DEBUGGER

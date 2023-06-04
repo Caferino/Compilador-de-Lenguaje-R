@@ -1,16 +1,18 @@
-# coding=utf-8
 """
     Proyecto Final
     Autor: Óscar Antonio Hinojosa Salum A00821930
     Abril 15 2023
-    Compilador para lenguaje al estilo R.
+    Compilador para lenguaje al estilo R/C++.
+
+    --- Lexer / Léxico ---
 """
+
+# ======================== Léxico ======================== #
 
 import ply.lex as lex
 from Quadruples import quadsConstructor
 
-# Palabras Clave
-
+# ------ PALABRAS CLAVE ------ #
 keywords = {
     'program': 'PROGRAM',
     'print': 'PRINT',
@@ -24,8 +26,7 @@ keywords = {
 }
 
 
-# Tokens
-
+# ------ TOKENS ------ #
 tokens = [
     'SEMICOLON', 'LEFTBRACKET', 'RIGHTBRACKET', 'GREATER', 'LESS', 'NOTEQUAL', 'NOTEQUALNUM', 'PLUS', 'MINUS', 'TIMES',
     'DIVIDE', 'MODULUS', 'LEFTPAREN', 'RIGHTPAREN', 'ID', 'CTEI', 'CTEF', 'EQUALS', 'ASSIGNL', 'LEFTCORCH', 'RIGHTCORCH',
@@ -33,8 +34,7 @@ tokens = [
 ]
 
 
-# Expresiones Regulares de Operadores
-
+# ------ EXPRESIONES REGULARES DE TOKENS ------ #
 t_SEMICOLON = r'\;'
 t_LEFTBRACKET = r'\['
 t_RIGHTBRACKET = r'\]'
@@ -62,7 +62,7 @@ t_OR = r'\|\|'
 t_ignore = " \t"
 
 
-# Expresiones Regulares con operaciones
+# ------ EXPRESIONES REGULARES CON OPERACIONES ------ #
 
 # ID
 def t_ID(t):

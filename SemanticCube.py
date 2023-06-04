@@ -1,3 +1,14 @@
+"""
+    Proyecto Final
+    Autor: Óscar Antonio Hinojosa Salum A00821930
+    Mayo 28 2023
+    Compilador para lenguaje al estilo R/C++.
+
+    --- Cubo Semántico ---
+"""
+
+# ======================== Cubo Semántico ======================== #
+
 typesTable = [
     #    left_Type   right_Type   ^    *    /    %    +    -    >    <   <>   !=   ==    =   &&   ||
     #    ------------------------------------------------------------------
