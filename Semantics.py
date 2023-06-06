@@ -11,6 +11,8 @@
 
 import re # Librería para expresiones regulares RegEX
 import pprint # Para imprimir el Symbol Table de manera bonita
+from functools import reduce # Para multiplicar listas y matrices
+import operator
 
 from Quadruples import quadsConstructor
 
@@ -111,9 +113,8 @@ class Rules:
                 self.varName = varName
 
 
-                ## ! IMPORTANTE :
-                ## TODO - SI YA EXISTE varName EN LA SYMBOLTABLE, QUEBRAR PROGRAMA? # Easiest
-                ## TODO - O ACTUALIZAR VALOR SOLO SI SCOPE ES IGUAL, FUNCTIONPARENT? # Hardest
+                # SI YA EXISTE varName EN LA symbolTable, QUEBRAR PROGRAMA
+                self.verifyVariableExistence(varName)
 
 
                 # Si es una variable local, la anexamos con su función para facilitarme la vida después
@@ -122,11 +123,12 @@ class Rules:
 
                 # Descubrí que para meter los values tendré que crear una pila que los separe por las comas
                 # Ya que estoy leyendo esto de derecha a izquierda, arigato ozymndas
+
                 
                 # Separamos las variables en self.values con sus respectivas variables
                 if self.values : topValue = self.values.pop()
                 else : topValue = ','
-                while topValue != ',' and topValue != '}':
+                while topValue != ',' and topValue != '}' :
                     # Si es un signo de menos, juntarlo con el siguiente valor
                     if topValue == '-' : topValue = float(self.varValues.pop()) * -1
 
@@ -144,7 +146,10 @@ class Rules:
                 # Por leerse de derecha a izquierda, ocupamos girarlos...
                 self.varValues.reverse()
 
-                # print("Current Values: ", self.varValues) # ! DEBUG
+            
+                # Pude hacerlo antes de lo anterior para "eficiencia", pero no podré enfocarme en limpieza aquí
+                self.verifyMatrix()
+
 
                 # Sacamos el type más actual, por si llegasen a ser parámetros
                 # Al declarar multiples variables (e.g. int a, b, c ...) solo
@@ -236,11 +241,35 @@ class Rules:
             self.openList = True  """ # Si el value viene dentro de "{}", será una lista de uno o más
 
 
+    # ------ Verify Variable Existence (I decided to hang the program if so) ------ #
+    # TODO - Mejorar con actualizar el value solo y solo si el scope es el mismo.
+    def verifyVariableExistence(self, varName):
+        for each_tuple in memory.symbolTable :
+            if varName == each_tuple[1] :
+                raise TypeError("Variable", varName, "already exists.")
+                break
+
+
+    # ------ Verify Matrix Size and Fill Empty Spots ------ #
+    def verifyMatrix(self):
+        matrixSize = reduce(operator.mul, self.varDimensions, 1)
+        ## Condicional para validar el tamaño de matriz
+        if len(self.varValues) > matrixSize : raise TypeError("Matrix", self.varName, "too large.")
+
+        # Ahora sabemos que la matriz tiene un tamaño correcto, pero está llena?
+        # Si el usuario no llenó todos los espacios, llenarlos con 'None'
+        length_difference = matrixSize - len(self.varValues)
+        if length_difference > 0 : 
+            desired_value = None
+            self.varValues = self.varValues + [desired_value] * length_difference
+            # raise TypeError("Rellenar Matrix", self.varName, "con", length_difference, "Nones") # ! DEBUG
+        
+
     # ------ END PROGRAM ------ #
     def p_end_program(self):
         # Creo que con esta actualización nos aseguramos de tener las
         # asignaciones que le hayan cambiado el valor a una variable
         quadsConstructor.updateSymbolTable(memory.symbolTable)
         
-        # print("Final Symbol Table: ") # ! DEBUGGER
-        # pprint.pprint(memory.symbolTable) # ! DEBUGGER
+        print("Final Symbol Table: ") # ! DEBUGGER
+        pprint.pprint(memory.symbolTable) # ! DEBUGGER

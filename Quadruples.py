@@ -170,7 +170,7 @@ class Quadruples:
     def verifyConditionals(self):
         # print("Current POper: ", self.POper) # ! DEBUG
         if self.POper:
-            if self.POper[-1] == '>' or self.POper[-1] == '<' or self.POper[-1] == '<>' or self.POper[-1] == '!=' or self.POper[-1] == '==' or self.POper[-1] == '||' or self.POper[-1] == '&&' :
+            if self.POper[-1] == '>' or self.POper[-1] == '<' or self.POper[-1] == '<>' or self.POper[-1] == '!=' or self.POper[-1] == '==' or self.POper[-1] == '||' or self.POper[-1] == '&&' or self.POper[-1] == '<=' :
                 # Asignamos operandos y operador a validar y ejecutar
                 ## ! IMPORTANTE: El orden de los .pop() importan!
                 right_operand = self.PilaO.pop()

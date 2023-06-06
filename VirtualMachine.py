@@ -10,6 +10,7 @@
 # ======================== Virtual Machine ======================== #
 
 import pprint
+import sys
 import re
 
 class VirtualMachine:
@@ -29,8 +30,8 @@ class VirtualMachine:
 
 
     def run(self):
-        # print("It's showtime: ") # ! DEBUGGER
-        # pprint.pprint(self.quadruples, stream=sys.stdout) # ! DEBUGGER
+        print("It's showtime: ") # ! DEBUGGER
+        pprint.pprint(self.quadruples, stream=sys.stdout) # ! DEBUGGER
 
 
         '''
@@ -124,6 +125,8 @@ class VirtualMachine:
                 self.registers[target] = int(operand1 > operand2)
             elif operator == '<' :
                 self.registers[target] = int(operand1 < operand2)
+            elif operator == '<=' :
+                self.registers[target] = int(operand1 <= operand2)
             elif operator == '==':
                 self.registers[target] = bool(operand1) == bool(operand2)
             elif operator == '!=' or operator == '<>':
