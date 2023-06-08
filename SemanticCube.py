@@ -10,7 +10,7 @@
 # ======================== Cubo Semántico ======================== #
 
 typesTable = [
-    #    left_Type   right_Type   ^    *    /    %    +    -    >    <   <>   !=   ==    =   &&   ||
+    #    left_Type   right_Type   **    *    /    %    +    -    >    <   <>   !=   ==    =   &&   ||
     #    ------------------------------------------------------------------
     ['int', 'int', 'int', 'int', 'float', 'int', 'int', 'int', 'bool', 'bool', 'bool', 'bool', 'bool', 'int', 'bool', 'bool'],
     ['int', 'float', 'float', 'float', 'float', 'float', 'float', 'float', 'bool', 'bool', 'bool', 'bool', 'bool', 'float', 'bool', 'bool'],
@@ -35,7 +35,7 @@ def Semantics(left_Type, right_Type, operator):
     # ------------- INT operator OPERAND ------------- #
     if left_Type == typesTable[0][0]:                       # Si INT operator OPERAND ...
         if right_Type == typesTable[0][1]:                  # Si INT operator INT
-            if operator == '^': return typesTable[0][2]     # Si INT ^ INT return INT ...
+            if operator == '**': return typesTable[0][2]     # Si INT ** INT return INT ...
             if operator == '*': return typesTable[0][3]
             if operator == '/': return typesTable[0][4]
             if operator == '%': return typesTable[0][5]
@@ -50,7 +50,7 @@ def Semantics(left_Type, right_Type, operator):
             if operator == '&&': return typesTable[0][14]
             if operator == '||': return typesTable[0][15]
         if right_Type == typesTable[1][1]:                  # Si INT operator FLOAT
-            if operator == '^': return typesTable[1][2]     # Si INT ^ FLOAT return FLOAT ...
+            if operator == '**': return typesTable[1][2]     # Si INT ** FLOAT return FLOAT ...
             if operator == '*': return typesTable[1][3]
             if operator == '/': return typesTable[1][4]
             if operator == '%': return typesTable[1][5]
@@ -65,7 +65,7 @@ def Semantics(left_Type, right_Type, operator):
             if operator == '&&': return typesTable[1][14]
             if operator == '||': return typesTable[1][15]
         if right_Type == typesTable[2][1]:                  # Si INT operator CHAR
-            if operator == '^': return typesTable[2][2]     # Si INT ^ CHAR return ERROR ...
+            if operator == '**': return typesTable[2][2]     # Si INT ** CHAR return ERROR ...
             if operator == '*': return typesTable[2][3]
             if operator == '/': return typesTable[2][4]
             if operator == '%': return typesTable[2][5]
@@ -80,7 +80,7 @@ def Semantics(left_Type, right_Type, operator):
             if operator == '&&': return typesTable[2][14]
             if operator == '||': return typesTable[2][15]
         if right_Type == typesTable[3][1]:                  # Si INT operator BOOL
-            if operator == '^': return typesTable[3][2]     # Si INT ^ BOOL return ERROR ...
+            if operator == '**': return typesTable[3][2]     # Si INT ** BOOL return ERROR ...
             if operator == '*': return typesTable[3][3]
             if operator == '/': return typesTable[3][4]
             if operator == '%': return typesTable[3][5]
@@ -99,7 +99,7 @@ def Semantics(left_Type, right_Type, operator):
     # ------------- FLOAT operator OPERAND ------------- #
     elif left_Type == typesTable[4][0]:                     # Si FLOAT operator OPERAND ...
         if right_Type == typesTable[4][1]:                  # Si FLOAT operator INT
-            if operator == '^': return typesTable[4][2]     # Si FLOAT ^ INT return FLOAT ...
+            if operator == '**': return typesTable[4][2]     # Si FLOAT ** INT return FLOAT ...
             if operator == '*': return typesTable[4][3]
             if operator == '/': return typesTable[4][4]
             if operator == '%': return typesTable[4][5]
@@ -114,7 +114,7 @@ def Semantics(left_Type, right_Type, operator):
             if operator == '&&': return typesTable[4][14]
             if operator == '||': return typesTable[4][15]
         if right_Type == typesTable[5][1]:                  # Si FLOAT operator FLOAT
-            if operator == '^': return typesTable[5][2]     # Si FLOAT ^ FLOAT return FLOAT ...
+            if operator == '**': return typesTable[5][2]     # Si FLOAT ** FLOAT return FLOAT ...
             if operator == '*': return typesTable[5][3]
             if operator == '/': return typesTable[5][4]
             if operator == '%': return typesTable[5][5]
@@ -129,7 +129,7 @@ def Semantics(left_Type, right_Type, operator):
             if operator == '&&': return typesTable[5][14]
             if operator == '||': return typesTable[5][15]
         if right_Type == typesTable[6][1]:                  # Si FLOAT operator CHAR
-            if operator == '^': return typesTable[6][2]     # Si FLOAT ^ CHAR return ERROR ...
+            if operator == '**': return typesTable[6][2]     # Si FLOAT ** CHAR return ERROR ...
             if operator == '*': return typesTable[6][3]
             if operator == '/': return typesTable[6][4]
             if operator == '%': return typesTable[6][5]
@@ -144,7 +144,7 @@ def Semantics(left_Type, right_Type, operator):
             if operator == '&&': return typesTable[6][14]
             if operator == '||': return typesTable[6][15]
         if right_Type == typesTable[7][1]:                  # Si FLOAT operator BOOL
-            if operator == '^': return typesTable[7][2]     # Si FLOAT ^ BOOL return ERROR ...
+            if operator == '**': return typesTable[7][2]     # Si FLOAT ** BOOL return ERROR ...
             if operator == '*': return typesTable[7][3]
             if operator == '/': return typesTable[7][4]
             if operator == '%': return typesTable[7][5]
@@ -163,7 +163,7 @@ def Semantics(left_Type, right_Type, operator):
     # ------------- CHAR operator OPERAND ------------- #
     elif left_Type == typesTable[8][0]:                     # Si CHAR operator OPERAND ...
         if right_Type == typesTable[8][1]:                  # Si CHAR operator INT
-            if operator == '^': return typesTable[8][2]     # Si CHAR ^ INT return ERROR ...
+            if operator == '**': return typesTable[8][2]     # Si CHAR ** INT return ERROR ...
             if operator == '*': return typesTable[8][3]
             if operator == '/': return typesTable[8][4]
             if operator == '%': return typesTable[8][5]
@@ -178,7 +178,7 @@ def Semantics(left_Type, right_Type, operator):
             if operator == '&&': return typesTable[8][14]
             if operator == '||': return typesTable[8][15]
         if right_Type == typesTable[9][1]:                  # Si CHAR operator FLOAT
-            if operator == '^': return typesTable[9][2]     # Si CHAR ^ FLOAT return ERROR ...
+            if operator == '**': return typesTable[9][2]     # Si CHAR ** FLOAT return ERROR ...
             if operator == '*': return typesTable[9][3]
             if operator == '/': return typesTable[9][4]
             if operator == '%': return typesTable[9][5]
@@ -193,7 +193,7 @@ def Semantics(left_Type, right_Type, operator):
             if operator == '&&': return typesTable[9][14]
             if operator == '||': return typesTable[9][15]
         if right_Type == typesTable[10][1]:                 # Si CHAR operator CHAR
-            if operator == '^': return typesTable[10][2]    # Si CHAR ^ CHAR return ERROR ...
+            if operator == '**': return typesTable[10][2]    # Si CHAR ** CHAR return ERROR ...
             if operator == '*': return typesTable[10][3]
             if operator == '/': return typesTable[10][4]
             if operator == '%': return typesTable[10][5]
@@ -208,7 +208,7 @@ def Semantics(left_Type, right_Type, operator):
             if operator == '&&': return typesTable[10][14]
             if operator == '||': return typesTable[10][15]
         if right_Type == typesTable[11][1]:                 # Si CHAR operator BOOL
-            if operator == '^': return typesTable[11][2]    # Si CHAR ^ BOOL return ERROR ...
+            if operator == '**': return typesTable[11][2]    # Si CHAR ** BOOL return ERROR ...
             if operator == '*': return typesTable[11][3]
             if operator == '/': return typesTable[11][4]
             if operator == '%': return typesTable[11][5]
@@ -227,7 +227,7 @@ def Semantics(left_Type, right_Type, operator):
     # ------------- BOOL operator OPERAND ------------- #
     elif left_Type == typesTable[12][0]:                    # Si BOOL operator OPERAND ...
         if right_Type == typesTable[12][1]:                 # Si BOOL operator INT
-            if operator == '^': return typesTable[12][2]    # Si BOOL ^ INT return ERROR ...
+            if operator == '**': return typesTable[12][2]    # Si BOOL ** INT return ERROR ...
             if operator == '*': return typesTable[12][3]
             if operator == '/': return typesTable[12][4]
             if operator == '%': return typesTable[12][5]
@@ -242,7 +242,7 @@ def Semantics(left_Type, right_Type, operator):
             if operator == '&&': return typesTable[12][14]
             if operator == '||': return typesTable[12][15]
         if right_Type == typesTable[13][1]:                 # Si BOOL op FLOAT
-            if operator == '^': return typesTable[13][2]    # Si BOOL ^ FLOAT return ERROR ...
+            if operator == '**': return typesTable[13][2]    # Si BOOL ** FLOAT return ERROR ...
             if operator == '*': return typesTable[13][3]
             if operator == '/': return typesTable[13][4]
             if operator == '%': return typesTable[13][5]
@@ -257,7 +257,7 @@ def Semantics(left_Type, right_Type, operator):
             if operator == '&&': return typesTable[13][14]
             if operator == '||': return typesTable[13][15]
         if right_Type == typesTable[14][1]:                 # Si BOOL operator CHAR
-            if operator == '^': return typesTable[14][2]    # Si BOOL ^ CHAR return ERROR ...
+            if operator == '**': return typesTable[14][2]    # Si BOOL ** CHAR return ERROR ...
             if operator == '*': return typesTable[14][3]
             if operator == '/': return typesTable[14][4]
             if operator == '%': return typesTable[14][5]
@@ -272,7 +272,7 @@ def Semantics(left_Type, right_Type, operator):
             if operator == '&&': return typesTable[14][14]
             if operator == '||': return typesTable[14][15]
         if right_Type == typesTable[15][1]:                 # Si BOOL operator BOOL
-            if operator == '^': return typesTable[15][2]    # Si BOOL ^ BOOL return ERROR ...
+            if operator == '**': return typesTable[15][2]    # Si BOOL ** BOOL return ERROR ...
             if operator == '*': return typesTable[15][3]
             if operator == '/': return typesTable[15][4]
             if operator == '%': return typesTable[15][5]

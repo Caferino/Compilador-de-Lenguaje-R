@@ -22,8 +22,7 @@ def p_program(p):
 
 
 def p_block(p):
-    '''block : vars block
-                | statement block
+    '''block : statement block
                 | empty'''
 
 
@@ -76,13 +75,16 @@ def p_array_vars(p):
 
 
 def p_statement(p):
-    '''statement : function
+    '''statement : vars
+                 | function
                  | assignment_block
                  | expression
                  | function_call
                  | loop
                  | condition
                  | writing
+                 | sort
+                 | return
                  | empty'''
     rules.p_saveToOpStack(p)
 
@@ -96,6 +98,7 @@ def p_function(p):
 
     # ! quadsConstructor.nodoFunctionDos()
 
+
 def p_function_parameters(p):
     '''function_parameters : type ID function_extra_parameters
                 | empty'''
@@ -107,12 +110,28 @@ def p_function_parameters(p):
 def p_function_extra_parameters(p):
     '''function_extra_parameters : COMMA function_parameters
                 | empty'''
+    if(len(p) < 2) : quadsConstructor.nodoFunctionUno()
 
-    # ! if(len(p) < 2) : quadsConstructor.nodoFunctionUno()
+
+def p_return(p):
+    '''return : RETURN expression SEMICOLON
+                | RETURN function_call extra_return_expressions SEMICOLON
+                | RETURN SEMICOLON'''
+    
+
+def p_extra_return_expressions(p):
+    '''extra_return_expressions : PLUS function_call extra_return_expressions
+                | MINUS function_call extra_return_expressions
+                | empty'''
 
 
 def p_assignment_block(p):
-    '''assignment_block : ID ASSIGNL expression SEMICOLON
+    '''assignment_block : nodoassign'''
+    rules.values = []
+
+
+def p_nodoassign(p):
+    '''nodoassign : ID ASSIGNL expression SEMICOLON
                 | ID EQUALS expression SEMICOLON'''
     quadsConstructor.insertAssignmentID(p[1])
     quadsConstructor.insertAssignmentSign(p[2])
@@ -131,7 +150,7 @@ def p_function_call(p):
 
 def p_function_call_id(p):
     '''function_call_id : ID LEFTPAREN'''
-    # ! quadsConstructor.nodoFunctionCallUno(p[1])
+    quadsConstructor.nodoFunctionCallUno(p[1])
     # ! quadsConstructor.nodoFunctionCallDos(p[1])
 
 
@@ -139,6 +158,11 @@ def p_function_call_expressions(p):
     '''function_call_expressions : COMMA expression function_call_expressions
                  | empty'''
     # ! NODOS
+
+
+def p_sort(p):
+    '''sort : ID PERIOD SORT LEFTPAREN RIGHTPAREN SEMICOLON'''
+    rules.sortMatrix(p)
 
 
 def p_loop(p):
@@ -239,11 +263,13 @@ def p_operator(p):
     '''operator : PLUS term operator
                 | MINUS term operator
                 | empty'''
+    # ! quadsConstructor.verifySignPlusOrMinus() ## ! CREO ESTO ARREGLA EXPRESIONES LINEALES O ROMPE MAS
     if p[1] != None : quadsConstructor.insertSign(p[1])
 
 
 def p_term_operator(p):
-    '''term_operator : TIMES fact term_operator
+    '''term_operator : EXPONENTIAL fact term_operator
+                     | TIMES fact term_operator
                      | DIVIDE fact term_operator
                      | MODULUS fact term_operator
                      | empty'''

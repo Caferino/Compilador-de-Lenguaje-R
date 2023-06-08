@@ -12,5 +12,14 @@ while(x > 0){
     }
 }
 
-print(x);
-print(y);
+int z = 50;
+z = z + 50;
+
+int expo = 2;
+expo = 2 ** 2;
+
+int c = 1;
+c = c / 1;
+
+print(z);
+print(expo);

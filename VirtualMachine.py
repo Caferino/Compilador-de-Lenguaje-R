@@ -9,6 +9,8 @@
 
 # ======================== Virtual Machine ======================== #
 
+from functools import reduce
+import operator
 import pprint
 import sys
 import re
@@ -30,8 +32,8 @@ class VirtualMachine:
 
 
     def run(self):
-        print("It's showtime: ") # ! DEBUGGER
-        pprint.pprint(self.quadruples, stream=sys.stdout) # ! DEBUGGER
+        # print("It's showtime: ") # ! DEBUGGER
+        # pprint.pprint(self.quadruples, stream=sys.stdout) # ! DEBUGGER
 
 
         '''
@@ -72,7 +74,7 @@ class VirtualMachine:
                     if operand1 == tuple[1] :
                         # print("tuple1[6] = ", tuple[6]) # ! DEBUG
                         # Si es una lista de un elemento, sacarlo
-                        if isinstance(tuple[6], list) : operand1 = tuple[6][0]
+                        if isinstance(tuple[6], list) and len(tuple[6]) == 1 : operand1 = tuple[6][0]
                         # Si sufrió alguna actualización antes de aquí, lo más seguro es
                         # que ya no es una lista de un elemento, sino número o string ...
                         else : operand1 = tuple[6]
@@ -89,7 +91,7 @@ class VirtualMachine:
             if isinstance(operand2, str) and re.match(r"^t\d+$", operand2) : 
                 operand2 = self.registers[int(operand2[1:])]
                 # print("Operand2 value = ", operand2) # ! DEBUG
-            # Si no, debe ser un ID cuyo valor debemo sacar de la SymbolTable
+            # Si no, debe ser un ID cuyo valor debemos sacar de la SymbolTable
             elif isinstance(operand2, str):
                 for tuple in self.symbolTable :
                     # print("tuple2 = ", tuple) # ! DEBUG
@@ -119,6 +121,8 @@ class VirtualMachine:
                 self.registers[target] = operand1 - operand2
             elif operator == '*' :
                 self.registers[target] = operand1 * operand2
+            elif operator == '**' :
+                self.registers[target] = operand1 ** operand2
             elif operator == '/' :
                 self.registers[target] = operand1 / operand2
             elif operator == '>' :

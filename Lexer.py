@@ -22,15 +22,17 @@ keywords = {
     'float': 'FLOAT',
     'bool' : 'BOOL',
     'void': 'VOID',
-    'while': 'WHILE'
+    'while': 'WHILE',
+    'return' : 'RETURN',
+    'sort' : 'SORT'
 }
 
 
 # ------ TOKENS ------ #
 tokens = [
-    'SEMICOLON', 'LEFTBRACKET', 'RIGHTBRACKET', 'GREATER', 'LESS', 'NOTEQUAL', 'NOTEQUALNUM', 'PLUS', 'MINUS', 'TIMES',
-    'DIVIDE', 'MODULUS', 'LEFTPAREN', 'RIGHTPAREN', 'ID', 'CTEI', 'CTEF', 'EQUALS', 'ASSIGNL', 'LEFTCORCH', 'RIGHTCORCH',
-    'CTESTRING', 'COMMA', 'AND', 'OR', 'PRINT', 'IF', 'ELSE', 'INT', 'FLOAT', 'BOOL', 'VOID', 'WHILE',
+    'SEMICOLON', 'SORT', 'LEFTBRACKET', 'PERIOD', 'RIGHTBRACKET', 'GREATER', 'LESS', 'NOTEQUAL', 'NOTEQUALNUM', 'PLUS', 'MINUS', 'TIMES',
+    'DIVIDE', 'EXPONENTIAL', 'MODULUS', 'LEFTPAREN', 'RIGHTPAREN', 'ID', 'CTEI', 'CTEF', 'EQUALS', 'ASSIGNL', 'LEFTCORCH', 'RIGHTCORCH',
+    'CTESTRING', 'COMMA', 'AND', 'OR', 'PRINT', 'IF', 'ELSE', 'INT', 'FLOAT', 'BOOL', 'VOID', 'WHILE', 'RETURN',
 ]
 
 
@@ -47,7 +49,7 @@ t_PLUS = r'\+'
 t_MINUS = r'-'
 t_TIMES = r'\*'
 t_DIVIDE = r'\/'
-# t_EXPONENTIAL = r'\^' # Standby
+t_EXPONENTIAL = r'\*\*' # Standby
 t_MODULUS = r'\%\%'
 t_LEFTPAREN = r'\('
 t_RIGHTPAREN = r'\)'
@@ -60,6 +62,8 @@ t_RIGHTCORCH = r'\}'
 t_COMMA = r'\,'
 t_AND = r'&&'
 t_OR = r'\|\|'
+t_PERIOD = r'\.'
+t_SORT = r'sort'
 t_ignore = " \t"
 
 

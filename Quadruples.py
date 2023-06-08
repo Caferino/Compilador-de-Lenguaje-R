@@ -10,9 +10,12 @@
 # ======================== Código Intermedio ======================== #
 
 from VirtualMachine import VirtualMachine
+from functools import reduce
+import operator
 import SemanticCube
 import pprint
 import sys
+import re
 
 virtualMachine = VirtualMachine()
 
@@ -80,15 +83,43 @@ class Quadruples:
 
         else:
             # Si no, es un ID cuyo tipo debemos buscar
+
+            # En caso de ser una matriz, sacamos la dirección del valor
+            isMatrix = False
+            if '[' in token : 
+                # print("Aqui estamos") # ! DEBUG
+                isMatrix = True
+                # Separamos el nombre de las dimensiones
+                varName = token
+                varNameIndex = varName.index('[')
+                varName = varName[:varNameIndex]
+
+                # Guardamos las dimensiones
+                indices = re.findall(r'\[(.*?)\]', token)
+                indices = [int(index) for index in indices]
+                varDimensions = indices
+                # print("varName =", varName) # ! DEBUG
+                # print("Dimensions =", varDimensions) # ! DEBUG
+                token = varName
+                valueAddress = reduce(operator.mul, varDimensions, 1) - 1
+                # print("valueAddress =", valueAddress) # ! DEBUG
+
+            # Si no, lo buscamos como tal
             i = 0   # I missed you, baby
             for tuple in self.symbolTable:
-                if token == tuple[1]:   ## Posición del ID en la symbolTable
+                if token == tuple[1] and isMatrix :
+                    # Metemos el valor de la posición deseada en la matriz
+                    self.PilaO.append(tuple[6][valueAddress])
+                    self.PTypes.append(tuple[0])
+                    break
+
+                elif token == tuple[1]:   ## Posición del ID en la symbolTable
                     self.PilaO.append(token) # Mis cuádruplos se benefician con su nombre
                     self.PTypes.append(tuple[0]) # Posición del tipo
                     break
     
                 # Si llegamos a la última tupla y aún no existe la variable...
-                if token != tuple[1] and i == len(self.symbolTable) - 1:
+                elif token != tuple[1] and i == len(self.symbolTable) - 1:
                     raise TypeError('Variable ', token, ' not declared!')
                 
                 i += 1
@@ -96,7 +127,7 @@ class Quadruples:
 
             
         
-        # ! TODO: Si es un ID, que saque su tipo real, valor también tal vez, etc.
+        # ! TODO : Si es un ID, que saque su tipo real, valor también tal vez, etc.
         # ! Espérate al error del Semantic Cube
 
 
@@ -108,6 +139,7 @@ class Quadruples:
     # ------ 4. Verificando Sumas o Restas ------ #
     def verifySignPlusOrMinus(self):
         # print("Current POper: ", self.POper) # ! DEBUG
+        # if self.POper and self.POper[-1] == '-' : print("WTFFFFFFFFF")
         if self.POper:
             if self.POper[-1] == '+' or self.POper[-1] == '-':
                 # Asignamos operandos y operador a validar y ejecutar
@@ -140,7 +172,7 @@ class Quadruples:
     def verifySignTimesOrDivide(self):
         # print("Current POper: ", self.POper) # ! DEBUG
         if self.POper:
-            if self.POper[-1] == '*' or self.POper[-1] == '/':
+            if self.POper[-1] == '*' or self.POper[-1] == '/' or self.POper[-1] == '**':
                 # Asignamos operandos y operador a validar y ejecutar
                 # ! IMPORTANTE: El orden de los .pop() importan!
                 right_operand = self.PilaO.pop()
@@ -203,7 +235,7 @@ class Quadruples:
     # ------ 1. Primer nodo de un IF/ELSE statement ------ #
     def nodoCondicionalUno(self):
         exp_type = self.PTypes.pop()
-        if(exp_type != 'bool') : print("Type Mismatch in a Conditional!", exp_type, "in", self.quadruples)
+        if(exp_type != 'bool') : raise TypeError("Type Mismatch in a Conditional!", exp_type, "in", self.quadruples)
         else:
             result = self.PilaO.pop()
             self.generateQuadruple('GotoF', result, '', 'linePlaceHolder')
@@ -237,7 +269,7 @@ class Quadruples:
     # ------ 2. Segundo nodo de WHILE ------ #
     def nodoWhileDos(self):
         exp_type = self.PTypes.pop()
-        if(exp_type != 'bool') : print("Type Mismatch in a While Loop!", exp_type, "in", self.quadruples)
+        if(exp_type != 'bool') : raise TypeError("Type Mismatch in a While Loop!", exp_type, "in", self.quadruples)
         else:
             result = self.PilaO.pop()
             self.generateQuadruple('GotoF', result, '', 'linePlaceHolder')
@@ -283,7 +315,7 @@ class Quadruples:
                 exists = True
                 break
 
-        if not exists : raise TypeError("Function", ID, "not declared.")
+        if exists == False : raise TypeError("Function", ID, "not declared.")
 
 
     def nodoFunctionCallDos(self, ID):
@@ -385,9 +417,10 @@ class Quadruples:
                     self.generateQuadruple(operator, left_operand, right_operand, result)
                     self.PilaO.append(result)
                     self.PTypes.append(result_Type)
+                    
 
                 else:
-                    print("Type mismatch in: ", left_operand, operator, right_operand)
+                    raise TypeError("Type mismatch in: ", left_operand, operator, right_operand)
 
 
 

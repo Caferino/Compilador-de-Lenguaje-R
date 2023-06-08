@@ -1,9 +1,10 @@
 bool booleanoT = True, booleanoF = False;
+int x = 2;
 
 if(booleanoT && booleanoT){
     print(100);
     // Por alguna razón, tener más de tres comparaciones lo rompe...
-    if((booleanoT && booleanoF) && (booleanoT || booleanoF)){
+    if((booleanoT && booleanoT) && (booleanoT || booleanoF)){
         print(1000);
     }
     else{
@@ -25,3 +26,6 @@ if(booleanoT && booleanoF){
 else{
     print(100);
 }
+
+x = x ** x;
+print(x);

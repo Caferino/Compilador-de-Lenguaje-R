@@ -138,7 +138,6 @@ class Rules:
                 
                 # Antes de meter los values, conviene transformar sus elementos al type apropiado
                 if self.type == 'int':
-                    # print("WTF =", self.varValues) # ! DEBUG
                     self.varValues = [int(num) for num in self.varValues]
                 # Como ya llegan como floats... ignoramos ese caso
                 # Con bools puede ser, x > 0 = True, x == 0 or x == -1 = False tal vez, gusto propio...
@@ -265,11 +264,37 @@ class Rules:
             # raise TypeError("Rellenar Matrix", self.varName, "con", length_difference, "Nones") # ! DEBUG
         
 
+    def sortMatrix(self, p):
+        # Si no, lo buscamos como tal
+        i = 0   # I missed you, baby
+        for tuple in memory.symbolTable:
+            if p[1] == tuple[1]:
+                sortedValues = tuple[6]
+                sortedValues.sort()
+                # print(sortedValues)
+
+                # Sacamos la fila del symbol table con la variable por actualizar
+                currentRow = tuple
+                # Actualizamos la columna "value"
+                index_to_change = 6
+                currentRow = currentRow[:index_to_change] + (sortedValues,)
+                # Ponemos la nueva fila de vuelta
+                memory.symbolTable[i] = currentRow
+                # pprint.pprint(memory.symbolTable) # ! DEBUG
+                break
+
+            # Si llegamos a la última tupla y aún no existe la variable...
+            if i == len(memory.symbolTable) - 1:
+                raise TypeError('Variable ', p[1], ' not declared!')
+            
+            i += 1
+
+
     # ------ END PROGRAM ------ #
     def p_end_program(self):
         # Creo que con esta actualización nos aseguramos de tener las
         # asignaciones que le hayan cambiado el valor a una variable
         quadsConstructor.updateSymbolTable(memory.symbolTable)
         
-        print("Final Symbol Table: ") # ! DEBUGGER
-        pprint.pprint(memory.symbolTable) # ! DEBUGGER
+        # print("Final Symbol Table: ") # ! DEBUGGER
+        # pprint.pprint(memory.symbolTable) # ! DEBUGGER
