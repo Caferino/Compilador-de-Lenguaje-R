@@ -115,14 +115,7 @@ def p_function_extra_parameters(p):
 
 def p_return(p):
     '''return : RETURN expression SEMICOLON
-                | RETURN function_call extra_return_expressions SEMICOLON
                 | RETURN SEMICOLON'''
-    
-
-def p_extra_return_expressions(p):
-    '''extra_return_expressions : PLUS function_call extra_return_expressions
-                | MINUS function_call extra_return_expressions
-                | empty'''
 
 
 def p_assignment_block(p):
@@ -184,6 +177,7 @@ def p_nodowhile2(p):
 def p_condition(p):
     '''condition : IF LEFTPAREN expression nodocond LEFTCORCH block RIGHTCORCH else_condition'''
     quadsConstructor.nodoCondicionalDos()
+
 
 def p_nodocond(p):
     '''nodocond : RIGHTPAREN'''
