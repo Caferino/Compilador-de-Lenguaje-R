@@ -269,8 +269,7 @@ class Rules:
         i = 0   # I missed you, baby
         for tuple in memory.symbolTable:
             if p[1] == tuple[1]:
-                sortedValues = tuple[6]
-                sortedValues.sort()
+                sortedValues = sorted(tuple[6], key=lambda x: (x is None, x))
                 # print(sortedValues)
 
                 # Sacamos la fila del symbol table con la variable por actualizar

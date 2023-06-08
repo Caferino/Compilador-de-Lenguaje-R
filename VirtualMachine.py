@@ -112,6 +112,8 @@ class VirtualMachine:
             print("AFTER target = ", target)
             pprint.pprint(self.quadruples)
             # print("Registers size = ", len(self.registers), "+ 1") # ! DEBUG """
+            if operand1 == None : operand1 = 1
+            if operand2 == None : operand2 = 1
 
 
             # Dios mío bendito. Los famosos registers de Windows que rompen todo
