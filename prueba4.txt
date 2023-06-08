@@ -1,4 +1,4 @@
-bool booleanoT = True;
+bool booleanoT = 1;
 bool booleanoF = False;
 
 if(booleanoF){

@@ -1,4 +1,5 @@
 bool booleanoT = True, booleanoF = False;
+int x = 2;
 
 if(booleanoT && booleanoT){
     print(100);
@@ -25,3 +26,6 @@ if(booleanoT && booleanoF){
 else{
     print(100);
 }
+
+x = x ** x;
+print(x);
